@@ -1,30 +1,24 @@
+/* eslint-disable @next/next/no-img-element */
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 import type { FC } from "react";
 
 const Dropdown: FC = () => {
   const [dropdown, setDropdown] = useState<boolean>(false);
+  const {data: sessionData} = useSession();
 
   return (
     <div className="dropdown-end dropdown">
       <button
-        className="btn-ghost btn-square btn"
+        className="btn-circle btn-square btn"
         onClick={() => setDropdown(!dropdown)}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M4 6h16M4 12h16M4 18h7"
-          />
-        </svg>
+        <img
+          className="w-12 rounded-full border-black"
+          src={sessionData?.user.image || ""}
+          alt="profile image"
+        />
       </button>
       {dropdown ? (
         <ul
