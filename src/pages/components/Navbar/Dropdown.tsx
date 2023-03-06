@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState } from "react";
 import type { FC } from "react";
 
@@ -34,7 +35,7 @@ export const Dropdown: FC = () => {
             <a>Home</a>
           </li>
           <li>
-            <a>Account</a>
+            <Link href="/account">Account</Link>
           </li>
           <li>
             <a>Settings</a>
