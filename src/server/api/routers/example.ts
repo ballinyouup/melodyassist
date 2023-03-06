@@ -20,6 +20,18 @@ export const exampleRouter = createTRPCRouter({
   }),
 
   getSecretMessage: protectedProcedure.query(() => {
-    return "you can now see this secret message!";
+    return "you can now see this secret message! Or can you?";
+  }),
+});
+
+export const accountRouter = createTRPCRouter({
+
+  deleteAccount: protectedProcedure
+  .mutation(({ ctx }) => {
+    return ctx.prisma.user.delete({
+      where: {
+        email: ctx.session?.user.email != null ? ctx.session?.user.email : undefined
+      }
+    })
   }),
 });
