@@ -1,8 +1,8 @@
 import type { FC } from "react";
 import Logo from "./Navbar/Logo";
 import Search from "./Navbar/Search";
-import { Dropdown } from "./Navbar/Dropdown";
-import { ToggleDark } from "./Navbar/ToggleDark";
+import Dropdown from "./Navbar/Dropdown";
+import ToggleDark from "./Navbar/ToggleDark";
 import { signIn, signOut, useSession } from "next-auth/react";
 interface INavbar {
   handleToggle: () => void;
