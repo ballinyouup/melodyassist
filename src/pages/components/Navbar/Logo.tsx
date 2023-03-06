@@ -5,7 +5,7 @@ const Logo: FC = () => {
   return (
     <>
       <Link href="/" className="btn-ghost btn text-xl normal-case">
-        Audio Share
+        Melody Assist
       </Link>
     </>
   );
