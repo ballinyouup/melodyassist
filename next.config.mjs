@@ -19,7 +19,14 @@ const config = {
   i18n: {
     locales: ["en"],
     defaultLocale: "en",
-  }
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.discordapp.com/avatars/',
+      },
+    ],
+  },
 };
-
 export default config;
