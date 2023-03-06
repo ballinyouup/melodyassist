@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useState } from "react";
 import type { FC } from "react";
 
-export const Dropdown: FC = () => {
+const Dropdown: FC = () => {
   const [dropdown, setDropdown] = useState<boolean>(false);
 
   return (
@@ -51,3 +51,5 @@ export const Dropdown: FC = () => {
     </div>
   );
 };
+
+export default Dropdown;

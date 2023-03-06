@@ -3,7 +3,7 @@ interface IToggleDark {
   handleToggle: () => void;
 }
 
-export const ToggleDark: FC<IToggleDark> = ({ handleToggle }) => {
+const ToggleDark: FC<IToggleDark> = ({ handleToggle }) => {
   return (
     <label className="swap btn-ghost swap-rotate btn-square rounded-lg">
       <input type="checkbox" onChange={handleToggle} />
@@ -24,3 +24,5 @@ export const ToggleDark: FC<IToggleDark> = ({ handleToggle }) => {
     </label>
   );
 };
+
+export default ToggleDark;
