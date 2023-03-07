@@ -64,7 +64,7 @@ model VerificationToken {
 
 model Settings {
     id       String  @id @default(cuid())
-    dark     Boolean
+    dark     Boolean @default(false)
     language String
     user     User    @relation(fields: [id], references: [id])
 }
