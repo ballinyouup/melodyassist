@@ -16,11 +16,18 @@ import { prisma } from "~/server/db";
  * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
  */
 declare module "next-auth" {
+  enum UserRole {
+    ADMIN = "admin",
+    PAID = "paid",
+    FREE = "free",
+  }
+
   interface Session extends DefaultSession {
     user: {
       id: string;
-      // ...other properties
-      // role: UserRole;
+      userName: string;
+      email: string;
+      role: UserRole;
     } & DefaultSession["user"];
   }
 
@@ -62,12 +69,12 @@ export const authOptions: NextAuthOptions = {
      */
   ],
   pages: {
-    signIn: '/auth/signin',
+    signIn: "/auth/signin",
     // signOut: '/auth/signout',
     // error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // (used for check email message)
     // newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
-  }
+  },
 };
 
 /**

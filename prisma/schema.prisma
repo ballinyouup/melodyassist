@@ -52,6 +52,13 @@ model User {
     sessions      Session[]
     settings      Settings[]
     posts         Post[]
+    role          UserRole @default(FREE)
+}
+
+enum UserRole {
+  ADMIN
+  PAID
+  FREE
 }
 
 model VerificationToken {
