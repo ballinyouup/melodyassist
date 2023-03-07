@@ -1,4 +1,4 @@
-import { z } from "zod";
+//import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 //publicProcedure
 
@@ -91,32 +91,32 @@ export const accountRouter = createTRPCRouter({
     });
   }),
 
-  // updateUserTheme:
-  // 1. Retrieves the email address associated with the session.
-  // 2. Updates the user's theme settings (i.e., dark or light mode) based
-  // on the retrieved email address using the Prisma update method.
-  updateUserTheme: protectedProcedure
-    .input(
-      z.object({
-        dark: z.boolean(),
-      })
-    )
-    .mutation(async ({ ctx, input }) => {
-      const updateUser = await ctx.prisma.user.update({
-        where: {
-          email:
-            ctx.session?.user.email !== null
-              ? ctx.session?.user.email
-              : undefined,
-        },
-        data: {
-          settings: {
-            update: {
-              dark: input?.dark,
-            },
-          },
-        },
-      });
-      return updateUser;
-    }),
+  // // updateUserTheme:
+  // // 1. Retrieves the email address associated with the session.
+  // // 2. Updates the user's theme settings (i.e., dark or light mode) based
+  // // on the retrieved email address using the Prisma update method.
+  // updateUserTheme: protectedProcedure
+  //   .input(
+  //     z.object({
+  //       dark: z.boolean(),
+  //     })
+  //   )
+  //   .mutation(async ({ ctx, input }) => {
+  //     const updateUser = await ctx.prisma.user.update({
+  //       where: {
+  //         email:
+  //           ctx.session?.user.email !== null
+  //             ? ctx.session?.user.email
+  //             : undefined,
+  //       },
+  //       data: {
+  //         settings: {
+  //           update: {
+  //             dark: input?.dark,
+  //           },
+  //         },
+  //       },
+  //     });
+  //     return updateUser;
+  //   }),
 });
