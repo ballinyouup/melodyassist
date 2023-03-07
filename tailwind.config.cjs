@@ -9,13 +9,23 @@ const config = {
           '100%': { transform: 'translateX(0%)' },
         },
         slideRight: {
-          '0%': { transform: 'translateX(0%)'},
-          '100%': { transform: 'translateX(100%)'},
-        }
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0%' },
+          '100%': { opacity: '100%' },
+        },
+        fadeOut: {
+          '100%': { opacity: '100%' },
+          '0%': { opacity: '0%' },
+        },
       },
       animation: {
         slideLeft: 'slideLeft 1s',
         slideRight: 'slideRight 1s',
+        fadeIn: 'fadeIn 1s',
+        fadeOut: 'fadeOut 1s',
       }
     },
   },
@@ -35,7 +45,7 @@ const config = {
     prefix: "",
     darkTheme: "night",
   },
-}
+};
 
 
 module.exports = config;
