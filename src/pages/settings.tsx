@@ -3,19 +3,10 @@ import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { api } from "~/utils/api";
-import type { GetServerSideProps } from "next";
 
-type Props = {
-  username: string | undefined;
-};
-
-export const getServerSideProps: GetServerSideProps = async () => {
+export default function Settings() {
   const getUsername = api.account.getUserName.useQuery();
-  await getUsername.refetch();
-  return { props: { username: getUsername.data?.userName } };
-};
-
-export default function Settings({ username }: Props) {
+  const username = getUsername.data?.userName
   const [currentUsername, setCurrentUsername] = useState<string>("");
 
   const { data: sessionData, status: sessionStatus } = useSession();

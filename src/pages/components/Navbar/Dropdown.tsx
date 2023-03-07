@@ -8,8 +8,8 @@ const Dropdown: FC = () => {
   const [dropdown, setDropdown] = useState<boolean>(false);
 
   return (
-    <div className="dropdown-end dropdown">
-      <label className="swap-rotate swap btn-md btn-circle">
+    <div className="dropdown-end dropdown dropdown-bottom">
+      <label tabIndex={0} className="swap-rotate swap btn-md btn-circle">
         <input type="checkbox" onChange={() => setDropdown(!dropdown)} />
         <svg
           className="swap-off fill-current"
@@ -30,33 +30,31 @@ const Dropdown: FC = () => {
           <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
         </svg>
       </label>
-      <ul
-        tabIndex={0}
-        style={{
-          visibility: dropdown ? "visible" : "hidden",
-          animation: dropdown ? "fadeIn 2s" : "fadeOut ws",
-        }}
-        className={`dropdown-content menu rounded-box menu-normal mt-5 w-52 bg-base-300 p-2 shadow`}
-      >
-        <li>
-          <a>Home</a>
-        </li>
-        <li>
-          <Link href="/profile">Profile</Link>
-        </li>
-        <li>
-          <Link href="/settings">Settings</Link>
-        </li>
-        <li>
-          <a>FAQ</a>
-        </li>
-        <li>
-          <a>Contact</a>
-        </li>
-        <li>
-          <Logout />
-        </li>
-      </ul>
+      {dropdown && (
+        <ul
+          tabIndex={0}
+          className={`dropdown-content menu rounded-box menu-vertical mt-5 w-screen bg-base-300 p-2 shadow sm:w-52`}
+        >
+          <li>
+            <a>Home</a>
+          </li>
+          <li>
+            <Link href="/profile">Profile</Link>
+          </li>
+          <li>
+            <Link href="/settings">Settings</Link>
+          </li>
+          <li>
+            <a>FAQ</a>
+          </li>
+          <li>
+            <a>Contact</a>
+          </li>
+          <li>
+            <Logout />
+          </li>
+        </ul>
+      )}
     </div>
   );
 };
