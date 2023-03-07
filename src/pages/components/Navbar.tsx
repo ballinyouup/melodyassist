@@ -1,9 +1,9 @@
 import type { FC } from "react";
 import Logo from "./Navbar/Logo";
-import Search from "./Navbar/Search";
 import Dropdown from "./Navbar/Dropdown";
 import ToggleDark from "./Navbar/ToggleDark";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import LogIn from "./Navbar/LogIn";
 interface INavbar {
   handleToggle: () => void;
   theme: string;
@@ -19,26 +19,14 @@ const Navbar: FC<INavbar> = ({ handleToggle, theme }) => {
       <div className="navbar-start">
         <Logo />
       </div>
-      <div className="navbar-end gap-8 ">
-        <Search />
+      <div className="navbar-end w-full gap-6">
         <ToggleDark handleToggle={handleToggle} />
         {session ? (
           <>
-            <button
-              className="btn rounded-md p-3 text-white"
-              onClick={() => void signOut()}
-            >
-              Log Out
-            </button>
             <Dropdown />
           </>
         ) : (
-          <button
-            className="btn rounded-md p-3 text-white"
-            onClick={() => void signIn()}
-          >
-            Log In
-          </button>
+          <LogIn />
         )}
       </div>
     </div>

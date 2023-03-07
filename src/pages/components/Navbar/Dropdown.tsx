@@ -3,6 +3,8 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 import type { FC } from "react";
+import Logout from "./Logout";
+
 
 const Dropdown: FC = () => {
   const [dropdown, setDropdown] = useState<boolean>(false);
@@ -39,6 +41,9 @@ const Dropdown: FC = () => {
           </li>
           <li>
             <a>Contact</a>
+          </li>
+          <li>
+            <Logout />
           </li>
         </ul>
       ) : null}

@@ -4,8 +4,9 @@ interface IToggleDark {
 }
 
 const ToggleDark: FC<IToggleDark> = ({ handleToggle }) => {
+  
   return (
-    <label className="swap btn-ghost swap-rotate btn-square rounded-lg">
+    <label className="swap-rotate swap btn-ghost btn-square rounded-lg">
       <input type="checkbox" onChange={handleToggle} />
       <svg
         className="swap-on h-6 w-6 fill-current"
