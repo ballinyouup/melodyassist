@@ -29,7 +29,6 @@ model Account {
     id_token          String? @db.Text
     session_state     String?
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
     @@unique([provider, providerAccountId])
 }
 
@@ -43,6 +42,7 @@ model Session {
 
 model User {
     id            String    @id @default(cuid())
+    userName      String    @default(cuid())
     name          String?
     email         String?   @unique
     emailVerified DateTime?

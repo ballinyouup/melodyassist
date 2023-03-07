@@ -3,7 +3,7 @@ import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 
-export default function Account() {
+export default function Settings() {
   const { data: sessionData, status: sessionStatus } = useSession();
   const deleteUser = api.account.deleteAccount.useMutation();
   const router = useRouter();

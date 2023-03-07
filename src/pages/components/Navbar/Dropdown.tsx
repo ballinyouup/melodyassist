@@ -6,12 +6,12 @@ import type { FC } from "react";
 
 const Dropdown: FC = () => {
   const [dropdown, setDropdown] = useState<boolean>(false);
-  const {data: sessionData} = useSession();
+  const { data: sessionData } = useSession();
 
   return (
     <div className="dropdown-end dropdown">
       <button
-        className="btn-circle btn-square btn"
+        className="btn-square btn-circle btn"
         onClick={() => setDropdown(!dropdown)}
       >
         <img
@@ -29,7 +29,7 @@ const Dropdown: FC = () => {
             <a>Home</a>
           </li>
           <li>
-            <Link href="/account">Account</Link>
+            <Link href="/profile">Profile</Link>
           </li>
           <li>
             <a>Settings</a>
