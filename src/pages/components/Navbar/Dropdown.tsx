@@ -5,7 +5,6 @@ import { useState } from "react";
 import type { FC } from "react";
 import Logout from "./Logout";
 
-
 const Dropdown: FC = () => {
   const [dropdown, setDropdown] = useState<boolean>(false);
   const { data: sessionData } = useSession();
@@ -13,11 +12,11 @@ const Dropdown: FC = () => {
   return (
     <div className="dropdown-end dropdown">
       <button
-        className="btn-square btn-circle btn"
+        className="btn-outline btn-circle"
         onClick={() => setDropdown(!dropdown)}
       >
         <img
-          className="w-12 rounded-full border-black"
+          className="w-12 rounded-full border-2 border-black"
           src={sessionData?.user.image || ""}
           alt="profile image"
         />
