@@ -3,9 +3,19 @@ import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { api } from "~/utils/api";
+import type { GetServerSideProps } from "next";
 
-export default function Settings() {
+type Props = {
+  username: string | undefined;
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
   const getUsername = api.account.getUserName.useQuery();
+  await getUsername.refetch();
+  return { props: { username: getUsername.data?.userName } };
+};
+
+export default function Settings({ username }: Props) {
   const [currentUsername, setCurrentUsername] = useState<string>("");
 
   const { data: sessionData, status: sessionStatus } = useSession();
@@ -25,17 +35,15 @@ export default function Settings() {
   };
 
   useEffect(() => {
-    if (typeof getUsername.data?.userName === "string") {
-      setCurrentUsername(getUsername.data?.userName);
+    if (typeof username === "string") {
+      setCurrentUsername(username);
     }
-  }, [getUsername.data?.userName]);
+  }, [username]);
 
   if (sessionStatus === "authenticated") {
     return (
       <>
-        <span className="text-lg capitalize">
-          Username: {currentUsername}
-        </span>
+        <span className="text-lg capitalize">Username: {currentUsername}</span>
         <br />
         <span className="text-lg">Email: {sessionData.user.email}</span>
         <img
