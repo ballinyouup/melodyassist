@@ -73,8 +73,8 @@ export const accountRouter = createTRPCRouter({
   // 2. Queries the database using the Prisma findUnique method
   // to retrieve the user's theme settings (i.e., dark or light mode)
   // based on the retrieved email address.
-  getUserTheme: protectedProcedure.query(({ ctx }) => {
-    return ctx.prisma.user.findUnique({
+  getUserTheme: protectedProcedure.query(async ({ ctx }) => {
+    const theme = await ctx.prisma.user.findUnique({
       where: {
         email:
           ctx.session?.user.email !== null
@@ -89,6 +89,7 @@ export const accountRouter = createTRPCRouter({
         },
       },
     });
+    return theme;
   }),
 
   // // updateUserTheme:

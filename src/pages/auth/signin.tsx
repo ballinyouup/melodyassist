@@ -26,24 +26,25 @@ export default function SignIn({
           placeholder="Enter Password"
           className="input-bordered input w-full max-w-xs"
         />
-        {Object.values(providers).map((provider) => (
-          <div key={provider.name}>
-            <button
-              className="btn h-full w-full p-5"
-              onClick={() =>
-                void signIn(provider.id, {
-                  callbackUrl: `/`,
-                })
-              }
-            >
-              <img
-                src="/discord-logo-white.svg"
-                width={125}
-                alt="Discord Sign In"
-              />
-            </button>
-          </div>
-        ))}
+        {providers &&
+          Object.values(providers).map((provider) => (
+            <div key={provider.name}>
+              <button
+                className="btn h-full w-full p-5"
+                onClick={() =>
+                  void signIn(provider.id, {
+                    callbackUrl: `/`,
+                  })
+                }
+              >
+                <img
+                  src="/discord-logo-white.svg"
+                  width={125}
+                  alt="Discord Sign In"
+                />
+              </button>
+            </div>
+          ))}
       </div>
     </div>
   );
