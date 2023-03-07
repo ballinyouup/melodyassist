@@ -32,7 +32,7 @@ const Dropdown: FC = () => {
             <Link href="/profile">Profile</Link>
           </li>
           <li>
-            <a>Settings</a>
+            <Link href="/settings">Settings</Link>
           </li>
           <li>
             <a>FAQ</a>
