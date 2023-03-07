@@ -6,7 +6,9 @@ interface ILayout {
   children: ReactNode;
 }
 
+
 const Layout: FC<ILayout> = ({ children }) => {
+  
   const [theme, setTheme] = useState<string>("winter");
 
   useEffect(() => {
