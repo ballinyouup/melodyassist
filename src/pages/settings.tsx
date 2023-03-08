@@ -34,28 +34,25 @@ export default function Settings() {
   if (sessionStatus === "authenticated") {
     return (
       <div className="flex flex-col justify-center gap-4 p-4 sm:flex-row">
-        <ul className="menu menu-normal rounded-box w-52 bg-base-300 p-2 sm:max-w-sm">
+        <ul className="menu rounded-box menu-normal w-52 bg-base-300 p-2 sm:max-w-sm">
           <li className="menu-title">
             <span>Settings</span>
           </li>
           <li>
             <a>Account</a>
           </li>
-          <li>
-            <a>Item 2</a>
+          <li className="disabled">
+            <a>Billing</a>
           </li>
-          <li>
-            <a>Item 3</a>
-          </li>
-          <li>
-            <a>Item 4</a>
+          <li className="disabled">
+            <a>Notifications</a>
           </li>
         </ul>
-        <div className="flex w-full flex-col rounded-2xl bg-gray-200 p-4 sm:w-3/4 sm:max-w-2xl">
-          <table className="table w-full">
+        <div className="flex w-full flex-col rounded-2xl bg-base-300 p-4 sm:w-3/4 sm:max-w-2xl">
+          <table className="table-compact table w-full">
             <tbody>
               <tr>
-                <td>
+                <td className="bg-base-300">
                   <div className="flex items-center gap-8 px-4">
                     <img
                       className="h-16 w-16 rounded-full border-2 border-black"
@@ -75,7 +72,7 @@ export default function Settings() {
                 </td>
               </tr>
               <tr>
-                <td>
+                <td className="bg-base-300">
                   <div className="px-6">
                     <div className="flex flex-col gap-4">
                       <span className="text-base">
@@ -87,7 +84,7 @@ export default function Settings() {
                           <input
                             type="text"
                             placeholder="Type Here..."
-                            className="input h-8 w-full border-black bg-slate-200 p-2 sm:w-64"
+                            className="input h-8 w-full border-black bg-white p-2 sm:w-64"
                             value={newUsername}
                             onChange={(e) => {
                               setNewUsername(e.target.value);
@@ -106,7 +103,7 @@ export default function Settings() {
                 </td>
               </tr>
               <tr>
-                <td>
+                <td className="bg-base-300">
                   <div className="px-6">
                     <span className="text-base">
                       Email: {sessionData.user.email}
@@ -115,7 +112,7 @@ export default function Settings() {
                 </td>
               </tr>
               <tr>
-                <td>
+                <td className="bg-base-300">
                   <div className="flex flex-col gap-4 px-6">
                     <label>
                       <i>Warning: Account data cannot be recovered</i>
