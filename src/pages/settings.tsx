@@ -34,7 +34,7 @@ export default function Settings() {
   if (sessionStatus === "authenticated") {
     return (
       <div className="flex flex-col justify-center gap-4 p-4 sm:flex-row">
-        <ul className="menu rounded-box menu-normal w-52 bg-base-300 p-2 sm:max-w-sm">
+        <ul className="menu rounded-box menu-normal w-full sm:w-52 bg-base-300 p-2 sm:max-w-sm">
           <li className="menu-title">
             <span>Settings</span>
           </li>
@@ -49,11 +49,11 @@ export default function Settings() {
           </li>
         </ul>
         <div className="flex w-full flex-col rounded-2xl bg-base-300 p-4 sm:w-3/4 sm:max-w-2xl">
-          <table className="table-compact table w-full">
+          <table className="sm:table-compact sm:table w-full">
             <tbody>
               <tr>
                 <td className="bg-base-300">
-                  <div className="flex items-center gap-8 px-4">
+                  <div className="flex flex-row items-center gap-2 sm:gap-8 sm:px-4">
                     <img
                       className="h-16 w-16 rounded-full border-2 border-black"
                       src={sessionData.user.image || ""}
@@ -80,7 +80,7 @@ export default function Settings() {
                       </span>
                       <div className="flex flex-col gap-2">
                         <label className="text-sm">Change Username</label>
-                        <div className="flex gap-4">
+                        <div className="flex flex-col sm:flex-row gap-4">
                           <input
                             type="text"
                             placeholder="Type Here..."
