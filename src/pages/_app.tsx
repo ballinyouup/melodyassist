@@ -15,7 +15,12 @@ const MyApp: AppType<SessionType> = ({
   pageProps: { session, ...pageProps },
 }) => {
   return (
-    <SessionProvider session={session}>
+    <SessionProvider
+      session={session}
+      refetchOnWindowFocus={false}
+      refetchWhenOffline={false}
+      refetchInterval={0}
+    >
       <Layout>
         <Component {...pageProps} />
       </Layout>
