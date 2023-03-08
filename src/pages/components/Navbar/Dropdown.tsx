@@ -33,7 +33,7 @@ const Dropdown: FC = () => {
       {dropdown && (
         <ul
           tabIndex={0}
-          className={`dropdown-content menu rounded-box menu-vertical mt-5 w-screen bg-base-300 p-2 shadow sm:w-52`}
+          className={`dropdown-content menu rounded-box menu-normal w-screen translate-x-1 bg-base-300 p-2 sm:w-52`}
         >
           <li>
             <a>Home</a>

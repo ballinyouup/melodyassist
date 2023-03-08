@@ -23,7 +23,7 @@ const Layout: FC<ILayout> = ({ children }) => {
 
   return (
     <>
-      <Navbar handleToggle={handleToggle} theme={theme} />
+      <Navbar handleToggle={handleToggle} />
       <main>{children}</main>
     </>
   );

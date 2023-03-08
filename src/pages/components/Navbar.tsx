@@ -6,20 +6,17 @@ import { useSession } from "next-auth/react";
 import LogIn from "./Navbar/LogIn";
 interface INavbar {
   handleToggle: () => void;
-  theme: string;
 }
-const Navbar: FC<INavbar> = ({ handleToggle, theme }) => {
+const Navbar: FC<INavbar> = ({ handleToggle}) => {
   const { data: session } = useSession();
   return (
     <div
-      className={`navbar bg-base-100 p-3 shadow-md ${
-        theme === "winter" ? "shadow-gray" : "shadow-[#0f0f0f]"
-      }`}
+      className={`navbar bg-base-100`}
     >
       <div className="navbar-start">
         <Logo />
       </div>
-      <div className="navbar-end w-full gap-6">
+      <div className="navbar-end w-full gap-4">
         <ToggleDark handleToggle={handleToggle} />
         {session ? (
           <>
