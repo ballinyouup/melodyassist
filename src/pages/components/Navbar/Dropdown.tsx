@@ -7,18 +7,18 @@ import { useSession } from "next-auth/react";
 
 const Dropdown: FC = () => {
   const [dropdown, setDropdown] = useState<boolean>(false);
-  const { data: sessionData } = useSession();
-
+  const { data: session } = useSession();
   return (
     <div className="dropdown-end dropdown dropdown-bottom">
-      <label tabIndex={0} className="swap-rotate swap btn-circle">
+      <label tabIndex={0} className="swap-rotate swap btn-circle object-cover">
         <input type="checkbox" onChange={() => setDropdown(!dropdown)} />
         <img
-          className="h-10 w-10 rounded-full border border-black"
-          src={sessionData?.user.image || ""}
+          className="h-10 w-10 rounded-full border border-black hover:brightness-[90%]"
+          src={session?.user.image || ""}
           alt="profile image"
         />
       </label>
+
       {dropdown && (
         <ul
           tabIndex={0}

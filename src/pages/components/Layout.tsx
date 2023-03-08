@@ -8,7 +8,7 @@ interface ILayout {
 
 
 const Layout: FC<ILayout> = ({ children }) => {
-  
+
   const [theme, setTheme] = useState<string>("winter");
 
   useEffect(() => {
@@ -30,3 +30,4 @@ const Layout: FC<ILayout> = ({ children }) => {
 };
 
 export default Layout;
+

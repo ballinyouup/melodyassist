@@ -6,7 +6,11 @@ import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
 
-const MyApp: AppType<{ session: Session | null }> = ({
+export interface SessionType {
+  session: Session | null;
+}
+
+const MyApp: AppType<SessionType> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
