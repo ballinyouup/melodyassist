@@ -1,6 +1,6 @@
-import type { FC } from "react";
 
-const Notification: FC = () => {
+
+const Notification: React.FC = () => {
   return (
     <button className="btn-ghost btn-circle btn">
       <div className="indicator">

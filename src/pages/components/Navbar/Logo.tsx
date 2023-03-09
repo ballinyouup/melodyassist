@@ -1,7 +1,6 @@
 import Link from "next/link";
-import type { FC } from "react";
 
-const Logo: FC = () => {
+const Logo: React.FC = () => {
   return (
     <>
       <Link href="/" className="btn-ghost btn text-xl normal-case">

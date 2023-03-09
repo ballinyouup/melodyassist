@@ -1,13 +1,9 @@
-import type { FC } from "react";
-interface IToggleDark {
-  handleToggle: () => void;
-}
 
-const ToggleDark: FC<IToggleDark> = ({ handleToggle }) => {
+const ToggleDark: React.FC = () => {
   
   return (
     <label className="swap-rotate swap btn-ghost btn-square rounded-lg">
-      <input type="checkbox" onChange={handleToggle} />
+      <input type="checkbox" />
       <svg
         className="swap-on h-6 w-6 fill-current"
         xmlns="http://www.w3.org/2000/svg"

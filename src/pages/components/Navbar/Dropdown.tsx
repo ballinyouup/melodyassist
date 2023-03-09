@@ -1,11 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { useState } from "react";
-import type { FC } from "react";
 import Logout from "./Logout";
 import { useSession } from "next-auth/react";
 
-const Dropdown: FC = () => {
+const Dropdown: React.FC = () => {
   const [dropdown, setDropdown] = useState<boolean>(false);
   const { data: session } = useSession();
   return (

@@ -1,7 +1,6 @@
 import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-import Layout from "./components/Layout";
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
@@ -21,9 +20,7 @@ const MyApp: AppType<SessionType> = ({
       refetchWhenOffline={false}
       refetchInterval={0}
     >
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <Component {...pageProps} />
     </SessionProvider>
   );
 };

@@ -1,21 +1,17 @@
-import type { FC, ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
-
-interface ILayout {
-  children: ReactNode;
-}
+import Navbar from "./Navbar";
 
 
-const Layout: FC<ILayout> = ({ children }) => {
+const Layout = (WrappedComponent: React.FC): React.FC => {
 
-  
-
-  return (
-    <>
+  const WithLayout: React.FC = (props) => (
+    <div>
+      <Navbar />
       <Toaster />
-      <main>{children}</main>
-    </>
+      <WrappedComponent {...props} />
+    </div>
   );
+  return WithLayout;
 };
 
 export default Layout;

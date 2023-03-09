@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { api } from "~/utils/api";
 import { toast } from "react-hot-toast";
-import Navbar from "./components/Navbar";
-export default function Settings() {
+import Layout from "./components/Layout";
+const Settings: React.FC = () => {
   //const getUsername = api.account.getUserName.useQuery();
   // const username = getUsername.data?.userName;
   //const [currentUsername, setCurrentUsername] = useState<string>("");
@@ -62,7 +62,6 @@ export default function Settings() {
   if (sessionStatus === "authenticated") {
     return (
       <>
-        <Navbar />
         <div className="flex flex-col justify-center gap-4 p-4 sm:flex-row">
           <ul className="menu rounded-box menu-normal w-full bg-base-300 p-2 sm:w-52 sm:max-w-sm">
             <li className="menu-title">
@@ -194,5 +193,9 @@ export default function Settings() {
 
   if (sessionStatus === "loading") {
     return <>Loading...</>;
-  } else void router.push("/");
-}
+  }
+  void router.push("/");
+  return <></>;
+};
+
+export default Layout(Settings);

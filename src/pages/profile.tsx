@@ -1,5 +1,7 @@
-import Navbar from "./components/Navbar";
+import Layout from "./components/Layout";
 
-export default function Profile() {
-  return <><Navbar /></>;
+const Profile = () => {
+  return <></>;
 }
+
+export default Layout(Profile);

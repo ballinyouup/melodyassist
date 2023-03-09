@@ -1,25 +1,12 @@
-import type { FC } from "react";
-import { useState, useEffect } from "react";
 import Logo from "./Navbar/Logo";
 import Dropdown from "./Navbar/Dropdown";
 import ToggleDark from "./Navbar/ToggleDark";
 import LogIn from "./Navbar/LogIn";
 import { useSession } from "next-auth/react";
 
-
-const Navbar: FC = () => {
+const Navbar: React.FC = () => {
   const { data, status } = useSession();
-  const [theme, setTheme] = useState<string>("winter");
 
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-  }, [theme]);
-
-  const handleToggle = () => {
-    const newTheme = theme === "winter" ? "night" : "winter";
-    setTheme(newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
-  };
   if (data === null && status !== "loading") {
     return (
       <div className={`navbar bg-base-100`}>
@@ -27,7 +14,7 @@ const Navbar: FC = () => {
           <Logo />
         </div>
         <div className="navbar-end w-full gap-4">
-          <ToggleDark handleToggle={handleToggle} />
+          <ToggleDark />
           <LogIn />
         </div>
       </div>
@@ -39,7 +26,7 @@ const Navbar: FC = () => {
         <Logo />
       </div>
       <div className="navbar-end w-full gap-4">
-        <ToggleDark handleToggle={handleToggle} />
+        <ToggleDark />
         {status === "loading" ? (
           <label
             tabIndex={0}
