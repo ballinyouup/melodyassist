@@ -4,12 +4,25 @@ import type {
   InferGetServerSidePropsType,
 } from "next";
 import { getProviders, signIn } from "next-auth/react";
+import type { SignInResponse } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../server/auth";
+import { toast } from "react-hot-toast";
+import { api } from "~/utils/api";
 
 export default function SignIn({
   providers,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const trpc = api.useContext();
+  const handleSignIn = async (providerName: string) => {
+    const result: SignInResponse | undefined = await signIn(providerName, {
+      callbackUrl: `/`,
+    });
+    if (result !== undefined && result.error) {
+      await trpc.invalidate();
+      toast.error("Error Signing In. Please try again");
+    }
+  };
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -51,11 +64,7 @@ export default function SignIn({
                 <div key={provider.name}>
                   <button
                     className="btn h-full w-full p-5"
-                    onClick={() =>
-                      void signIn(provider.id, {
-                        callbackUrl: `/`,
-                      })
-                    }
+                    onClick={() => void handleSignIn(provider.id)}
                   >
                     <img
                       src="/discord-logo-white.svg"
