@@ -24,7 +24,7 @@ const Dropdown: React.FC = () => {
           className={`dropdown-content menu rounded-box menu-normal w-screen translate-x-1 bg-base-300 p-2 sm:w-52`}
         >
           <li>
-            <a>Home</a>
+            <Link href="/">Home</Link>
           </li>
           <li>
             <Link href="/profile">Profile</Link>
