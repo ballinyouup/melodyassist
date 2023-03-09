@@ -10,8 +10,20 @@ interface INavbar {
 }
 
 const Navbar: FC<INavbar> = ({ handleToggle }) => {
-  const { status } = useSession();
-
+  const { data, status } = useSession();
+  if (data === null && status !== "loading") {
+    return (
+      <div className={`navbar bg-base-100`}>
+        <div className="navbar-start">
+          <Logo />
+        </div>
+        <div className="navbar-end w-full gap-4">
+          <ToggleDark handleToggle={handleToggle} />
+          <LogIn />
+        </div>
+      </div>
+    );
+  }
   return (
     <div className={`navbar bg-base-100`}>
       <div className="navbar-start">
@@ -19,20 +31,18 @@ const Navbar: FC<INavbar> = ({ handleToggle }) => {
       </div>
       <div className="navbar-end w-full gap-4">
         <ToggleDark handleToggle={handleToggle} />
-        {status === "loading" && (
+        {status === "loading" ? (
           <label
             tabIndex={0}
             className="swap-rotate swap btn-circle object-cover"
           >
             <div className="h-10 w-10 animate-pulse rounded-full border border-black bg-primary-content" />
           </label>
-        )}
-        {status === "authenticated" && (
+        ) : (
           <>
             <Dropdown />
           </>
         )}
-        {status === "unauthenticated" && <LogIn />}
       </div>
     </div>
   );

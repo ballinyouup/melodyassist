@@ -6,8 +6,8 @@ export const accountRouter = createTRPCRouter({
   // deleteAccount:
   // 1. Retrieves the email address associated with the session.
   // 2. Deletes the user account with the retrieved email address using the Prisma delete method.
-  deleteAccount: protectedProcedure.mutation(({ ctx }) => {
-    return ctx.prisma.user.delete({
+  deleteAccount: protectedProcedure.mutation(async ({ ctx }) => {
+    return await ctx.prisma.user.delete({
       where: {
         email:
           ctx.session?.user.email !== null
@@ -17,6 +17,20 @@ export const accountRouter = createTRPCRouter({
     });
   }),
 
+  getUserData: protectedProcedure.query(async ({ ctx }) => {
+    // Check if the new username is already taken
+    const existingUser = await ctx.prisma.user.findFirst({
+      where: { id: ctx.session.user.id },
+    });
+
+    if (existingUser) {
+      return ctx.prisma.user.findUnique({
+        where: { id: existingUser.id },
+      });
+    }
+
+    throw new Error("User doesn't exist");
+  }),
   // getUserName:
   // 1. Retrieves the id associated with the session.
   // 2. If the user exists, query the database using the Prisma findUnique method.

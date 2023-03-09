@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { FC, ReactNode } from "react";
 import Navbar from "./Navbar";
+import { Toaster } from "react-hot-toast";
 
 interface ILayout {
   children: ReactNode;
@@ -24,6 +25,7 @@ const Layout: FC<ILayout> = ({ children }) => {
   return (
     <>
       <Navbar handleToggle={handleToggle} />
+      <Toaster />
       <main>{children}</main>
     </>
   );
