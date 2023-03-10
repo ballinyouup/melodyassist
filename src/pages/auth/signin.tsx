@@ -9,11 +9,13 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../server/auth";
 import { toast } from "react-hot-toast";
 import { api } from "~/utils/api";
+import { useEffect } from "react";
 
 export default function SignIn({
   providers,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const trpc = api.useContext();
+
   const handleSignIn = async (providerName: string) => {
     const result: SignInResponse | undefined = await signIn(providerName, {
       callbackUrl: `/`,
@@ -23,6 +25,11 @@ export default function SignIn({
       toast.error("Error Signing In. Please try again");
     }
   };
+
+  useEffect(() => {
+    void trpc.invalidate();
+    //Invalidate on landing on signin page
+  }, [trpc]);
   return (
     <div className="hero min-h-screen bg-base-200 ">
       <div className="hero-content w-96 flex-col">
