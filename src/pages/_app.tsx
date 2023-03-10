@@ -18,7 +18,6 @@ const MyApp: AppType<SessionType> = ({
       session={session}
       refetchOnWindowFocus={false}
       refetchWhenOffline={false}
-      refetchInterval={0}
     >
       <Component {...pageProps} />
     </SessionProvider>

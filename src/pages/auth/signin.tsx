@@ -24,10 +24,10 @@ export default function SignIn({
     }
   };
   return (
-    <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content flex-col lg:flex-row-reverse">
+    <div className="hero min-h-screen bg-base-200 ">
+      <div className="hero-content w-96 flex-col">
         <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold">Login now!</h1>
+          <h1 className="text-3xl font-bold">Melody Assist</h1>
         </div>
         <div className="card w-full max-w-sm flex-shrink-0 bg-base-100 shadow-2xl">
           <div className="card-body">
@@ -36,7 +36,7 @@ export default function SignIn({
                 <span className="label-text">Email</span>
               </label>
               <input
-                type="text"
+                type="email"
                 placeholder="email"
                 className="input-bordered input"
               />
@@ -46,7 +46,7 @@ export default function SignIn({
                 <span className="label-text">Password</span>
               </label>
               <input
-                type="text"
+                type="password"
                 placeholder="password"
                 className="input-bordered input"
               />
