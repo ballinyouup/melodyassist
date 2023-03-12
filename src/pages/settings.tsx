@@ -3,7 +3,7 @@ import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
 import { api } from "~/utils/api";
 import { toast } from "react-hot-toast";
-import Layout from "./components/Layout";
+import Layout from "./Layout";
 const Settings: React.FC = () => {
   //const getUsername = api.account.getUserName.useQuery();
   // const username = getUsername.data?.userName;
@@ -16,19 +16,19 @@ const Settings: React.FC = () => {
       toast.error("Please sign in");
     },
   });
-  const apiClient = api.useContext();
+  const sessionClient = api.useContext();
   const getUser = api.account.getUserData.useQuery();
   const deleteUser = api.account.deleteAccount.useMutation({
     onMutate: async () => {
       setDeleteLoading(true);
       //Cancel fetching data if account is deleted.
-      await apiClient.account.getUserData.cancel();
+      await sessionClient.account.getUserData.cancel();
     },
     onError: (err) => {
       toast.error(`An error occured deleting account. ${err.message}`);
     },
     onSettled: async () => {
-      await apiClient.account.getUserData.invalidate();
+      await sessionClient.account.getUserData.invalidate();
       setDeleteLoading(false);
       location.reload();
     },

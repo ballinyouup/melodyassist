@@ -8,27 +8,29 @@ import type { SignInResponse } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../server/auth";
 import { toast } from "react-hot-toast";
-// import { api } from "~/utils/api";
-// import { useEffect } from "react";
+import { api } from "~/utils/api";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function SignIn({
   providers,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  // const trpc = api.useContext();
-
+  const sessionClient = api.useContext();
+  const router = useRouter();
   const handleSignIn = async (providerName: string) => {
     const result: SignInResponse | undefined = await signIn(providerName, {
-      callbackUrl: `/`,
+      redirect: true,
     });
     if (result !== undefined && result.error) {
       toast.error("Error Signing In. Please try again");
+      void sessionClient.invalidate();
+      void router.push("/auth/error");
     }
   };
 
-  // useEffect(() => {
-  //   void trpc.invalidate();
-  //   //Invalidate on landing on signin page
-  // }, [trpc]);
+  useEffect(() => {
+    void sessionClient.invalidate();
+  }, [sessionClient]);
   return (
     <div className="hero min-h-screen bg-base-200 ">
       <div className="hero-content w-96 flex-col">

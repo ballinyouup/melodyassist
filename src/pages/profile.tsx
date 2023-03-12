@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import Layout from "./components/Layout";
+import Layout from "./Layout";
 import { signIn, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 
