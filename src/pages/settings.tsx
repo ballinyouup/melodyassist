@@ -16,19 +16,19 @@ const Settings: React.FC = () => {
       toast.error("Please sign in");
     },
   });
-  const trpc = api.useContext();
+  const apiClient = api.useContext();
   const getUser = api.account.getUserData.useQuery();
   const deleteUser = api.account.deleteAccount.useMutation({
     onMutate: async () => {
       setDeleteLoading(true);
       //Cancel fetching data if account is deleted.
-      await trpc.account.getUserData.cancel();
+      await apiClient.account.getUserData.cancel();
     },
     onError: (err) => {
       toast.error(`An error occured deleting account. ${err.message}`);
     },
     onSettled: async () => {
-      await trpc.invalidate();
+      await apiClient.account.getUserData.invalidate();
       setDeleteLoading(false);
       location.reload();
     },
