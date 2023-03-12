@@ -36,13 +36,14 @@ const Profile = () => {
     enabled: loading,
     onSuccess: () => {
       setLoading(false);
+      setAudioLoading(true);
     },
   });
-  const { data: audio, refetch } = api.audio.getPredictionData.useQuery(
+  const { data: audio } = api.audio.getPredictionData.useQuery(
     fullData?.id ?? "",
     {
       refetchOnWindowFocus: false,
-      refetchInterval: 1000, // Fetch every 1 second
+      refetchInterval: 2000, // Fetch every 2 seconds
       enabled: audioLoading,
     }
   );
@@ -51,7 +52,6 @@ const Profile = () => {
     e.preventDefault();
     setLoading(true);
     setPrediction(fullData as Prediction);
-    setAudioLoading(true);
   };
 
   useEffect(() => {
@@ -61,13 +61,6 @@ const Profile = () => {
       setAudioLoading(false);
     }
   }, [audio]);
-
-  // Use the refetch function to manually trigger a refetch
-  useEffect(() => {
-    if (audioLoading) {
-      void refetch();
-    }
-  }, [audioLoading, refetch]);
 
   if (status === "loading") {
     return <>Loading...</>;

@@ -2,7 +2,7 @@ import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { api } from "~/utils/api";
-
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "~/styles/globals.css";
 
 export interface SessionType {
@@ -17,9 +17,11 @@ const MyApp: AppType<SessionType> = ({
     <SessionProvider
       session={session}
       refetchOnWindowFocus={false}
+      refetchInterval={0}
       refetchWhenOffline={false}
     >
       <Component {...pageProps} />
+      {/*<ReactQueryDevtools />*/}
     </SessionProvider>
   );
 };

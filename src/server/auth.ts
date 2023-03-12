@@ -43,6 +43,7 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
+  cookies: {},
   callbacks: {
     session({ session, user }) {
       if (session.user) {
@@ -51,6 +52,18 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+    //{ user, account, profile, email, credentials }
+    // signIn() {
+    //   const isAllowedToSignIn = true;
+    //   if (isAllowedToSignIn) {
+    //     return true;
+    //   } else {
+    //     // Return false to display a default error message
+    //     return "/";
+    //     // Or you can return a URL to redirect to:
+    //     // return '/unauthorized'
+    //   }
+    // },
   },
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -71,7 +84,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/auth/signin",
     // signOut: '/auth/signout',
-    // error: '/auth/error', // Error code passed in query string as ?error=
+    error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // (used for check email message)
     // newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
   },
