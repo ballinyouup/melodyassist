@@ -1,32 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Layout from "./components/Layout";
 import { signIn, useSession } from "next-auth/react";
+import { api } from "~/utils/api";
 
 interface Prediction {
-  completed_at: string | null;
-  created_at: string;
-  error: string | null;
-  id: string;
-  input: { seed: string };
-  logs: string | null;
-  metrics: { [key: string]: string };
-  output: string | null;
-  started_at: string | null;
-  status: string; // Add this property to the interface
-  version: string;
+  completed_at?: string | null;
+  created_at?: string;
+  error?: string | null;
+  id?: string;
+  input?: { seed: string };
+  logs?: string | null;
+  metrics?: { [key: string]: string };
+  output?: string | null;
+  started_at?: string | null;
+  status?: string; // Add this property to the interface
+  version?: string;
 }
 
-interface ErrorResponse {
-  detail: string;
-  status?: string;
-  id?: string;
-  output: string | null;
-}
-const sleep = (ms: number) =>
-  new Promise((r) => {
-    setTimeout(r, ms);
-  });
 const Profile = () => {
   const { status } = useSession({
     required: true,
@@ -36,59 +27,54 @@ const Profile = () => {
     },
   });
   const [prediction, setPrediction] = useState<Prediction | undefined>();
-  const [error, setError] = useState<ErrorResponse>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [audioLoading, setAudioLoading] = useState<boolean>(false);
+  const { data: fullData } = api.audio.getPrediction.useQuery(undefined, {
+    refetchOnWindowFocus: false,
+    refetchInterval: 0,
+    refetchOnMount: false,
+    enabled: loading,
+    onSuccess: () => {
+      setLoading(false);
+    },
+  });
+  const { data: audio, refetch } = api.audio.getPredictionData.useQuery(
+    fullData?.id ?? "",
+    {
+      refetchOnWindowFocus: false,
+      refetchInterval: 1000, // Fetch every 1 second
+      enabled: audioLoading,
+    }
+  );
 
-  const handleSubmit = async (e: React.MouseEvent) => {
+  const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault();
     setLoading(true);
-    const response = await fetch("/api/predictions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // Add any additional properties of the request body here
-      body: JSON.stringify({}),
-    });
-    const prediction = (await response.json()) as Prediction | ErrorResponse;
-    if (response.status !== 201) {
-      setError(prediction as ErrorResponse);
-      return;
-    }
-    setPrediction(prediction as Prediction);
-
-    while (
-      prediction.status !== "succeeded" &&
-      prediction.status !== "failed"
-    ) {
-      console.log("Fetching...");
-      await sleep(1000);
-      const response = await fetch(
-        `/api/predictions/${prediction.id as string}`
-      );
-      const predictionResponse = (await response.json()) as
-        | Prediction
-        | ErrorResponse;
-      if (response.status !== 200) {
-        setError(predictionResponse as ErrorResponse);
-        return;
-      }
-      setPrediction(predictionResponse as Prediction);
-      if (
-        predictionResponse.status === "succeeded" ||
-        predictionResponse.status === "failed"
-      ) {
-        setLoading(false);
-        break;
-      }
-    }
+    setPrediction(fullData as Prediction);
+    setAudioLoading(true);
   };
+
+  useEffect(() => {
+    if (audio && (audio.status === "succeeded" || audio.status === "failed")) {
+      setLoading(false);
+      setPrediction(audio);
+      setAudioLoading(false);
+    }
+  }, [audio]);
+
+  // Use the refetch function to manually trigger a refetch
+  useEffect(() => {
+    if (audioLoading) {
+      void refetch();
+    }
+  }, [audioLoading, refetch]);
+
   if (status === "loading") {
     return <>Loading...</>;
   }
   return (
     <>
-      {loading ? (
+      {audioLoading ? (
         <button
           className="btn-disabled btn-primary btn w-40"
           onClick={(e) => void handleSubmit(e)}
@@ -131,7 +117,6 @@ const Profile = () => {
           )}
         </>
       )}
-      {error && toast.error(JSON.stringify(error.detail))}
     </>
   );
 };
