@@ -38,7 +38,8 @@ const PredictionCompleted = z.object({
 type PredictionCompleted = z.infer<typeof PredictionCompleted>
 
 export const audioRouter = createTRPCRouter({
-  getPrediction: protectedProcedure.query(async ({ ctx }) => {
+  getPrediction: protectedProcedure
+  .query(async ({ ctx }) => {
     const existingUser = await ctx.prisma.user.findUnique({
       where: { id: ctx.session.user.id },
     });

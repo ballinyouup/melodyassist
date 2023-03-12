@@ -20,6 +20,7 @@ export default function SignIn({
   const handleSignIn = async (providerName: string) => {
     const result: SignInResponse | undefined = await signIn(providerName, {
       redirect: true,
+      callbackUrl: "/",
     });
     if (result !== undefined && result.error) {
       toast.error("Error Signing In. Please try again");

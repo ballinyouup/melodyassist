@@ -7,7 +7,7 @@ function LogIn() {
     return (
       <button
         className="btn rounded-md p-3 text-white"
-        onClick={() => void signIn(undefined, { redirect: true })}
+        onClick={() => void signIn(undefined, { redirect: true, callbackUrl: '/'  })}
       >
         Log In
       </button>

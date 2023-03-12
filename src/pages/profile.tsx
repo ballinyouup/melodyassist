@@ -22,7 +22,7 @@ const Profile = () => {
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
-      void signIn();
+      void signIn(undefined, { redirect: true, callbackUrl: '/'  })
       toast.error("Please sign in");
     },
   });
@@ -67,12 +67,13 @@ const Profile = () => {
   }
   return (
     <>
-      {audioLoading ? (
-        <button
-          className="btn-disabled btn-primary btn w-40"
-          onClick={(e) => void handleSubmit(e)}
-        >
-          Generate
+      <button
+        className="btn-primary btn w-40"
+        disabled={audioLoading}
+        onClick={(e) => void handleSubmit(e)}
+      >
+        Generate
+        {audioLoading && (
           <div role="status">
             <svg
               aria-hidden="true"
@@ -91,24 +92,13 @@ const Profile = () => {
               />
             </svg>
           </div>
-        </button>
-      ) : (
-        <>
-          <button
-            className="btn-primary btn w-40"
-            onClick={(e) => void handleSubmit(e)}
-          >
-            Generate
-          </button>
-          {prediction && (
-            <audio
-              src={
-                typeof prediction?.output === "string" ? prediction?.output : ""
-              }
-              controls
-            ></audio>
-          )}
-        </>
+        )}
+      </button>
+      {prediction && (
+        <audio
+          src={typeof prediction?.output === "string" ? prediction?.output : ""}
+          controls
+        ></audio>
       )}
     </>
   );

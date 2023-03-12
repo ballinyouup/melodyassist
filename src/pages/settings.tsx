@@ -12,7 +12,7 @@ const Settings: React.FC = () => {
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
-      void signIn();
+      void signIn(undefined, { redirect: true, callbackUrl: '/'  })
       toast.error("Please sign in");
     },
   });
