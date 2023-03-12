@@ -53,16 +53,16 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
 
-    signIn({ user }) {
-      if (user) {
-        return true;
-      } else {
-        // Return false to display a default error message
-        return "/auth/error";
-        // Or you can return a URL to redirect to:
-        // return '/unauthorized'
-      }
-    },
+    // signIn({ user }) {
+    //   if (user) {
+    //     return true;
+    //   } else {
+    //     // Return false to display a default error message
+    //     return "/auth/error";
+    //     // Or you can return a URL to redirect to:
+    //     // return '/unauthorized'
+    //   }
+    // },
   },
   adapter: PrismaAdapter(prisma),
   providers: [
