@@ -1,9 +1,12 @@
+interface IToggle {
+  handleTheme: () => void 
+}
 
-const ToggleDark: React.FC = () => {
+const ToggleDark: React.FC<IToggle> = ({handleTheme})  => {
   
   return (
     <label className="swap-rotate swap btn-ghost btn-square rounded-lg">
-      <input type="checkbox" />
+      <input type="checkbox" onChange={() => void handleTheme()} />
       <svg
         className="swap-on h-6 w-6 fill-current"
         xmlns="http://www.w3.org/2000/svg"

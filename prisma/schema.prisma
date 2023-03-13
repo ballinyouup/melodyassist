@@ -42,17 +42,17 @@ model Session {
 }
 
 model User {
-    id            String     @id @default(cuid())
-    userName      String     @unique @default(cuid())
+    id            String    @id @default(cuid())
+    userName      String    @unique @default(cuid())
     name          String?
-    email         String?    @unique
+    email         String?   @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
-    settings      Settings[]
     posts         Post[]
-    role          UserRole   @default(FREE)
+    role          UserRole  @default(FREE)
+    theme         String    @default("winter")
 }
 
 enum UserRole {
@@ -67,13 +67,6 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
-}
-
-model Settings {
-    id       String  @id @default(cuid())
-    dark     Boolean @default(false)
-    language String  @default("en")
-    user     User    @relation(fields: [id], references: [id])
 }
 
 model Post {

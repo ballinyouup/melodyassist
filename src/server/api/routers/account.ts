@@ -31,6 +31,22 @@ export const accountRouter = createTRPCRouter({
 
     throw new Error("User doesn't exist");
   }),
+
+  updateTheme: protectedProcedure.mutation(async ({ ctx }) => {
+    // Check if user exists
+    const existingUser = await ctx.prisma.user.findFirst({
+      where: { id: ctx.session.user.id },
+    });
+
+    if (existingUser) {
+      return ctx.prisma.user.update({
+        where: { id: existingUser.id },
+        data: { theme: existingUser.theme === "winter" ? "night" : "winter" },
+      });
+    }
+
+    throw new Error("Error Changing Theme");
+  }),
   // getUserName:
   // 1. Retrieves the id associated with the session.
   // 2. If the user exists, query the database using the Prisma findUnique method.
@@ -82,29 +98,29 @@ export const accountRouter = createTRPCRouter({
       }
     }),
 
-  // getUserTheme:
-  // 1. Retrieves the email address associated with the session.
-  // 2. Queries the database using the Prisma findUnique method
-  // to retrieve the user's theme settings (i.e., dark or light mode)
-  // based on the retrieved email address.
-  getUserTheme: protectedProcedure.query(async ({ ctx }) => {
-    const theme = await ctx.prisma.user.findUnique({
-      where: {
-        email:
-          ctx.session?.user.email !== null
-            ? ctx.session?.user.email
-            : undefined,
-      },
-      select: {
-        settings: {
-          select: {
-            dark: true,
-          },
-        },
-      },
-    });
-    return theme;
-  }),
+  // // getUserTheme:
+  // // 1. Retrieves the email address associated with the session.
+  // // 2. Queries the database using the Prisma findUnique method
+  // // to retrieve the user's theme settings (i.e., dark or light mode)
+  // // based on the retrieved email address.
+  // getUserTheme: protectedProcedure.query(async ({ ctx }) => {
+  //   const theme = await ctx.prisma.user.findUnique({
+  //     where: {
+  //       email:
+  //         ctx.session?.user.email !== null
+  //           ? ctx.session?.user.email
+  //           : undefined,
+  //     },
+  //     select: {
+  //       settings: {
+  //         select: {
+  //           dark: true,
+  //         },
+  //       },
+  //     },
+  //   });
+  //   return theme;
+  // }),
 
   // // updateUserTheme:
   // // 1. Retrieves the email address associated with the session.
