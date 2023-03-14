@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import Layout from "./Layout";
 import { signIn, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
@@ -22,8 +21,7 @@ const Profile = () => {
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
-      void signIn(undefined, { redirect: true, callbackUrl: '/'  })
-      toast.error("Please sign in");
+      void signIn(undefined, { redirect: true, callbackUrl: "/" });
     },
   });
   const [prediction, setPrediction] = useState<Prediction | undefined>();
