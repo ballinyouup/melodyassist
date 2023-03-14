@@ -4,14 +4,15 @@ import ToggleDark from "./Navbar/ToggleDark";
 import LogIn from "./Navbar/LogIn";
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
-import ToggleOffline from "./Navbar/ToggleOffline";
 import { type User } from "@prisma/client";
 import { toast } from "react-hot-toast";
 
 const Navbar: React.FC = () => {
   const { data, status } = useSession();
   const apiClient = api.useContext();
-  const userData = api.account.getUserData.useQuery();
+  const userData = api.account.getUserData.useQuery(undefined, {
+    retry: false,
+  });
   const updateTheme = api.account.updateTheme.useMutation({
     onMutate: async () => {
       await apiClient.account.getUserData.cancel();
@@ -42,7 +43,6 @@ const Navbar: React.FC = () => {
           <Logo />
         </div>
         <div className="navbar-end w-full gap-4">
-          <ToggleOffline />
           <LogIn />
         </div>
       </div>

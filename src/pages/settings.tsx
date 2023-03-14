@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import { api } from "~/utils/api";
 import { toast } from "react-hot-toast";
 import Layout from "./Layout";
+
 const Settings: React.FC = () => {
   //const getUsername = api.account.getUserName.useQuery();
   // const username = getUsername.data?.userName;
@@ -12,7 +13,7 @@ const Settings: React.FC = () => {
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
-      void signIn(undefined, { redirect: true, callbackUrl: '/'  })
+      void signIn(undefined, { redirect: true, callbackUrl: "/" });
       toast.error("Please sign in");
     },
   });
@@ -27,10 +28,9 @@ const Settings: React.FC = () => {
     onError: (err) => {
       toast.error(`An error occured deleting account. ${err.message}`);
     },
-    onSettled: async () => {
-      await sessionClient.account.getUserData.invalidate();
+    onSuccess: async () => {
       setDeleteLoading(false);
-      location.reload();
+      await signOut({ callbackUrl: "/" });
     },
   });
 
@@ -103,7 +103,9 @@ const Settings: React.FC = () => {
                 <td className="bg-base-300">
                   <div className="px-6">
                     <div className="flex flex-col gap-4">
-                      <span className="text-base">Username: {newUsername}</span>
+                      <span className="text-base">
+                        Username: {getUser.data?.userName}
+                      </span>
                       <div className="flex flex-col gap-2">
                         <label className="text-sm">Change Username</label>
                         <div className="flex flex-col gap-4 sm:flex-row">
