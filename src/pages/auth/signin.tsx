@@ -32,6 +32,16 @@ export default function SignIn({
   useEffect(() => {
     void sessionClient.invalidate();
   }, [sessionClient]);
+
+  const providerImages: JSX.Element[] = [
+    <img
+      key={0}
+      src="/discordIconWhite.png"
+      className="h-6"
+      alt="Discord Sign In"
+    />,
+    <img key={1} src="/google.png" className="h-7 w-8" alt="Google Sign In" />,
+  ];
   return (
     <div className="hero min-h-screen bg-base-200 ">
       <div className="hero-content w-96 flex-col">
@@ -50,39 +60,21 @@ export default function SignIn({
                 className="input-bordered input"
               />
             </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Password</span>
-              </label>
-              <input
-                type="password"
-                placeholder="password"
-                className="input-bordered input"
-              />
-              <label className="label">
-                <a href="#" className="link-hover label-text-alt link">
-                  Forgot password?
-                </a>
-              </label>
-            </div>
             <div className="form-control mt-6">
               <button className="btn-primary btn">Login</button>
             </div>
-            {providers &&
-              Object.values(providers).map((provider) => (
-                <div key={provider.name}>
+            <div className="mt-5 flex w-full flex-row justify-start gap-6">
+              {providers &&
+                Object.values(providers).map((provider, index) => (
                   <button
-                    className="btn h-full w-full p-5"
+                    key={provider.name}
+                    className="btn h-16 w-16"
                     onClick={() => void handleSignIn(provider.id)}
                   >
-                    <img
-                      src="/discord-logo-white.svg"
-                      width={125}
-                      alt="Discord Sign In"
-                    />
+                    {providerImages[index]}
                   </button>
-                </div>
-              ))}
+                ))}
+            </div>
           </div>
         </div>
       </div>
