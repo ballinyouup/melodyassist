@@ -28,6 +28,13 @@ const config = {
         fadeOut: 'fadeOut 1s',
       }
     },
+    fontFamily: {
+      'sans': ['ui-sans-serif', 'system-ui'],
+      'serif': ['ui-serif', 'Georgia'],
+      'mono': ['ui-monospace', 'SFMono-Regular'],
+      'poppins': ['Poppins'],
+      'roboto': ['Roboto'],
+    },
   },
   // add daisyUI plugin
   plugins: [

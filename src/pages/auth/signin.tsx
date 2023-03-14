@@ -9,13 +9,14 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../server/auth";
 import { toast } from "react-hot-toast";
 import { api } from "~/utils/api";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 export default function SignIn({
   providers,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const sessionClient = api.useContext();
+  const [email, setEmail] = useState<string>();
   const router = useRouter();
   const handleSignIn = async (providerName: string) => {
     const result: SignInResponse | undefined = await signIn(providerName, {
@@ -34,13 +35,16 @@ export default function SignIn({
   }, [sessionClient]);
 
   const providerImages: JSX.Element[] = [
+    <>
+      <img key={0} src="/email.png" className="w-6" alt="Email Sign In" />
+    </>,
     <img
-      key={0}
+      key={1}
       src="/discordIconWhite.png"
       className="h-6"
       alt="Discord Sign In"
     />,
-    <img key={1} src="/google.png" className="h-7 w-8" alt="Google Sign In" />,
+    <img key={2} src="/google.png" className="h-7 w-8" alt="Google Sign In" />,
   ];
   return (
     <div className="hero min-h-screen bg-base-200 ">
@@ -58,20 +62,24 @@ export default function SignIn({
                 type="email"
                 placeholder="email"
                 className="input-bordered input"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className="form-control mt-6">
-              <button className="btn-primary btn">Login</button>
-            </div>
-            <div className="mt-5 flex w-full flex-row justify-start gap-6">
+            <div className="mt-5 flex w-full flex-col justify-start gap-6">
               {providers &&
                 Object.values(providers).map((provider, index) => (
                   <button
                     key={provider.name}
-                    className="btn h-16 w-16"
-                    onClick={() => void handleSignIn(provider.id)}
+                    className="btn h-16 w-full"
+                    onClick={
+                      index === 0
+                        ? () => void signIn(provider.id, { email: email })
+                        : () => void handleSignIn(provider.id)
+                    }
                   >
                     {providerImages[index]}
+                    {provider.id}
                   </button>
                 ))}
             </div>
