@@ -26,6 +26,7 @@ const Profile = () => {
   });
   const [prediction, setPrediction] = useState<Prediction | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
+  const getUser = api.account.getUserData.useQuery();
   const [audioLoading, setAudioLoading] = useState<boolean>(false);
   const { data: firstData } = api.audio.getPrediction.useQuery(undefined, {
     refetchOnWindowFocus: false,
@@ -64,7 +65,7 @@ const Profile = () => {
     return <>Loading...</>;
   }
   return (
-    <>
+    <div className="h-[91vh]" data-theme={getUser.data?.theme}>
       <button
         className="btn-primary btn w-40"
         disabled={audioLoading}
@@ -98,7 +99,7 @@ const Profile = () => {
           controls
         ></audio>
       )}
-    </>
+    </div>
   );
 };
 

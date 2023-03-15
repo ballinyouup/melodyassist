@@ -60,7 +60,7 @@ const Settings: React.FC = () => {
     return <>Loading...</>;
   }
   return (
-    <>
+    <div data-theme={getUser.data?.theme} className="h-[91vh]">
       <div className="flex flex-col justify-center gap-4 p-4 sm:flex-row">
         <ul className="menu rounded-box menu-normal w-full bg-base-300 p-2 sm:w-52 sm:max-w-sm">
           <li className="menu-title">
@@ -184,7 +184,7 @@ const Settings: React.FC = () => {
           </table>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
