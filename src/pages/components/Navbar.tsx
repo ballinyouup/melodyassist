@@ -38,9 +38,9 @@ const Navbar: React.FC = () => {
   };
   if (data === null && status !== "loading") {
     return (
-      <div className={`navbar bg-base-100`}>
+      <div className="navbar bg-base-100 h-20" data-theme="winter">
         <div className="navbar-start">
-          <Logo />
+          <Logo theme="winter"/>
         </div>
         <div className="navbar-end w-full gap-4">
           <LogIn />
@@ -49,9 +49,9 @@ const Navbar: React.FC = () => {
     );
   }
   return (
-    <div className={`navbar bg-base-100`} data-theme={userData.data?.theme}>
+    <div className="navbar bg-base-100 h-20" data-theme={userData.data?.theme}>
       <div className="navbar-start">
-        <Logo />
+        <Logo theme={userData.data?.theme as string}/>
       </div>
       <div className="navbar-end w-full gap-4">
         <ToggleDark handleTheme={handleTheme} />

@@ -13,7 +13,7 @@ interface Prediction {
   metrics?: { [key: string]: string };
   output?: string | null;
   started_at?: string | null;
-  status?: string; // Add this property to the interface
+  status?: string;
   version?: string;
 }
 
@@ -27,7 +27,7 @@ const Profile = () => {
   const [prediction, setPrediction] = useState<Prediction | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
   const [audioLoading, setAudioLoading] = useState<boolean>(false);
-  const { data: fullData } = api.audio.getPrediction.useQuery(undefined, {
+  const { data: firstData } = api.audio.getPrediction.useQuery(undefined, {
     refetchOnWindowFocus: false,
     refetchInterval: 0,
     refetchOnMount: false,
@@ -38,7 +38,7 @@ const Profile = () => {
     },
   });
   const { data: audio } = api.audio.getPredictionData.useQuery(
-    fullData?.id ?? "",
+    firstData?.id ?? "",
     {
       refetchOnWindowFocus: false,
       refetchInterval: 2000, // Fetch every 2 seconds
@@ -49,7 +49,7 @@ const Profile = () => {
   const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault();
     setLoading(true);
-    setPrediction(fullData as Prediction);
+    setPrediction(firstData as Prediction);
   };
 
   useEffect(() => {
