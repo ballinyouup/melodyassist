@@ -4,6 +4,7 @@ import Head from "next/head";
 import Layout from "./Layout";
 import Hero from "./components/Home/Hero";
 import { api } from "~/utils/api";
+import Search from "./components/Home/Search";
 const Home: NextPage = () => {
   const userData = api.account.getUserData.useQuery();
   // Add check to change icon based on system preference
@@ -20,6 +21,7 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <Hero />
+        <Search />
       </main>
     </div>
   );

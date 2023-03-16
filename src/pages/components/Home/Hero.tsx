@@ -1,8 +1,6 @@
-import { useRouter } from "next/router";
 const Hero = () => {
-  const router = useRouter();
   return (
-    <div className="hero h-96 bg-base-200">
+    <div className="hero h-80 bg-base-200">
       <div className="hero-content">
         <div className="max-w-md">
           <h1 className="text-5xl font-bold">
@@ -12,12 +10,6 @@ const Hero = () => {
             Access Free Audio Samples, Lyrics, and Cover Art to Create,
             Collaborate, and Share
           </p>
-          <button
-            className="btn"
-            onClick={() => void router.push("/profile")}
-          >
-            Generate
-          </button>
         </div>
       </div>
     </div>
