@@ -10,7 +10,7 @@ const Home: NextPage = () => {
   const userData = api.account.getUserData.useQuery();
   // Add check to change icon based on system preference
   return (
-    <div data-theme={userData.data?.theme ?? "winter"} className="h-[91vh]">
+    <div data-theme={userData.data?.theme ?? "winter"} className="h-full">
       <Head>
         <title>Melody Assist</title>
         <meta name="description" content="Level up your Music with AI" />
