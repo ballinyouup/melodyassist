@@ -45,7 +45,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url }) => {
   return (
     <div className="flex flex-col">
       <div className="flex justify-center">
-        <div className="flex w-3/5 justify-start gap-2 p-8">
+        <div className="flex w-full sm:w-3/5 justify-start gap-2 p-8">
           <button
             className="btn h-12 w-12 rounded-full p-1"
             onClick={togglePlay}
@@ -67,7 +67,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url }) => {
         </div>
       </div>
       <div className="flex justify-center">
-        <div className="flex w-3/5 flex-col justify-start px-6">
+        <div className="flex sm:w-3/5 w-full flex-col justify-start px-6">
           <span>
             {Number(currentTime).toFixed(1)}/
             {Number(audioRef.current?.duration).toFixed(1)}

@@ -12,7 +12,7 @@ const Search: React.FC = () => {
         <div className="flex h-fit w-full justify-center text-2xl font-bold">
           <span>Trending Tags</span>
         </div>
-        <div className="flex w-full justify-center gap-4">
+        <div className="flex flex-row flex-wrap justify-center gap-4">
           <button className="btn rounded-2xl">Hip Hop</button>
           <button className="btn rounded-2xl">Dance</button>
           <button className="btn rounded-2xl">Electronic</button>
