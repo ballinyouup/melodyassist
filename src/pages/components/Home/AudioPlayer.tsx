@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-
 /* eslint-disable @next/next/no-img-element */
 
 interface IAudioPlayer {
