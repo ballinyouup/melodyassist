@@ -58,7 +58,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url }) => {
   return (
     <div className="flex flex-col">
       <div className="flex justify-center">
-        <div className="flex justify-start p-2 sm:w-3/5">
+        <div className="flex w-full justify-start p-1 sm:w-3/5">
           <div className="flex w-full flex-row gap-4 rounded-2xl bg-primary-content p-6">
             <button
               className="btn h-12 w-12 rounded-full p-1"
@@ -89,7 +89,8 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url }) => {
                     className="btn-ghost btn-xs btn h-8 w-fit"
                     onClick={handleDownloadClick}
                   >
-                    {userData.data?.theme === "winter" ? (
+                    {userData.data?.theme ===
+                    ("winter" || null || undefined) ? (
                       <img
                         className="w-4"
                         src="/download-light.png"
