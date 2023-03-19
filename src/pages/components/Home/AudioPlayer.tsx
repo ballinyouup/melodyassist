@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { api } from "~/utils/api";
 /* eslint-disable @next/next/no-img-element */
 
 interface IAudioPlayer {
@@ -8,9 +7,6 @@ interface IAudioPlayer {
 }
 
 const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title }) => {
-  const userData = api.account.getUserData.useQuery(undefined, {
-    retry: false,
-  });
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -59,7 +55,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title }) => {
   }
 
   return (
-    <div className="flex w-screen flex-col">
+    <div className="flex w-full flex-col">
       <div className="flex justify-center">
         <div className="flex w-full justify-start p-1 sm:w-3/5 md:w-3/5 lg:w-2/5">
           <div className="flex w-full flex-row gap-4 rounded-2xl bg-neutral p-3">
@@ -91,20 +87,11 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title }) => {
                     className="btn-ghost btn-xs btn h-8 w-fit"
                     onClick={handleDownloadClick}
                   >
-                    {userData.data?.theme ===
-                    ("winter" || null || undefined) ? (
-                      <img
-                        className="w-4"
-                        src="/download-light.png"
-                        alt="download button"
-                      />
-                    ) : (
-                      <img
-                        className="w-4"
-                        src="/download-dark.png"
-                        alt="download button"
-                      />
-                    )}
+                    <img
+                      className="w-4"
+                      src="/download-dark.png"
+                      alt="download button"
+                    />
                   </button>
                 </div>
               </div>

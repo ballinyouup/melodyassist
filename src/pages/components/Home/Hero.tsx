@@ -1,15 +1,14 @@
 import { useRouter } from "next/router";
 import Logo from "../Navbar/Logo";
-
 const Hero = () => {
   const router = useRouter();
   return (
     <>
+      
       <div className="hero">
-        <div className="hero-content flex flex-col w-full">
+        <div className="hero-content flex w-full flex-col">
           <Logo theme="night" />
-          <hr className="w-full text-white"/>
-          <div className="flex max-w-md flex-col items-center justify-start text-center text-neutral-content mt-20">
+          <div className="flex max-w-2xl flex-col items-center justify-start p-8 text-center text-neutral-content sm:mt-20">
             <h1 className="text-7xl font-bold">
               Elevate Your Creative Workflow with AI
             </h1>
@@ -19,7 +18,7 @@ const Hero = () => {
             </p>
             <button
               className="btn-outline btn text-white"
-              onClick={() => void router.push("/profile")}
+              onClick={() => void router.push("/generate")}
             >
               Get Started
             </button>

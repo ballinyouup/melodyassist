@@ -4,11 +4,9 @@ import { useState } from "react";
 import { api } from "~/utils/api";
 import { toast } from "react-hot-toast";
 import Layout from "./Layout";
+import Head from "next/head";
 
 const Settings: React.FC = () => {
-  //const getUsername = api.account.getUserName.useQuery();
-  // const username = getUsername.data?.userName;
-  //const [currentUsername, setCurrentUsername] = useState<string>("");
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
   const { status } = useSession({
     required: true,
@@ -18,7 +16,7 @@ const Settings: React.FC = () => {
     },
   });
   const sessionClient = api.useContext();
-  const getUser = api.account.getUserData.useQuery();
+  const userData = api.account.getUserData.useQuery();
   const deleteUser = api.account.deleteAccount.useMutation({
     onMutate: async () => {
       setDeleteLoading(true);
@@ -34,33 +32,20 @@ const Settings: React.FC = () => {
     },
   });
 
-  const changeUserName = api.account.updateUserName.useMutation({
-    onMutate: () => {
-      return;
-    },
-    onError: (err) => {
-      toast.error(`An error occured deleting account. ${err.message}`);
-    },
-    onSuccess: () => {
-      return;
-    },
-  });
-  const [newUsername, setNewUsername] = useState<string>("");
-  const handleChangeUserName = () => {
-    changeUserName.mutate(newUsername);
-  };
-
-  // useEffect(() => {
-  //   if (typeof username === "string") {
-  //     setCurrentUsername(username);
-  //   }
-  // }, [username]);
-
   if (status === "loading") {
     return <>Loading...</>;
   }
   return (
-    <div data-theme={getUser.data?.theme} className="h-[91vh]">
+    <div data-theme={userData.data?.theme} className="h-[91vh]">
+      <Head>
+        <title>Melody Assist</title>
+        <meta name="description" content="Level up your Music with AI" />
+        {userData.data?.theme === "winter" ? (
+          <link rel="icon" href="/logo-dark.png" />
+        ) : (
+          <link rel="icon" href="/logo-light.png" />
+        )}
+      </Head>
       <div className="flex flex-col justify-center gap-4 p-4 sm:flex-row">
         <ul className="menu rounded-box menu-normal w-full bg-base-300 p-2 sm:w-52 sm:max-w-sm">
           <li className="menu-title">
@@ -81,52 +66,14 @@ const Settings: React.FC = () => {
             <tbody>
               <tr>
                 <td className="bg-base-300">
-                  <div className="flex flex-row items-center gap-2 sm:gap-8 sm:px-4">
-                    <img
-                      className="h-16 w-16 rounded-full border-2 border-black"
-                      src={getUser.data?.image ?? ""}
-                      alt="profile image"
-                    />
-                    <div className="form-control w-full max-w-xs">
-                      <label className="label">
-                        <span className="label-text">Change profile image</span>
-                      </label>
-                      <input
-                        type="file"
-                        className="file-input-primary file-input file-input-xs w-full max-w-xs cursor-pointer"
-                      />
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td className="bg-base-300">
                   <div className="px-6">
-                    <div className="flex flex-col gap-4">
-                      <span className="text-base">
-                        Username: {getUser.data?.userName}
-                      </span>
-                      <div className="flex flex-col gap-2">
-                        <label className="text-sm">Change Username</label>
-                        <div className="flex flex-col gap-4 sm:flex-row">
-                          <input
-                            type="text"
-                            placeholder="Type Here..."
-                            className="input h-8 w-full border-black bg-white p-2 sm:w-64"
-                            value={newUsername}
-                            onChange={(e) => {
-                              setNewUsername(e.target.value);
-                            }}
-                          />
-                          <button
-                            className="btn-neutral btn-sm btn h-6 w-fit text-white"
-                            onClick={handleChangeUserName}
-                          >
-                            Submit
-                          </button>
-                        </div>
-                      </div>
-                    </div>
+                    <span className="text-base">
+                      Profile Image:{" "}
+                      <img
+                        src={userData.data?.image ?? ""}
+                        alt="profile image"
+                      />
+                    </span>
                   </div>
                 </td>
               </tr>
@@ -134,7 +81,7 @@ const Settings: React.FC = () => {
                 <td className="bg-base-300">
                   <div className="px-6">
                     <span className="text-base">
-                      Email: {getUser.data?.email ?? ""}
+                      Email: {userData.data?.email ?? ""}
                     </span>
                   </div>
                 </td>

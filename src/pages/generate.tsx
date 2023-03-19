@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Layout from "./Layout";
 import { signIn, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
+import Head from "next/head";
 
 interface Prediction {
   completed_at?: string | null;
@@ -17,7 +18,7 @@ interface Prediction {
   version?: string;
 }
 
-const Profile = () => {
+const Generate = () => {
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
@@ -26,7 +27,7 @@ const Profile = () => {
   });
   const [prediction, setPrediction] = useState<Prediction | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
-  const getUser = api.account.getUserData.useQuery();
+  const userData = api.account.getUserData.useQuery();
   const [audioLoading, setAudioLoading] = useState<boolean>(false);
   const { data: firstData } = api.audio.getPrediction.useQuery(undefined, {
     refetchOnWindowFocus: false,
@@ -65,7 +66,16 @@ const Profile = () => {
     return <>Loading...</>;
   }
   return (
-    <div className="h-[91vh]" data-theme={getUser.data?.theme}>
+    <div className="h-[91vh]" data-theme={userData.data?.theme}>
+       <Head>
+        <title>Melody Assist</title>
+        <meta name="description" content="Level up your Music with AI" />
+        {userData.data?.theme === "winter" ? (
+          <link rel="icon" href="/logo-dark.png" />
+        ) : (
+          <link rel="icon" href="/logo-light.png" />
+        )}
+      </Head>
       <button
         className="btn-primary btn w-40"
         disabled={audioLoading}
@@ -103,4 +113,4 @@ const Profile = () => {
   );
 };
 
-export default Layout(Profile);
+export default Layout(Generate);

@@ -1,5 +1,6 @@
 import { Toaster } from "react-hot-toast";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 const Layout = (WrappedComponent: React.FC): React.FC => {
   const WithLayout: React.FC = (props) => (
@@ -7,6 +8,7 @@ const Layout = (WrappedComponent: React.FC): React.FC => {
       <Navbar />
       <Toaster />
       <WrappedComponent {...props} />
+      <Footer />
     </div>
   );
   return WithLayout;
