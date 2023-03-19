@@ -12,10 +12,10 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <link rel="preload" href="/Seed-9451_,.mp3" as="audio" />
-        <link rel="preload" href="/Seed-23426_,.mp3" as="audio" />
-        <link rel="preload" href="/Seed-51938_,.mp3" as="audio" />
-        <link rel="preload" href="/Seed-56485_,.mp3" as="audio" />
+        <link rel="preload" href="/Seed-9451.mp3" as="audio" />
+        <link rel="preload" href="/Seed-23426.mp3" as="audio" />
+        <link rel="preload" href="/Seed-51938.mp3" as="audio" />
+        <link rel="preload" href="/Seed-56485.mp3" as="audio" />
         <link rel="preload" href="/out.mp3" as="audio" />
         <link rel="preload" href="/out (1).mp3" as="audio" />
         <link rel="preload" href="/out (2).mp3" as="audio" />
@@ -32,10 +32,10 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <Hero />
-        <AudioPlayer url="/Seed-9451_,.mp3" title="9451" />
-        <AudioPlayer url="/Seed-23426_,.mp3" title="23426" />
-        <AudioPlayer url="/Seed-51938_,.mp3" title="51938" />
-        <AudioPlayer url="/Seed-56485_,.mp3" title="56485" />
+        <AudioPlayer url="/Seed-9451.mp3" title="9451" />
+        <AudioPlayer url="/Seed-23426.mp3" title="23426" />
+        <AudioPlayer url="/Seed-51938.mp3" title="51938" />
+        <AudioPlayer url="/Seed-56485.mp3" title="56485" />
         <AudioPlayer url="/out.mp3" desc="Extras #1" />
         <AudioPlayer url="/out (1).mp3" desc="Extras #1" />
         <AudioPlayer url="/out (2).mp3" desc="Extras #2" />
