@@ -22,10 +22,10 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <Hero />
-        <AudioPlayer url="/Seed-9451.mp3" title="9451" />
-        <AudioPlayer url="/Seed-23426.mp3" title="23426" />
-        <AudioPlayer url="/Seed-51938.mp3" title="51938" />
-        <AudioPlayer url="/Seed-56485.mp3" title="56485" />
+        <AudioPlayer url="/Seed-42573_.mp3" title="42573" />
+        <AudioPlayer url="/Seed-61365_.mp3" title="61365" />
+        <AudioPlayer url="/Seed-36453_.mp3" title="36543" />
+        <AudioPlayer url="/Seed-59440.mp3" title="59440" />
         <AudioPlayer url="/out.mp3" desc="Extras #1" />
         <AudioPlayer url="/out(1).mp3" desc="Extras #1" />
         <AudioPlayer url="/out(2).mp3" desc="Extras #2" />

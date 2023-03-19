@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 interface IAudioPlayer {
   url: string;
-  title?: string | string[] | undefined;
+  title?: string | undefined;
   desc?: string;
 }
 
@@ -43,16 +43,16 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title, desc }) => {
     audioRef.current?.addEventListener("pause", handlePause);
   }, [updateCurrentTime]);
 
-  function handleDownloadClick() {
-    const audioElement = audioRef.current;
-    const source = audioElement?.src;
-    const fileName = `Seed-${title as string}.mp3`;
-    const link = document.createElement("a");
-    link.download = fileName;
-    if (typeof source === "string") {
-      link.href = source;
-    }
-    link.click();
+  async function handleDownloadClick() {
+    await fetch(url)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `Seed-${typeof title !== "undefined" ? title : ""}.mp3`;
+        link.click();
+      });
   }
 
   return (
@@ -89,7 +89,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title, desc }) => {
                 <div className="flex h-8 flex-col items-end">
                   <button
                     className="btn-ghost btn-xs btn h-8 w-fit"
-                    onClick={handleDownloadClick}
+                    onClick={() => void handleDownloadClick()}
                   >
                     <img
                       className="w-4"

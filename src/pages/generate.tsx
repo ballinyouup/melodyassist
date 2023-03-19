@@ -84,7 +84,7 @@ const Generate = () => {
   }
 
   const seed = prediction?.logs?.split(" ")[2];
-  const seedFormat = seed?.split("ffmpeg");
+  const seedFormat = seed?.split("ffmpeg")[0];
   return (
     <div className="h-[91vh]" data-theme={userData.data?.theme}>
       <Head>
@@ -127,12 +127,13 @@ const Generate = () => {
       <span>Time Elapsed: {timer}</span>
       <br />
       <span>Seed: {seedFormat}</span>
-      {loading || audioLoading === false && prediction && (
-        <AudioPlayer
-          url={prediction?.output as string}
-          title={seedFormat ?? ""}
-        />
-      )}
+      {loading ||
+        (audioLoading === false && prediction && (
+          <AudioPlayer
+            url={prediction?.output as string}
+            title={seedFormat ?? ""}
+          />
+        ))}
     </div>
   );
 };
