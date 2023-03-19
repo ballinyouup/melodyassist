@@ -4,9 +4,10 @@ import { api } from "~/utils/api";
 
 interface IAudioPlayer {
   url: string;
+  title: string;
 }
 
-const AudioPlayer: React.FC<IAudioPlayer> = ({ url }) => {
+const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title }) => {
   const userData = api.account.getUserData.useQuery(undefined, {
     retry: false,
   });
@@ -51,15 +52,17 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url }) => {
     const fileName = "audio.mp3";
     const link = document.createElement("a");
     link.download = fileName;
-    link.href = source as string;
+    if (typeof source === "string") {
+      link.href = source;
+    }
     link.click();
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex w-screen flex-col">
       <div className="flex justify-center">
-        <div className="flex w-full justify-start p-1 sm:w-3/5">
-          <div className="flex w-full flex-row gap-4 rounded-2xl bg-primary-content p-6">
+        <div className="flex w-full justify-start p-1 sm:w-3/5 md:w-3/5 lg:w-2/5">
+          <div className="flex w-full flex-row gap-4 rounded-2xl bg-neutral p-3">
             <button
               className="btn h-12 w-12 rounded-full p-1"
               onClick={togglePlay}
@@ -81,8 +84,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url }) => {
             <div className="-mt-2 flex w-full flex-col leading-none">
               <div className="flex flex-row justify-between">
                 <div className="flex flex-col">
-                  <span className="z-10">Ballinyouup</span>
-                  <span className="text-xl font-medium">Piano Sample #35</span>
+                  <span className="text-xl font-medium">{title}</span>
                 </div>
                 <div className="flex h-8 flex-col items-end">
                   <button

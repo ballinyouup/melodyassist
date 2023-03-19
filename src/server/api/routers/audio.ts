@@ -2,40 +2,6 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { env } from "~/env.mjs";
 
-const predictionSchema = z.object({
-  completed_at: z.string().nullable(),
-  created_at: z.string(),
-  error: z.string().nullable(),
-  id: z.string(),
-  input: z.object({
-    seed: z.string(),
-  }),
-  logs: z.string().nullable(),
-  metrics: z.record(z.string()),
-  output: z.string().nullable(),
-  started_at: z.string().nullable(),
-  status: z.string(),
-  version: z.string(),
-});
-type Prediction = z.infer<typeof predictionSchema>;
-
-interface ErrorResponse {
-  detail: string;
-  status?: string;
-  id?: string;
-  output: string | null;
-}
-
-const PredictionCompleted = z.object({
-  id: z.string(),
-  input: z.object({
-    seed: z.string(),
-  }),
-  output: z.string(),
-  status: z.string(),
-});
-
-type PredictionCompleted = z.infer<typeof PredictionCompleted>
 
 export const audioRouter = createTRPCRouter({
   getPrediction: protectedProcedure
@@ -63,7 +29,7 @@ export const audioRouter = createTRPCRouter({
         throw new Error(JSON.stringify(error));
       }
 
-      const prediction = (await response.json()) as Prediction | ErrorResponse;
+      const prediction = (await response.json());
       return prediction;
     }
     const error = new Error("Unauthorized");
@@ -93,7 +59,7 @@ export const audioRouter = createTRPCRouter({
         }
 
         const result = await secondResponse.json();
-        return result as PredictionCompleted;
+        return result;
       }
       const error = new Error("Unauthorized");
       throw error;

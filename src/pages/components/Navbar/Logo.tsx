@@ -7,7 +7,7 @@ interface ILogo {
 
 const Logo: React.FC<ILogo> = ({ theme }) => {
   return (
-    <>
+    <div className="self-start">
       <Link href="/" className="btn-ghost btn text-xl normal-case h-14">
         {theme === "winter" ? (
           <img src="/logo-light.png" className="w-14 p-1" alt="logo-light" />
@@ -15,7 +15,7 @@ const Logo: React.FC<ILogo> = ({ theme }) => {
           <img src="/logo-dark.png" className="w-14 p-1" alt="logo-dark" />
         )}
       </Link>
-    </>
+    </div>
   );
 };
 
