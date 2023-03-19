@@ -22,12 +22,19 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <Hero />
-        <AudioPlayer url="" title="Seed #225" />
-        <AudioPlayer url="" title="Seed #5,684" />
-        <AudioPlayer url="" title="Seed #10,986" />
+        <AudioPlayer url="/Seed-9451_,.mp3" title="9451" />
+        <AudioPlayer url="/Seed-23426_,.mp3" title="23426" />
+        <AudioPlayer url="/Seed-51938_,.mp3" title="51938" />
+        <AudioPlayer url="/Seed-56485_,.mp3" title="56485" />
+        <AudioPlayer url="/out.mp3" desc="Extras #1" />
+        <AudioPlayer url="/out (1).mp3" desc="Extras #1" />
+        <AudioPlayer url="/out (2).mp3" desc="Extras #2" />
+        <AudioPlayer url="/out (3).mp3" desc="Extras #3" />
+        <AudioPlayer url="/out (4).mp3" desc="Extras #4" />
+        <AudioPlayer url="/out (5).mp3" desc="Extras #5" />
       </main>
       <div className="flex justify-center">
-        <div className="flex max-w-7xl items-start justify-center w-full flex-col mt-20">
+        <div className="mt-20 flex w-full max-w-7xl flex-col items-start justify-center">
           <Footer />
         </div>
       </div>

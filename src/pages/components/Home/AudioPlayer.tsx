@@ -3,10 +3,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 interface IAudioPlayer {
   url: string;
-  title: string;
+  title?: string | string[] | undefined;
+  desc?: string;
 }
 
-const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title }) => {
+const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title, desc }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -45,7 +46,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title }) => {
   function handleDownloadClick() {
     const audioElement = audioRef.current;
     const source = audioElement?.src;
-    const fileName = "audio.mp3";
+    const fileName = `Seed-${title as string}.mp3`;
     const link = document.createElement("a");
     link.download = fileName;
     if (typeof source === "string") {
@@ -80,7 +81,10 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title }) => {
             <div className="-mt-2 flex w-full flex-col leading-none">
               <div className="flex flex-row justify-between">
                 <div className="flex flex-col">
-                  <span className="text-xl font-medium">{title}</span>
+                  <span className="text-xl font-medium">
+                    {desc ? desc : "Seed: "}
+                    {title}
+                  </span>
                 </div>
                 <div className="flex h-8 flex-col items-end">
                   <button

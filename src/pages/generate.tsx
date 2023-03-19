@@ -3,6 +3,7 @@ import Layout from "./Layout";
 import { signIn, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 import Head from "next/head";
+import AudioPlayer from "./components/Home/AudioPlayer";
 
 interface Prediction {
   completed_at?: string | null;
@@ -25,6 +26,7 @@ const Generate = () => {
       void signIn(undefined, { redirect: true, callbackUrl: "/" });
     },
   });
+  const [timer, setTimer] = useState<number>(0);
   const [prediction, setPrediction] = useState<Prediction | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
   const userData = api.account.getUserData.useQuery();
@@ -50,8 +52,9 @@ const Generate = () => {
 
   const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault();
+    setTimer(0);
     setLoading(true);
-    setPrediction(firstData as Prediction);
+    setPrediction(firstData);
   };
 
   useEffect(() => {
@@ -62,12 +65,29 @@ const Generate = () => {
     }
   }, [audio]);
 
+  useEffect(() => {
+    let intervalId: NodeJS.Timer | undefined;
+
+    if (loading === true || audioLoading == true) {
+      intervalId = setInterval(() => {
+        setTimer((prevTimer) => prevTimer + 1);
+      }, 1000);
+    }
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [timer, loading, audioLoading]);
+
   if (status === "loading") {
     return <>Loading...</>;
   }
+
+  const seed = prediction?.logs?.split(" ")[2];
+  const seedFormat = seed?.split("ffmpeg");
   return (
     <div className="h-[91vh]" data-theme={userData.data?.theme}>
-       <Head>
+      <Head>
         <title>Melody Assist</title>
         <meta name="description" content="Level up your Music with AI" />
         {userData.data?.theme === "winter" ? (
@@ -78,11 +98,11 @@ const Generate = () => {
       </Head>
       <button
         className="btn-primary btn w-40"
-        disabled={audioLoading}
+        disabled={audioLoading || loading}
         onClick={(e) => void handleSubmit(e)}
       >
         Generate
-        {audioLoading && (
+        {(loading || audioLoading) && (
           <div role="status">
             <svg
               aria-hidden="true"
@@ -103,11 +123,15 @@ const Generate = () => {
           </div>
         )}
       </button>
-      {prediction && (
-        <audio
-          src={typeof prediction?.output === "string" ? prediction?.output : ""}
-          controls
-        ></audio>
+      <br />
+      <span>Time Elapsed: {timer}</span>
+      <br />
+      <span>Seed: {seedFormat}</span>
+      {loading || audioLoading === false && prediction && (
+        <AudioPlayer
+          url={prediction?.output as string}
+          title={seedFormat ?? ""}
+        />
       )}
     </div>
   );
