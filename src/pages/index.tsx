@@ -26,6 +26,7 @@ const Home: NextPage = () => {
         <AudioPlayer url="/Seed-61365_.mp3" title="61365" />
         <AudioPlayer url="/Seed-36543_.mp3" title="36543" />
         <AudioPlayer url="/Seed-59440_.mp3" title="59440" />
+        <AudioPlayer url="/Seed-46452_.mp3" title="46452" />
         <AudioPlayer url="/out.mp3" desc="Extras #1" />
         <AudioPlayer url="/out(1).mp3" desc="Extras #2" />
         <AudioPlayer url="/out(2).mp3" desc="Extras #3" />
