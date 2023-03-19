@@ -27,11 +27,11 @@ const Home: NextPage = () => {
         <AudioPlayer url="/Seed-36543_.mp3" title="36543" />
         <AudioPlayer url="/Seed-59440_.mp3" title="59440" />
         <AudioPlayer url="/out.mp3" desc="Extras #1" />
-        <AudioPlayer url="/out(1).mp3" desc="Extras #1" />
-        <AudioPlayer url="/out(2).mp3" desc="Extras #2" />
-        <AudioPlayer url="/out(3).mp3" desc="Extras #3" />
-        <AudioPlayer url="/out(4).mp3" desc="Extras #4" />
-        <AudioPlayer url="/out(5).mp3" desc="Extras #5" />
+        <AudioPlayer url="/out(1).mp3" desc="Extras #2" />
+        <AudioPlayer url="/out(2).mp3" desc="Extras #3" />
+        <AudioPlayer url="/out(3).mp3" desc="Extras #4" />
+        <AudioPlayer url="/out(4).mp3" desc="Extras #5" />
+        <AudioPlayer url="/out(5).mp3" desc="Extras #6" />
       </main>
       <div className="flex justify-center">
         <div className="mt-20 flex w-full max-w-7xl flex-col items-start justify-center">
