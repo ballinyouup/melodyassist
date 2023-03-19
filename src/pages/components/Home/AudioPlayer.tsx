@@ -111,10 +111,14 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title, desc }) => {
                 <source src={url} />
               </audio>
               <div className="flex flex-row justify-between">
-                <span>{Number(currentTime).toFixed(1)}</span>
                 {audioRef.current &&
                   !Number.isNaN(audioRef.current.duration) && (
-                    <span>{Number(audioRef.current.duration).toFixed(1)}</span>
+                    <>
+                      <span>{Number(currentTime).toFixed(1)}</span>
+                      <span>
+                        {Number(audioRef.current.duration).toFixed(1)}
+                      </span>
+                    </>
                   )}
               </div>
             </div>
