@@ -96,6 +96,28 @@ const Generate = () => {
           <link rel="icon" href="/logo-light.png" />
         )}
       </Head>
+      {timer > 5 && (
+        <div className="alert shadow-lg w-fit">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              className="h-6 w-6 flex-shrink-0 stroke-info"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <span>
+              System booting up. System takes around 3 minutes to boot.
+            </span>
+          </div>
+        </div>
+      )}
       <button
         className="btn-primary btn w-40"
         disabled={audioLoading || loading}
