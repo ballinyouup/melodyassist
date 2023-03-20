@@ -28,7 +28,10 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <Hero volume={volume} handleVolumeChange={handleVolumeChange} />
-        <div className="flex w-full flex-row flex-wrap justify-center gap-2">
+        <div className="flex w-full items-center justify-center">
+          <video src="" className="w-1/2 rounded-2xl" controls></video>
+        </div>
+        <div className="mt-20 flex w-full flex-row flex-wrap justify-center gap-2">
           <div className="flex w-full flex-col flex-wrap justify-center gap-2 sm:w-4/5 sm:flex-row">
             <AudioPlayer url="/Seed-42573_.mp3" title="42573" volume={volume} />
             <AudioPlayer url="/Seed-61365_.mp3" title="61365" volume={volume} />
