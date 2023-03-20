@@ -5,12 +5,14 @@ interface IAudioPlayer {
   url: string;
   title?: string | undefined;
   desc?: string;
+  volume: number;
 }
 
-const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title, desc }) => {
+const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title, desc, volume }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
+  
 
   const togglePlay = () => {
     isPlaying ? void audioRef.current?.pause() : void audioRef.current?.play();
@@ -24,6 +26,8 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title, desc }) => {
       audioRef.current.currentTime = newTime;
     }
   };
+
+  
 
   const updateCurrentTime = useCallback(() => {
     setCurrentTime(audioRef.current?.currentTime as number);
@@ -42,6 +46,12 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title, desc }) => {
     audioRef.current?.addEventListener("play", handlePlay);
     audioRef.current?.addEventListener("pause", handlePause);
   }, [updateCurrentTime]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume / 100;
+    }
+  }, [volume]);
 
   async function handleDownloadClick() {
     await fetch(url)

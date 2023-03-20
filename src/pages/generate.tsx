@@ -152,9 +152,8 @@ const Generate = () => {
       {loading ||
         (audioLoading === false && prediction && (
           <AudioPlayer
-            url={prediction?.output as string}
-            title={seedFormat ?? ""}
-          />
+          url={prediction?.output as string}
+          title={seedFormat ?? ""} volume={80}          />
         ))}
     </div>
   );
