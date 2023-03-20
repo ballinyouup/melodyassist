@@ -29,7 +29,11 @@ const Home: NextPage = () => {
       <main>
         <Hero volume={volume} handleVolumeChange={handleVolumeChange} />
         <div className="flex w-full items-center justify-center">
-          <video src="" className="w-1/2 rounded-2xl" controls></video>
+          <video
+            src=""
+            className="w-4/5 rounded-2xl sm:w-2/3 lg:w-1/2"
+            controls
+          ></video>
         </div>
         <div className="mt-20 flex w-full flex-row flex-wrap justify-center gap-2">
           <div className="flex w-full flex-col flex-wrap justify-center gap-2 sm:w-4/5 sm:flex-row">
