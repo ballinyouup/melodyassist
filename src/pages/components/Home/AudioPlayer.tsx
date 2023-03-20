@@ -12,7 +12,6 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title, desc, volume }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  
 
   const togglePlay = () => {
     isPlaying ? void audioRef.current?.pause() : void audioRef.current?.play();
@@ -26,8 +25,6 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title, desc, volume }) => {
       audioRef.current.currentTime = newTime;
     }
   };
-
-  
 
   const updateCurrentTime = useCallback(() => {
     setCurrentTime(audioRef.current?.currentTime as number);
@@ -66,10 +63,10 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title, desc, volume }) => {
   }
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex flex-col">
       <div className="flex justify-center">
-        <div className="flex w-full justify-start p-1 sm:w-3/5 md:w-3/5 lg:w-2/5">
-          <div className="flex w-full flex-row gap-4 rounded-2xl bg-neutral p-3">
+        <div className="flex w-full justify-start sm:w-96">
+          <div className="flex w-full flex-row gap-4 rounded-2xl bg-neutral p-3 sm:w-96">
             <button
               className="btn h-12 w-12 rounded-full p-1"
               onClick={togglePlay}

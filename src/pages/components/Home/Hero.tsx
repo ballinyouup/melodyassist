@@ -17,7 +17,7 @@ const Hero: React.FC<IHero> = ({ volume, handleVolumeChange }) => {
         <div className="hero-content flex w-full flex-col">
           <div className="flex w-full flex-row items-center justify-between">
             <Logo theme="night" />
-            <div className="flex w-52 flex-row items-center gap-4">
+            <div className="flex flex-row items-center gap-4 relative">
               <button onClick={() => setOpenVolume(!openVolume)}>
                 {volume === 0 ? (
                   <img
@@ -35,7 +35,7 @@ const Hero: React.FC<IHero> = ({ volume, handleVolumeChange }) => {
                   min="0"
                   max="100"
                   value={volume}
-                  className="range range-xs w-40"
+                  className="range range-xs w-40 absolute -rotate-90 top-32 -right-16 h-4"
                   onChange={handleVolumeChange}
                 />
               )}
