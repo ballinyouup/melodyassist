@@ -28,13 +28,13 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <Hero volume={volume} handleVolumeChange={handleVolumeChange} />
-        <div className="flex flex-col w-full items-center justify-center">
+        <div className="flex w-full flex-col items-center justify-center">
           <video
             src=""
             className="w-4/5 rounded-2xl sm:w-2/3 lg:w-1/2"
             controls
           ></video>
-          <div className="stats shadow p-10">
+          <div className="stats p-10 shadow">
             <div className="stat">
               <div className="stat-title">Statistic #1</div>
               <div className="stat-value">0,000</div>
@@ -47,7 +47,7 @@ const Home: NextPage = () => {
               <div className="stat-title">Statistic #3</div>
               <div className="stat-value">0,000</div>
             </div>
-          </div> 
+          </div>
         </div>
         <div className="flex w-full flex-row flex-wrap justify-center gap-2">
           <div className="flex w-full flex-col flex-wrap justify-center gap-2 sm:w-4/5 sm:flex-row">
