@@ -35,11 +35,10 @@ const PredictionCompleted = z.object({
   status: z.string(),
 });
 
-type PredictionCompleted = z.infer<typeof PredictionCompleted>
+type PredictionCompleted = z.infer<typeof PredictionCompleted>;
 
 export const audioRouter = createTRPCRouter({
-  getPrediction: protectedProcedure
-  .query(async ({ ctx }) => {
+  getPrediction: protectedProcedure.query(async ({ ctx }) => {
     const existingUser = await ctx.prisma.user.findUnique({
       where: { id: ctx.session.user.id },
     });
@@ -98,4 +97,48 @@ export const audioRouter = createTRPCRouter({
       const error = new Error("Unauthorized");
       throw error;
     }),
+  createAudio: protectedProcedure
+    .input(
+      z.object({
+        title: z.string(),
+        content: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      // Check if user exists
+      const existingUser = await ctx.prisma.user.findFirst({
+        where: { id: ctx.session.user.id },
+      });
+
+      if (existingUser) {
+        return ctx.prisma.user.update({
+          where: { id: existingUser.id },
+          data: {
+            posts: {
+              create: {
+                title: input.title,
+                content: input.content,
+              },
+            },
+          },
+        });
+      }
+      throw new Error("Error Creating Audio");
+    }),
+  getAudio: protectedProcedure.query(async ({ ctx }) => {
+    // Check if user exists
+    const existingUser = await ctx.prisma.user.findFirst({
+      where: { id: ctx.session.user.id },
+    });
+    if (existingUser) {
+      return ctx.prisma.user.findMany({
+        select: {
+          posts: {
+            select: { title: true, content: true },
+          },
+        },
+      });
+    }
+    throw new Error("Error Fetching Audio");
+  }),
 });

@@ -8,12 +8,7 @@ interface IAudioPlayer {
   volume: number;
 }
 
-const AudioPlayer: React.FC<IAudioPlayer> = ({
-  url,
-  title,
-  desc,
-  volume,
-}) => {
+const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title, desc, volume }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -71,7 +66,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
     <div className="flex flex-col">
       <div className="flex justify-center">
         <div className="flex w-full justify-start sm:w-96">
-          <div className="flex w-full flex-row gap-4 rounded-2xl p-3 sm:w-96 bg-base-300 text-base-content">
+          <div className="flex w-full flex-row gap-4 rounded-2xl bg-base-300 p-3 text-base-content sm:w-96">
             <button
               className="btn h-12 w-12 rounded-full p-1"
               onClick={togglePlay}
@@ -100,7 +95,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                 </div>
                 <div className="flex h-8 flex-col items-end">
                   <button
-                    className="btn btn-xs h-8 w-fit"
+                    className="btn-xs btn h-8 w-fit"
                     onClick={() => void handleDownloadClick()}
                   >
                     <img
@@ -114,7 +109,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
               <input
                 type="range"
                 min="0"
-                max={audioRef.current?.duration ?? "100" as string}
+                max={audioRef.current?.duration ? "100" : ""}
                 value={currentTime}
                 className="range range-xs"
                 onChange={handleTimeChange}

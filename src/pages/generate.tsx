@@ -19,11 +19,6 @@ interface Prediction {
   version?: string;
 }
 
-interface IAudio {
-  url: string;
-  seed: string;
-}
-
 const Generate = () => {
   const { status } = useSession({
     required: true,
@@ -31,7 +26,11 @@ const Generate = () => {
       void signIn(undefined, { redirect: true, callbackUrl: "/" });
     },
   });
-  const [audioUrls, setAudioUrls] = useState<IAudio[]>([]);
+  const trpc = api.useContext();
+  const { mutate: createAudio } = api.audio.createAudio.useMutation({
+    onSuccess: () => trpc.audio.getAudio.invalidate(),
+  });
+  const { data: userAudios } = api.audio.getAudio.useQuery();
   const [timer, setTimer] = useState<number>(0);
   const [prediction, setPrediction] = useState<Prediction | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -72,39 +71,26 @@ const Generate = () => {
   }, [audio]);
 
   useEffect(() => {
-    if (
-      prediction &&
-      !audioUrls.some((audioUrl) => audioUrl.url === prediction.output)
-    ) {
-      setAudioUrls((prev) => {
-        if (typeof prediction.output === "string") {
-          const seed = prediction.logs?.split(" ")[2]?.split("ffmpeg")[0];
-          return [
-            ...prev,
-            {
-              url: prediction.output,
-              seed: seed as string,
-            },
-          ];
-        }
-        return prev;
+    const seed = prediction?.logs?.split(" ")[2]?.split("ffmpeg")[0];
+    if (typeof seed === "string" && typeof prediction?.output === "string") {
+      createAudio({
+        title: seed,
+        content: prediction.output,
       });
     }
-  }, [audioUrls, prediction]);
+  }, [createAudio, prediction]);
 
   useEffect(() => {
     let intervalId: NodeJS.Timer | undefined;
-
     if (loading === true || audioLoading == true) {
       intervalId = setInterval(() => {
         setTimer((prevTimer) => prevTimer + 1);
       }, 1000);
     }
-
     return () => {
       clearInterval(intervalId);
     };
-  }, [timer, loading, audioLoading, prediction, audioUrls]);
+  }, [audioLoading, loading, timer]);
 
   if (status === "loading") {
     return <>Loading...</>;
@@ -179,16 +165,13 @@ const Generate = () => {
             )}
           </button>
         </div>
-        {(loading === false || audioLoading === false) &&
-          prediction &&
-          audioUrls?.map((audio) => (
-            <AudioPlayer
-              key={audio.seed}
-              url={audio.url}
-              title={audio.seed}
-              volume={80}
-            />
-          ))}
+        {userAudios?.map((userAudio) => {
+          return userAudio.posts.map((post) => (
+            <div key={post.title}>
+              <AudioPlayer url={post.content} title={post.title} volume={80} />
+            </div>
+          ));
+        })}
       </div>
     </>
   );
