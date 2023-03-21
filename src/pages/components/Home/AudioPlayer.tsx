@@ -109,7 +109,11 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title, desc, volume }) => {
               <input
                 type="range"
                 min="0"
-                max={audioRef.current?.duration ? "100" : ""}
+                max={
+                  audioRef.current?.duration
+                    ? audioRef.current?.duration
+                    : "100"
+                }
                 value={currentTime}
                 className="range range-xs"
                 onChange={handleTimeChange}
