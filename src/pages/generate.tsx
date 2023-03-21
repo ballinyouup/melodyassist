@@ -28,7 +28,10 @@ const Generate = () => {
   });
   const trpc = api.useContext();
   const { mutate: createAudio } = api.audio.createAudio.useMutation({
-    onSuccess: () => trpc.audio.getAudio.invalidate(),
+    onSuccess: () => {
+      void trpc.audio.getAudio.invalidate();
+      setPrediction(undefined);
+    },
   });
   const { data: userAudios } = api.audio.getAudio.useQuery();
   const [timer, setTimer] = useState<number>(0);
