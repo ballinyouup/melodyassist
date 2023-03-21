@@ -99,7 +99,7 @@ const Generate = () => {
   return (
     <>
       <div
-        className="flex h-[91vh] w-full flex-col items-center text-neutral"
+        className="flex h-full w-full flex-col items-center text-neutral"
         data-theme={userData.data?.theme}
       >
         <Head>
@@ -165,13 +165,19 @@ const Generate = () => {
             )}
           </button>
         </div>
-        {userAudios?.map((userAudio) => {
-          return userAudio.posts.map((post) => (
-            <div key={post.title}>
-              <AudioPlayer url={post.content} title={post.title} volume={80} />
-            </div>
-          ));
-        })}
+        <div className="mt-20">
+          {userAudios?.map((userAudio) => {
+            return userAudio.posts.map((post) => (
+              <div key={post.title}>
+                <AudioPlayer
+                  url={post.content}
+                  title={post.title}
+                  volume={80}
+                />
+              </div>
+            ));
+          })}
+        </div>
       </div>
     </>
   );
