@@ -66,8 +66,8 @@ const Generate = () => {
   };
 
   useEffect(() => {
-    void trpc.audio.getAudio.invalidate();
-  }, [trpc.audio.getAudio]);
+    void trpc.invalidate();
+  }, [trpc]);
 
   useEffect(() => {
     if (audio && (audio.status === "succeeded" || audio.status === "failed")) {
