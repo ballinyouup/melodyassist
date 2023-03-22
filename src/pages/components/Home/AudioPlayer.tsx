@@ -65,7 +65,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title, desc, volume }) => {
   return (
     <div className="flex flex-col">
       <div className="flex justify-center">
-        <div className="flex w-full justify-start sm:w-96">
+        <div className="flex w-screen justify-start sm:w-96">
           <div className="flex w-full flex-row gap-4 rounded-2xl bg-base-300 p-3 text-base-content sm:w-96">
             <button
               className="btn h-12 w-12 rounded-full p-1"
@@ -110,9 +110,9 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title, desc, volume }) => {
                 type="range"
                 min="0"
                 max={
-                  audioRef.current?.duration
-                    ? audioRef.current?.duration
-                    : "100"
+                  audioRef.current
+                    ? audioRef.current.duration
+                    : "7.5"
                 }
                 value={currentTime}
                 className="range range-xs"
