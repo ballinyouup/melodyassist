@@ -211,7 +211,7 @@ const Generate = () => {
           {userAudios?.map((userAudio) => {
             return userAudio.posts.slice().reverse().map((post) => (
               <div key={post.title}>
-                {Date.now() - post.createdAt.getMilliseconds() > 3_600_000 ? (
+                {Date.now() - post.createdAt.getMilliseconds() < 3_600_000 ? (
                   <AudioPlayerDisabled title={post.title} />
                 ) : (
                   <AudioPlayer
