@@ -137,7 +137,7 @@ export const audioRouter = createTRPCRouter({
             select: {
               title: true,
               content: true,
-              createdAt: true
+              createdAt: true,
             },
           },
         },
@@ -145,7 +145,7 @@ export const audioRouter = createTRPCRouter({
     }
     throw new Error("Error Fetching Audio");
   }),
-  deleteAudio: protectedProcedure.mutation(async ({ ctx }) => {
+  deleteAllAudio: protectedProcedure.mutation(async ({ ctx }) => {
     const existingUser = await ctx.prisma.user.findFirst({
       where: { id: ctx.session.user.id },
     });

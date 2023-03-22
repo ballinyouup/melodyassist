@@ -34,7 +34,7 @@ const Generate = () => {
       setPrediction(undefined);
     },
   });
-  const { mutate: deleteAudio } = api.audio.deleteAudio.useMutation({
+  const { mutate: deleteAllAudio } = api.audio.deleteAllAudio.useMutation({
     onSuccess: async () => {
       await trpc.audio.getAudio.invalidate();
     },
@@ -72,7 +72,7 @@ const Generate = () => {
   };
 
   const handleDelete = () => {
-    deleteAudio();
+    deleteAllAudio();
   };
 
   useEffect(() => {
@@ -209,7 +209,7 @@ const Generate = () => {
             </div>
           </div>
           {userAudios?.map((userAudio) => {
-            return userAudio.posts.map((post) => (
+            return userAudio.posts.slice().reverse().map((post) => (
               <div key={post.title}>
                 {Date.now() - post.createdAt.getMilliseconds() > 3_600_000 ? (
                   <AudioPlayerDisabled title={post.title} />
