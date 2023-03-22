@@ -4,6 +4,7 @@ import { signIn, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 import Head from "next/head";
 import AudioPlayer from "./components/Home/AudioPlayer";
+import AudioPlayerDisabled from "./components/Home/AudioPlayerDisabled";
 
 interface Prediction {
   completed_at?: string | null;
@@ -31,6 +32,11 @@ const Generate = () => {
     onSuccess: () => {
       void trpc.audio.getAudio.invalidate();
       setPrediction(undefined);
+    },
+  });
+  const { mutate: deleteAudio } = api.audio.deleteAudio.useMutation({
+    onSuccess: async () => {
+      await trpc.audio.getAudio.invalidate();
     },
   });
   const { data: userAudios } = api.audio.getAudio.useQuery();
@@ -63,6 +69,10 @@ const Generate = () => {
     setTimer(0);
     setLoading(true);
     setPrediction(firstData);
+  };
+
+  const handleDelete = () => {
+    deleteAudio();
   };
 
   useEffect(() => {
@@ -106,7 +116,7 @@ const Generate = () => {
   return (
     <>
       <div
-        className="flex h-full w-full flex-col items-center text-neutral"
+        className="flex h-screen w-full flex-col items-center text-neutral"
         data-theme={userData.data?.theme}
       >
         <Head>
@@ -118,7 +128,7 @@ const Generate = () => {
             <link rel="icon" href="/logo-light.png" />
           )}
         </Head>
-        <div className="flex w-full max-w-md flex-col items-start gap-5 rounded-lg bg-gray-300 p-12">
+        <div className="flex w-full max-w-md flex-col items-start gap-5 rounded-lg bg-base-300 p-12 text-base-content">
           {timer > 5 && (
             <div className="alert w-fit shadow-lg">
               <div>
@@ -172,15 +182,44 @@ const Generate = () => {
             )}
           </button>
         </div>
-        <div className="mt-20">
+        <div className="mt-5 mb-5 flex flex-col gap-2">
+          <div className="alert shadow-lg">
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                className="h-6 w-6 flex-shrink-0 stroke-info"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              <span className="text-base-content">
+                Audio Deletes after 1 hour.
+              </span>
+            </div>
+            <div className="flex-none">
+              <button className="btn-primary btn-sm btn" onClick={handleDelete}>
+                Delete all audio
+              </button>
+            </div>
+          </div>
           {userAudios?.map((userAudio) => {
             return userAudio.posts.map((post) => (
               <div key={post.title}>
-                <AudioPlayer
-                  url={post.content}
-                  title={post.title}
-                  volume={80}
-                />
+                {Date.now() - post.createdAt.getMilliseconds() > 3_600_000 ? (
+                  <AudioPlayerDisabled title={post.title} />
+                ) : (
+                  <AudioPlayer
+                    url={post.content}
+                    title={post.title}
+                    volume={80}
+                  />
+                )}
               </div>
             ));
           })}

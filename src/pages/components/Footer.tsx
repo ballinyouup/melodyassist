@@ -1,6 +1,13 @@
+import { api } from "~/utils/api";
+
 const Footer = () => {
+
+  const userData = api.account.getUserData.useQuery(undefined, {
+    retry: false,
+  });
+
   return (
-    <footer className="footer footer-center rounded p-10 text-base-content">
+    <footer className="footer footer-center rounded p-10 text-base-content" data-theme={userData.data?.theme ?? "winter"}>
       <div>
         <div className="grid grid-flow-col gap-4">
           <a>

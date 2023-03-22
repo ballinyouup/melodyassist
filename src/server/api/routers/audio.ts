@@ -134,11 +134,28 @@ export const audioRouter = createTRPCRouter({
       return ctx.prisma.user.findMany({
         select: {
           posts: {
-            select: { title: true, content: true },
+            select: {
+              title: true,
+              content: true,
+              createdAt: true
+            },
           },
         },
       });
     }
     throw new Error("Error Fetching Audio");
+  }),
+  deleteAudio: protectedProcedure.mutation(async ({ ctx }) => {
+    const existingUser = await ctx.prisma.user.findFirst({
+      where: { id: ctx.session.user.id },
+    });
+    if (existingUser) {
+      return ctx.prisma.post.deleteMany({
+        where: {
+          authorId: existingUser.id,
+        },
+      });
+    }
+    throw new Error("Error Deleting Audio");
   }),
 });
