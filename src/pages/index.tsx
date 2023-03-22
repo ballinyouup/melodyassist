@@ -34,16 +34,16 @@ const Home: NextPage = () => {
             className="w-4/5 rounded-2xl sm:w-2/3 lg:w-1/2"
             controls
           ></video>
-          <div className="stats p-10 shadow">
-            <div className="stat">
+          <div className="stats p-5 shadow grid-flow-row sm:grid-flow-col w-full sm:w-fit justify-center">
+            <div className="stat border-none">
               <div className="stat-title">Statistic #1</div>
               <div className="stat-value">0,000</div>
             </div>
-            <div className="stat">
+            <div className="stat border-none">
               <div className="stat-title">Statistic #2</div>
               <div className="stat-value">0,000</div>
             </div>
-            <div className="stat">
+            <div className="stat border-none">
               <div className="stat-title">Statistic #3</div>
               <div className="stat-value">0,000</div>
             </div>
