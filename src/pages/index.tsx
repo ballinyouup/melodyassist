@@ -85,7 +85,7 @@ const Home: NextPage = () => {
       </main>
       <div className="flex justify-center">
         <div className="mt-20 flex w-full max-w-7xl flex-col items-start justify-center">
-          <Footer />
+          <Footer theme="night"/>
         </div>
       </div>
     </div>
