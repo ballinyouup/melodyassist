@@ -231,7 +231,7 @@ const Generate = () => {
           </div>
           <div className="relative flex w-full flex-row items-center gap-4 rounded-xl p-3">
             <button
-              className="invert"
+              className={userData.data?.theme === "night" ? "" : "invert"}
               onClick={() => setVolume(volume === 0 ? 70 : 0)}
             >
               {volume === 0 ? (
@@ -240,15 +240,19 @@ const Generate = () => {
                 <img src="audio.png" alt="audio button" className="w-8" />
               )}
             </button>
-
-            <input
-              type="range"
-              min="0"
-              max="100"
-              value={volume}
-              className="range range-xs w-full"
-              onChange={handleVolumeChange}
-            />
+            <div
+              className="tooltip tooltip-right tooltip-primary w-full"
+              data-tip={volume}
+            >
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={volume}
+                className="range range-xs w-full"
+                onChange={handleVolumeChange}
+              />
+            </div>
           </div>
           {userAudios?.map((userAudio) => {
             return userAudio.posts

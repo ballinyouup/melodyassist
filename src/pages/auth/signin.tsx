@@ -72,7 +72,11 @@ export default function SignIn({
                   />
                 </svg>
               </button>
-              <span>{router.query.error ?? ""}</span>
+              <span>
+                {router.query.error === "OAuthAccountNotLinked"
+                  ? "Wrong Sign In Method"
+                  : "Error Signing In"}
+              </span>
             </div>
           </div>
         )}

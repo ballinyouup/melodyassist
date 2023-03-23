@@ -68,10 +68,11 @@ const Settings: React.FC = () => {
                 <td className="bg-base-300">
                   <div className="px-6">
                     <span className="text-base">
-                      Profile Image:{" "}
+                      Profile Image:
                       <img
                         src={userData.data?.image ?? ""}
                         alt="profile image"
+                        className="w-40"
                       />
                     </span>
                   </div>

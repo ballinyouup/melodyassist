@@ -7,14 +7,16 @@ export const accountRouter = createTRPCRouter({
   // 1. Retrieves the email address associated with the session.
   // 2. Deletes the user account with the retrieved email address using the Prisma delete method.
   deleteAccount: protectedProcedure.mutation(async ({ ctx }) => {
-    return await ctx.prisma.user.delete({
-      where: {
-        email:
-          ctx.session?.user.email !== null
-            ? ctx.session?.user.email
-            : undefined,
-      },
+    // Check if the new username is already taken
+    const existingUser = await ctx.prisma.user.findFirst({
+      where: { id: ctx.session.user.id },
     });
+    if (existingUser) {
+      return await ctx.prisma.user.delete({
+        where: { id: existingUser.id },
+      });
+    }
+    throw new Error("Error Deleting Account");
   }),
 
   getUserData: protectedProcedure.query(async ({ ctx }) => {
