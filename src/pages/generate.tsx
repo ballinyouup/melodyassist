@@ -149,7 +149,7 @@ const Generate = () => {
             <link rel="icon" href="/logo-light.png" />
           )}
         </Head>
-        <div className="flex w-full max-w-md flex-col items-start gap-5 rounded-lg bg-base-300 p-12 text-base-content">
+        <div className="flex w-full max-w-md flex-col items-start gap-5 rounded-lg bg-base-300 p-4 text-base-content sm:p-12">
           {timer > 5 && (
             <div className="alert w-fit shadow-lg">
               <div>
@@ -176,7 +176,7 @@ const Generate = () => {
             <span className="text-lg font-bold">Time Elapsed: {timer}</span>
           </div>
           <button
-            className="btn-primary btn flex w-full max-w-sm items-center justify-center gap-4"
+            className="btn-primary btn flex w-full items-center justify-center gap-4 md:max-w-sm"
             disabled={audioLoading || loading}
             onClick={(e) => void handleSubmit(e)}
           >
@@ -204,7 +204,7 @@ const Generate = () => {
           </button>
         </div>
         <div className="mt-2 mb-5 flex w-full max-w-md flex-col gap-2">
-          <div className="alert flex w-screen flex-row flex-wrap items-center justify-center shadow-lg sm:w-full">
+          <div className="alert flex w-full flex-row flex-wrap items-center justify-center shadow-lg sm:w-full">
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -224,12 +224,15 @@ const Generate = () => {
               </span>
             </div>
             <div>
-              <label htmlFor="my-modal-4" className="btn-primary btn-sm btn">
+              <label
+                htmlFor="my-modal-4"
+                className="btn-primary btn-sm btn w-full"
+              >
                 Delete All Audio
               </label>
             </div>
           </div>
-          <div className="relative flex w-full flex-row items-center gap-4 rounded-xl p-3">
+          <div className="flex w-full flex-row items-center gap-4 rounded-xl p-3">
             <button
               className={userData.data?.theme === "night" ? "" : "invert"}
               onClick={() => setVolume(volume === 0 ? 70 : 0)}
@@ -240,18 +243,20 @@ const Generate = () => {
                 <img src="audio.png" alt="audio button" className="w-8" />
               )}
             </button>
-            <div
-              className="tooltip tooltip-right tooltip-primary w-full"
-              data-tip={volume}
-            >
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={volume}
-                className="range range-xs w-full"
-                onChange={handleVolumeChange}
-              />
+            <div className="max-w-md w-full">
+              <div
+                className="tooltip tooltip-bottom tooltip-primary w-full"
+                data-tip={volume}
+              >
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={volume}
+                  className="range range-xs w-full"
+                  onChange={handleVolumeChange}
+                />
+              </div>
             </div>
           </div>
           {userAudios?.map((userAudio) => {
