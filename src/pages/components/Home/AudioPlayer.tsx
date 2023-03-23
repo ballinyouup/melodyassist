@@ -6,9 +6,18 @@ interface IAudioPlayer {
   title?: string | undefined;
   desc?: string;
   volume: number;
+  createdAt?: string;
+  generatePage?: boolean;
 }
 
-const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title, desc, volume }) => {
+const AudioPlayer: React.FC<IAudioPlayer> = ({
+  url,
+  title,
+  desc,
+  volume,
+  createdAt,
+  generatePage = false,
+}) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -65,8 +74,8 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title, desc, volume }) => {
   return (
     <div className="flex flex-col">
       <div className="flex justify-center">
-        <div className="flex w-screen justify-start sm:w-96">
-          <div className="flex w-full flex-row gap-4 rounded-2xl bg-base-300 p-3 text-base-content sm:w-96">
+        <div className="flex w-screen justify-start sm:w-full">
+          <div className={`flex w-full flex-row gap-4 rounded-2xl bg-base-300 p-3 text-base-content ${generatePage ? "w-full": "sm:w-96"}`}>
             <button
               className="btn h-12 w-12 rounded-full p-1"
               onClick={togglePlay}
@@ -88,9 +97,19 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({ url, title, desc, volume }) => {
             <div className="-mt-2 flex w-full flex-col leading-none">
               <div className="flex flex-row justify-between">
                 <div className="flex flex-col">
-                  <span className="text-xl font-medium">
+                  <span
+                    className={`${
+                      generatePage ? "text-md" : "text-xl"
+                    } font-medium`}
+                  >
                     {desc ? desc : "Seed: "}
                     {title}
+                    {generatePage && (
+                      <>
+                        <br />
+                        <span className="text-sm">{createdAt}</span>
+                      </>
+                    )}
                   </span>
                 </div>
                 <div className="flex h-8 flex-col items-end">

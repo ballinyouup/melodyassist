@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
 import Layout from "./Layout";
 import { signIn, useSession } from "next-auth/react";
@@ -39,6 +40,7 @@ const Generate = () => {
       await trpc.audio.getAudio.invalidate();
     },
   });
+  const [volume, setVolume] = useState<number>(80);
   const { data: userAudios } = api.audio.getAudio.useQuery();
   const [timer, setTimer] = useState<number>(0);
   const [prediction, setPrediction] = useState<Prediction | undefined>();
@@ -73,6 +75,10 @@ const Generate = () => {
 
   const handleDelete = () => {
     deleteAllAudio();
+  };
+
+  const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setVolume(Number(event.target.value));
   };
 
   useEffect(() => {
@@ -117,9 +123,14 @@ const Generate = () => {
     <>
       <input type="checkbox" id="my-modal-4" className="modal-toggle" />
       <label htmlFor="my-modal-4" className="modal cursor-pointer">
-        <label className="modal-box relative w-fit flex flex-col items-center" htmlFor="">
+        <label
+          className="modal-box relative flex w-fit flex-col items-center"
+          htmlFor=""
+        >
           <p className="pt-2">Are you sure you want to delete all audio?</p>
-          <span className="py-2"><i>* Warning Audio cannot be recovered *</i></span>
+          <span className="py-2">
+            <i>* Warning Audio cannot be recovered *</i>
+          </span>
           <button className="btn-error btn-sm btn" onClick={handleDelete}>
             Delete All Audio
           </button>
@@ -192,8 +203,8 @@ const Generate = () => {
             )}
           </button>
         </div>
-        <div className="mt-2 mb-5 flex flex-col gap-2">
-          <div className="alert shadow-lg w-screen sm:w-fit flex flex-row flex-wrap items-center justify-center">
+        <div className="mt-2 mb-5 flex w-full max-w-md flex-col gap-2">
+          <div className="alert flex w-screen flex-row flex-wrap items-center justify-center shadow-lg sm:w-full">
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -218,20 +229,43 @@ const Generate = () => {
               </label>
             </div>
           </div>
+          <div className="relative flex w-full flex-row items-center gap-4 rounded-xl p-3">
+            <button
+              className="invert"
+              onClick={() => setVolume(volume === 0 ? 70 : 0)}
+            >
+              {volume === 0 ? (
+                <img src="volume-mute.png" alt="volume muted" className="w-7" />
+              ) : (
+                <img src="audio.png" alt="audio button" className="w-8" />
+              )}
+            </button>
+
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={volume}
+              className="range range-xs w-full"
+              onChange={handleVolumeChange}
+            />
+          </div>
           {userAudios?.map((userAudio) => {
             return userAudio.posts
               .slice()
               .reverse()
               .map((post) => (
                 <div key={post.title}>
-                  {Date.now() - post.createdAt.getMilliseconds() > 3_600_000 ? (
-                    <AudioPlayerDisabled title={post.title} audioId={post.id}/>
-                  ) : (
+                  {Date.now() - post.createdAt.getMilliseconds() > 3600000 ? (
                     <AudioPlayer
+                      generatePage
                       url={post.content}
                       title={post.title}
-                      volume={80}
+                      createdAt={`Created At: ${post.createdAt.toLocaleDateString()} ${post.createdAt.toLocaleTimeString()}`}
+                      volume={volume}
                     />
+                  ) : (
+                    <AudioPlayerDisabled title={post.title} audioId={post.id} />
                   )}
                 </div>
               ));
