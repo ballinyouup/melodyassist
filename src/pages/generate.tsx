@@ -225,7 +225,7 @@ const Generate = () => {
               .map((post) => (
                 <div key={post.title}>
                   {Date.now() - post.createdAt.getMilliseconds() > 3_600_000 ? (
-                    <AudioPlayerDisabled title={post.title} />
+                    <AudioPlayerDisabled title={post.title} audioId={post.id}/>
                   ) : (
                     <AudioPlayer
                       url={post.content}

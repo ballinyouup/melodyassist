@@ -138,6 +138,7 @@ export const audioRouter = createTRPCRouter({
               title: true,
               content: true,
               createdAt: true,
+              id: true
             },
           },
         },
@@ -153,6 +154,21 @@ export const audioRouter = createTRPCRouter({
       return ctx.prisma.post.deleteMany({
         where: {
           authorId: existingUser.id,
+        },
+      });
+    }
+    throw new Error("Error Deleting Audio");
+  }),
+  deleteAudio: protectedProcedure
+  .input(z.string())
+  .mutation(async ({ ctx, input }) => {
+    const existingUser = await ctx.prisma.user.findFirst({
+      where: { id: ctx.session.user.id },
+    });
+    if (existingUser) {
+      return ctx.prisma.post.delete({
+        where: {
+          id: input
         },
       });
     }
