@@ -47,7 +47,7 @@ const Hero: React.FC<IHero> = ({ volume, handleVolumeChange }) => {
               Elevate Your Creative Workflow with AI
             </h1>
             <p className="py-6 sm:text-xl">
-              Access Free Audio Samples, Lyrics, and Cover Art to Create,
+              Access Free Audio Samples to Create,
               Collaborate, and Share
             </p>
             <button

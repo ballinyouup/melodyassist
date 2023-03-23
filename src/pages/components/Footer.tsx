@@ -52,7 +52,7 @@ const Footer: React.FC<IFooter> = ({ theme }) => {
         </div>
       </div>
       <div>
-        <p>Copyright © 2023 - All right reserved by Melody Assist</p>
+        <p>Copyright © 2023 - All rights reserved by Melody Assist</p>
       </div>
     </footer>
   );

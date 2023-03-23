@@ -6,12 +6,14 @@ import { api } from "~/utils/api";
 import AudioPlayer from "./components/Home/AudioPlayer";
 import Footer from "./components/Footer";
 import { useState } from "react";
+import HomeBefore from "./components/Home/HomeBefore";
+import HomeAfter from "./components/Home/HomeAfter";
 
 const Home: NextPage = () => {
   const [volume, setVolume] = useState<number>(80);
   const [showExtra, setShowExtra] = useState<boolean>(false);
   const userData = api.account.getUserData.useQuery();
-
+  const [active, setActive] = useState<boolean>(false);
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVolume(Number(event.target.value));
   };
@@ -34,32 +36,44 @@ const Home: NextPage = () => {
             className="w-4/5 rounded-2xl sm:w-2/3 lg:w-1/2"
             controls
           ></video>
-          <div className="stats p-5 shadow grid-flow-row sm:grid-flow-col w-full sm:w-fit justify-center">
+          <div className="stats w-full grid-flow-row justify-center p-5 shadow sm:w-fit sm:grid-flow-col">
             <div className="stat border-none">
-              <div className="stat-title">Statistic #1</div>
-              <div className="stat-value">0,000</div>
+              <div className="stat-title">Drum Loops Generated</div>
+              <div className="stat-value">156,896</div>
             </div>
             <div className="stat border-none">
               <div className="stat-title">Statistic #2</div>
               <div className="stat-value">0,000</div>
             </div>
-            <div className="stat border-none">
-              <div className="stat-title">Statistic #3</div>
-              <div className="stat-value">0,000</div>
-            </div>
+          </div>
+        </div>
+        <div className="mb-5 flex flex-row items-center justify-center">
+          <div className="tabs tabs-boxed w-fit gap-1 bg-neutral p-2">
+            <button
+              onClick={() => (active ? setActive(!active) : null)}
+              className={`tab h-10 font-poppins text-lg font-semibold ${
+                !active ? "tab-active" : ""
+              }`}
+            >
+              Before
+            </button>
+            <button
+              onClick={() => (!active ? setActive(!active) : null)}
+              className={`tab h-10 font-poppins text-lg font-semibold ${
+                active ? "tab-active" : ""
+              }`}
+            >
+              After
+            </button>
           </div>
         </div>
         <div className="flex w-full flex-row flex-wrap justify-center gap-2">
           <div className="flex w-full flex-col flex-wrap justify-center gap-2 sm:w-4/5 sm:flex-row">
-            <AudioPlayer url="/Seed-42573_.mp3" title="42573" volume={volume} />
-            <AudioPlayer url="/Seed-61365_.mp3" title="61365" volume={volume} />
-            <AudioPlayer url="/Seed-36543_.mp3" title="36543" volume={volume} />
-            <AudioPlayer url="/Seed-59440_.mp3" title="59440" volume={volume} />
-            <AudioPlayer url="/Seed-46452_.mp3" title="46452" volume={volume} />
-            <AudioPlayer url="/Seed-42573_.mp3" title="42573" volume={volume} />
-            <AudioPlayer url="/Seed-61365_.mp3" title="61365" volume={volume} />
-            <AudioPlayer url="/Seed-36543_.mp3" title="36543" volume={volume} />
-            <AudioPlayer url="/Seed-59440_.mp3" title="59440" volume={volume} />
+            {!active ? (
+              <HomeBefore volume={volume} />
+            ) : (
+              <HomeAfter volume={volume} />
+            )}
           </div>
         </div>
         <div className="flex justify-center p-6">
@@ -85,7 +99,7 @@ const Home: NextPage = () => {
       </main>
       <div className="flex justify-center">
         <div className="mt-20 flex w-full max-w-7xl flex-col items-start justify-center">
-          <Footer theme="night"/>
+          <Footer theme="night" />
         </div>
       </div>
     </div>

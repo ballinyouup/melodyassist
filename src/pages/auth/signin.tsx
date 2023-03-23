@@ -11,6 +11,7 @@ import { toast } from "react-hot-toast";
 import { api } from "~/utils/api";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function SignIn({
   providers,
@@ -18,15 +19,15 @@ export default function SignIn({
   const sessionClient = api.useContext();
   const [email, setEmail] = useState<string>();
   const router = useRouter();
+  const [alert, setAlert] = useState<boolean>(Boolean(router.query.error));
   const handleSignIn = async (providerName: string) => {
     const result: SignInResponse | undefined = await signIn(providerName, {
       redirect: true,
-      callbackUrl: "/",
+      callbackUrl: "/generate",
     });
     if (result !== undefined && result.error) {
       toast.error("Error Signing In. Please try again");
       void sessionClient.invalidate();
-      void router.push("/auth/error");
     }
   };
 
@@ -35,9 +36,12 @@ export default function SignIn({
   }, [sessionClient]);
 
   const providerImages: JSX.Element[] = [
-    <>
-      <img key={0} src="/email.png" className="w-6" alt="Email Sign In" />
-    </>,
+    <img
+      key={0}
+      src="/email.png"
+      className="mr-1 ml-1 w-6"
+      alt="Email Sign In"
+    />,
     <img
       key={1}
       src="/discordIconWhite.png"
@@ -46,11 +50,39 @@ export default function SignIn({
     />,
     <img key={2} src="/google.png" className="h-7 w-8" alt="Google Sign In" />,
   ];
+
   return (
     <div className="hero min-h-screen bg-base-200 ">
       <div className="hero-content w-96 flex-col">
+        {alert && (
+          <div className={`alert absolute top-10 w-80 bg-rose-900 text-white`}>
+            <div>
+              <button onClick={() => setAlert(!alert)}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 flex-shrink-0 stroke-current"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </button>
+              <span>{router.query.error ?? ""}</span>
+            </div>
+          </div>
+        )}
         <div className="text-center lg:text-left">
-          <h1 className="text-3xl font-bold">Melody Assist</h1>
+          <Link
+            href="/"
+            className="btn-ghost btn h-full w-full p-4 text-3xl font-bold"
+          >
+            Melody Assist
+          </Link>
         </div>
         <div className="card w-full max-w-sm flex-shrink-0 bg-base-100 shadow-2xl">
           <div className="card-body">
@@ -71,7 +103,7 @@ export default function SignIn({
                 Object.values(providers).map((provider, index) => (
                   <button
                     key={provider.name}
-                    className="btn h-16 w-full"
+                    className="btn flex h-16 w-full flex-row justify-start gap-4 pl-20 font-poppins text-lg font-semibold"
                     onClick={
                       index === 0
                         ? () => void signIn(provider.id, { email: email })

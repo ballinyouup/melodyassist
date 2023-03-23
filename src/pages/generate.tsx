@@ -24,7 +24,7 @@ const Generate = () => {
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
-      void signIn(undefined, { redirect: true, callbackUrl: "/" });
+      void signIn(undefined, { redirect: true, callbackUrl: "/generate" });
     },
   });
   const trpc = api.useContext();
@@ -209,19 +209,22 @@ const Generate = () => {
             </div>
           </div>
           {userAudios?.map((userAudio) => {
-            return userAudio.posts.slice().reverse().map((post) => (
-              <div key={post.title}>
-                {Date.now() - post.createdAt.getMilliseconds() < 3_600_000 ? (
-                  <AudioPlayerDisabled title={post.title} />
-                ) : (
-                  <AudioPlayer
-                    url={post.content}
-                    title={post.title}
-                    volume={80}
-                  />
-                )}
-              </div>
-            ));
+            return userAudio.posts
+              .slice()
+              .reverse()
+              .map((post) => (
+                <div key={post.title}>
+                  {Date.now() - post.createdAt.getMilliseconds() > 3_600_000 ? (
+                    <AudioPlayerDisabled title={post.title} />
+                  ) : (
+                    <AudioPlayer
+                      url={post.content}
+                      title={post.title}
+                      volume={80}
+                    />
+                  )}
+                </div>
+              ));
           })}
         </div>
       </div>
