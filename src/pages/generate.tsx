@@ -192,8 +192,8 @@ const Generate = () => {
             )}
           </button>
         </div>
-        <div className="mt-5 mb-5 flex flex-col gap-2">
-          <div className="alert shadow-lg">
+        <div className="mt-2 mb-5 flex flex-col gap-2">
+          <div className="alert shadow-lg w-screen sm:w-fit flex flex-row flex-wrap items-center justify-center">
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -212,7 +212,7 @@ const Generate = () => {
                 Audio Deletes after 1 hour.
               </span>
             </div>
-            <div className="flex-none">
+            <div>
               <label htmlFor="my-modal-4" className="btn-primary btn-sm btn">
                 Delete All Audio
               </label>
