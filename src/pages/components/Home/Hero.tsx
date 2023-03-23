@@ -43,7 +43,7 @@ const Hero: React.FC<IHero> = ({ volume, handleVolumeChange }) => {
           </div>
 
           <div className="flex max-w-2xl flex-col items-center justify-start p-8 text-center text-neutral-content sm:mt-20">
-            <h1 className="sm:text-7xl font-bold text-3xl">
+            <h1 className="sm:text-6xl font-bold text-3xl">
               Elevate Your Creative Workflow with AI
             </h1>
             <p className="py-6 sm:text-xl">

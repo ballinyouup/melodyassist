@@ -115,6 +115,16 @@ const Generate = () => {
 
   return (
     <>
+      <input type="checkbox" id="my-modal-4" className="modal-toggle" />
+      <label htmlFor="my-modal-4" className="modal cursor-pointer">
+        <label className="modal-box relative w-fit flex flex-col items-center" htmlFor="">
+          <p className="pt-2">Are you sure you want to delete all audio?</p>
+          <span className="py-2"><i>* Warning Audio cannot be recovered *</i></span>
+          <button className="btn-error btn-sm btn" onClick={handleDelete}>
+            Delete All Audio
+          </button>
+        </label>
+      </label>
       <div
         className="flex h-screen w-full flex-col items-center text-neutral"
         data-theme={userData.data?.theme}
@@ -203,9 +213,9 @@ const Generate = () => {
               </span>
             </div>
             <div className="flex-none">
-              <button className="btn-primary btn-sm btn" onClick={handleDelete}>
-                Delete all audio
-              </button>
+              <label htmlFor="my-modal-4" className="btn-primary btn-sm btn">
+                Delete All Audio
+              </label>
             </div>
           </div>
           {userAudios?.map((userAudio) => {
