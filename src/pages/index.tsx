@@ -31,19 +31,14 @@ const Home: NextPage = () => {
       <main>
         <Hero volume={volume} handleVolumeChange={handleVolumeChange} />
         <div className="flex w-full flex-col items-center justify-center">
-          <video
-            src=""
-            className="w-4/5 rounded-2xl sm:w-2/3 lg:w-1/2"
-            controls
-          ></video>
           <div className="stats w-full grid-flow-row justify-center p-5 shadow sm:w-fit sm:grid-flow-col">
             <div className="stat border-none">
               <div className="stat-title">Drum Loops Generated</div>
-              <div className="stat-value">156,896</div>
+              <div className="stat-value">9,999</div>
             </div>
             <div className="stat border-none">
-              <div className="stat-title">Statistic #2</div>
-              <div className="stat-value">0,000</div>
+              <div className="stat-title">Total Users</div>
+              <div className="stat-value">9,999</div>
             </div>
           </div>
         </div>

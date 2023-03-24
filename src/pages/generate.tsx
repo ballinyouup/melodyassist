@@ -262,7 +262,7 @@ const Generate = () => {
                   ></path>
                 </svg>
                 <span>
-                  System booting up. System takes around 3 minutes to boot.
+                  System booting up. System takes around 3-5 minutes to boot.
                 </span>
               </div>
             </div>
