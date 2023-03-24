@@ -43,7 +43,7 @@ const Hero: React.FC<IHero> = ({ volume, handleVolumeChange }) => {
           </div>
           <div className="relative flex h-96 w-full flex-col items-center justify-center overflow-hidden bg-base-100 p-8 text-center text-white sm:mt-20">
             <img
-              className="absolute -top-40 max-w-5xl z-0 w-full mix-blend-screen brightness-[10%]"
+              className="absolute -top-40 sm:max-w-5xl min-w-[600px] min-h-[600px] z-0 w-full mix-blend-screen brightness-[10%]"
               src="/home-image.png"
               alt="music producer looking at pc"
             />
