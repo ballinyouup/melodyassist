@@ -116,7 +116,102 @@ const Generate = () => {
   }, [audioLoading, loading, timer]);
 
   if (status === "loading") {
-    return <>Loading...</>;
+    return (
+      <div className="h-screen w-full" data-theme="winter">
+        <input type="checkbox" id="my-modal-4" className="modal-toggle" />
+        <label htmlFor="my-modal-4" className="modal cursor-pointer">
+          <label
+            className="modal-box relative flex w-fit flex-col items-center"
+            htmlFor=""
+          >
+            <p className="pt-2">Are you sure you want to delete all audio?</p>
+            <span className="py-2">
+              <i>* Warning Audio cannot be recovered *</i>
+            </span>
+            <button className="btn-error btn-sm btn">Delete All Audio</button>
+          </label>
+        </label>
+        <div
+          className="flex h-screen w-full flex-col items-center text-neutral"
+          data-theme="winter"
+        >
+          <Head>
+            <title>Melody Assist</title>
+            <meta name="description" content="Level up your Music with AI" />
+            <link rel="icon" href="/logo-dark.png" />
+          </Head>
+          <div className="flex w-full max-w-md flex-col items-start gap-5 rounded-lg bg-base-300 p-4 text-base-content sm:p-12">
+            <div className="flex flex-col">
+              <span className="text-lg font-bold">Time Elapsed: 0</span>
+            </div>
+            <button className="btn-primary btn flex w-full items-center justify-center gap-4 md:max-w-sm">
+              <span>Generate</span>
+            </button>
+          </div>
+          <div className="mt-2 mb-5 flex w-full max-w-md flex-col gap-2">
+            <div className="alert flex w-full flex-row flex-wrap items-center justify-center shadow-lg sm:w-full">
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className="h-6 w-6 flex-shrink-0 stroke-info"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+                <span className="text-base-content">
+                  Audio Deletes after 1 hour.
+                </span>
+              </div>
+              <div>
+                <label
+                  htmlFor="my-modal-4"
+                  className="btn-primary btn-sm btn w-full"
+                >
+                  Delete All Audio
+                </label>
+              </div>
+            </div>
+            <div className="flex w-full flex-row items-center gap-4 rounded-xl p-3">
+              <button
+                className="invert"
+                onClick={() => setVolume(volume === 0 ? 70 : 0)}
+              >
+                {volume === 0 ? (
+                  <img
+                    src="volume-mute.png"
+                    alt="volume muted"
+                    className="w-7"
+                  />
+                ) : (
+                  <img src="audio.png" alt="audio button" className="w-8" />
+                )}
+              </button>
+              <div className="w-full max-w-md">
+                <div
+                  className="tooltip tooltip-bottom tooltip-primary w-full"
+                  data-tip={volume}
+                >
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={volume}
+                    className="range range-xs w-full"
+                    onChange={handleVolumeChange}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -243,7 +338,7 @@ const Generate = () => {
                 <img src="audio.png" alt="audio button" className="w-8" />
               )}
             </button>
-            <div className="max-w-md w-full">
+            <div className="w-full max-w-md">
               <div
                 className="tooltip tooltip-bottom tooltip-primary w-full"
                 data-tip={volume}
