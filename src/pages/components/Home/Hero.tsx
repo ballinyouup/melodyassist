@@ -35,7 +35,7 @@ const Hero: React.FC<IHero> = ({ volume, handleVolumeChange }) => {
                   min="0"
                   max="100"
                   value={volume}
-                  className="range range-xs absolute top-32 -right-16 h-4 w-40 -rotate-90"
+                  className="range range-xs absolute top-32 -right-16 h-4 w-40 -rotate-90 z-10"
                   onChange={handleVolumeChange}
                 />
               )}
