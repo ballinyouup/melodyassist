@@ -75,7 +75,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
     <div className="flex flex-col">
       <div className="flex justify-center">
         <div className="flex w-screen justify-start sm:w-full">
-          <div className={`flex w-full flex-row gap-4 rounded-2xl bg-base-300 p-3 text-base-content ${generatePage ? "w-full": "sm:w-96"}`}>
+          <div className={`flex w-full flex-row gap-4 rounded-xl bg-base-300 py-4 px-2 text-base-content ${generatePage ? "w-full": "sm:w-96"}`}>
             <button
               className="btn h-12 w-12 rounded-full p-1"
               onClick={togglePlay}

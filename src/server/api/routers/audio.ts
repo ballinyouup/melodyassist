@@ -131,9 +131,9 @@ export const audioRouter = createTRPCRouter({
       where: { id: ctx.session.user.id },
     });
     if (existingUser) {
-      return ctx.prisma.user.findUnique({
-        where:{
-          id: existingUser.id
+      const userAudios = await ctx.prisma.user.findUnique({
+        where: {
+          id: existingUser.id,
         },
         select: {
           posts: {
@@ -141,14 +141,19 @@ export const audioRouter = createTRPCRouter({
               title: true,
               content: true,
               createdAt: true,
-              id: true
+              id: true,
+            },
+            orderBy: {
+              createdAt: "desc",
             },
           },
         },
       });
+      return userAudios;
     }
     throw new Error("Error Fetching Audio");
   }),
+
   deleteAllAudio: protectedProcedure.mutation(async ({ ctx }) => {
     const existingUser = await ctx.prisma.user.findFirst({
       where: { id: ctx.session.user.id },
@@ -163,18 +168,18 @@ export const audioRouter = createTRPCRouter({
     throw new Error("Error Deleting Audio");
   }),
   deleteAudio: protectedProcedure
-  .input(z.string())
-  .mutation(async ({ ctx, input }) => {
-    const existingUser = await ctx.prisma.user.findFirst({
-      where: { id: ctx.session.user.id },
-    });
-    if (existingUser) {
-      return ctx.prisma.post.delete({
-        where: {
-          id: input
-        },
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      const existingUser = await ctx.prisma.user.findFirst({
+        where: { id: ctx.session.user.id },
       });
-    }
-    throw new Error("Error Deleting Audio");
-  }),
+      if (existingUser) {
+        return ctx.prisma.post.delete({
+          where: {
+            id: input,
+          },
+        });
+      }
+      throw new Error("Error Deleting Audio");
+    }),
 });
