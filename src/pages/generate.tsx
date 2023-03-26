@@ -29,17 +29,28 @@ const Generate = () => {
     },
   });
   const trpc = api.useContext();
-  const { mutate: createAudio } = api.audio.createAudio.useMutation({
+  
+
+  /** const updateTheme = api.account.updateTheme.useMutation({
+    onMutate: async () => {
+      await apiClient.account.getUserData.cancel();
+      const prevData = apiClient.account.getUserData.getData();
+      const updatedData: User = {
+        ...prevData,
+        theme: prevData?.theme === "winter" ? "night" : "winter",
+      } as User;
+      apiClient.account.getUserData.setData(undefined, () => updatedData);
+    },
+    onError: () => {
+      toast.error("Error switching Theme!");
+      const prevData = apiClient.account.getUserData.getData();
+      apiClient.account.getUserData.setData(undefined, () => prevData);
+    },
     onSuccess: () => {
-      void trpc.audio.getAudio.invalidate();
-      setPrediction(undefined);
+      toast.success("Saved Theme!");
     },
   });
-  const { mutate: deleteAllAudio } = api.audio.deleteAllAudio.useMutation({
-    onSuccess: async () => {
-      await trpc.audio.getAudio.invalidate();
-    },
-  });
+  */
   const [volume, setVolume] = useState<number>(80);
   const { data: userAudios } = api.audio.getAudio.useQuery();
   const [timer, setTimer] = useState<number>(0);
@@ -65,6 +76,34 @@ const Generate = () => {
       enabled: audioLoading,
     }
   );
+
+  const { mutate: createAudio } = api.audio.createAudio.useMutation({
+    onMutate: () => {
+      const prevData = trpc.audio.getAudio.getData() || { posts: [] };
+      const updatedData = {
+        ...prevData,
+        posts: [
+          ...prevData.posts,
+          {
+            id: prediction?.logs?.split(" ")[2]?.split("ffmpeg")[0] as string,
+            title: prediction?.logs?.split(" ")[2]?.split("ffmpeg")[0] as string,
+            content: prediction?.output as string,
+            createdAt: new Date(),
+          },
+        ],
+      };
+      trpc.audio.getAudio.setData(undefined, () => updatedData);
+    },
+    onSuccess: () => {
+      void trpc.audio.getAudio.invalidate();
+      setPrediction(undefined);
+    },
+  });
+  const { mutate: deleteAllAudio } = api.audio.deleteAllAudio.useMutation({
+    onSuccess: async () => {
+      await trpc.audio.getAudio.invalidate();
+    },
+  });
 
   const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -354,12 +393,12 @@ const Generate = () => {
               </div>
             </div>
           </div>
-          {userAudios?.map((userAudio) => {
-            return userAudio.posts
-              .slice()
-              .reverse()
-              .map((post) => (
-                <div key={post.title}>
+          {userAudios?.posts
+            .slice()
+            .reverse()
+            .map((post, index) => {
+              return (
+                <div key={index}>
                   {Date.now() - post.createdAt.getMilliseconds() > 3600000 ? (
                     <AudioPlayer
                       generatePage
@@ -372,8 +411,8 @@ const Generate = () => {
                     <AudioPlayerDisabled title={post.title} audioId={post.id} />
                   )}
                 </div>
-              ));
-          })}
+              );
+            })}
         </div>
       </div>
     </>

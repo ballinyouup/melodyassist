@@ -131,7 +131,10 @@ export const audioRouter = createTRPCRouter({
       where: { id: ctx.session.user.id },
     });
     if (existingUser) {
-      return ctx.prisma.user.findMany({
+      return ctx.prisma.user.findUnique({
+        where:{
+          id: existingUser.id
+        },
         select: {
           posts: {
             select: {
