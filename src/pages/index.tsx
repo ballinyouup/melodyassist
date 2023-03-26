@@ -47,7 +47,7 @@ const Home: NextPage = () => {
           <div className="tabs tabs-boxed w-fit gap-1 bg-neutral p-2">
             <button
               onClick={() => (active ? setActive(!active) : null)}
-              className={`tab h-10 font-poppins text-lg font-semibold ${
+              className={`tab h-10 text-lg font-semibold ${
                 !active ? "tab-active" : ""
               }`}
             >
@@ -55,7 +55,7 @@ const Home: NextPage = () => {
             </button>
             <button
               onClick={() => (!active ? setActive(!active) : null)}
-              className={`tab h-10 font-poppins text-lg font-semibold ${
+              className={`tab h-10 text-lg font-semibold ${
                 active ? "tab-active" : ""
               }`}
             >
