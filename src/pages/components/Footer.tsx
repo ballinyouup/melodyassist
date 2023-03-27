@@ -15,7 +15,7 @@ const Footer: React.FC<IFooter> = ({ theme }) => {
       data-theme={theme ? theme : userData.data?.theme ?? "winter"}
     >
       <div>
-        <div className="grid grid-flow-col gap-4 w-full">
+        <div className="grid w-full grid-flow-col gap-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

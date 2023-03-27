@@ -116,7 +116,7 @@ export default function SignIn({
                             </label>
                             <input
                               type="email"
-                              placeholder="email"
+                              placeholder="Enter email..."
                               className="input bg-gray-100 border-black border-opacity-20 placeholder:text-gray-400 text-black"
                               value={email}
                               onChange={(e) => setEmail(e.target.value)}
