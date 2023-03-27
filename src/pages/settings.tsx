@@ -71,6 +71,7 @@ const Settings: React.FC = () => {
                       Profile Image:
                       <img
                         src={userData.data?.image ?? ""}
+                        width={160}
                         alt="profile image"
                         className="w-40"
                       />
