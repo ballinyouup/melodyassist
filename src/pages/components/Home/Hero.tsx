@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import { useRouter } from "next/router";
 import Logo from "../Navbar/Logo";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 interface IHero {
   volume: number;
@@ -9,8 +9,12 @@ interface IHero {
 }
 
 const Hero: React.FC<IHero> = ({ volume, handleVolumeChange }) => {
-  const router = useRouter();
   const [openVolume, setOpenVolume] = useState<boolean>(false);
+
+  const handleSignIn = () => {
+    void signIn(undefined, { redirect: true, callbackUrl: "/generate" });
+  };
+
   return (
     <>
       <div className="hero">
@@ -35,7 +39,7 @@ const Hero: React.FC<IHero> = ({ volume, handleVolumeChange }) => {
                   min="0"
                   max="100"
                   value={volume}
-                  className="range range-xs absolute top-32 -right-16 h-4 w-40 -rotate-90 z-10"
+                  className="range range-xs absolute top-32 -right-16 z-10 h-4 w-40 -rotate-90"
                   onChange={handleVolumeChange}
                 />
               )}
@@ -43,7 +47,7 @@ const Hero: React.FC<IHero> = ({ volume, handleVolumeChange }) => {
           </div>
           <div className="relative flex h-96 w-full flex-col items-center justify-center overflow-hidden bg-base-100 p-8 text-center text-white sm:mt-20">
             <img
-              className="absolute -top-40 sm:max-w-5xl min-w-[600px] min-h-[600px] z-0 w-full mix-blend-screen brightness-[10%]"
+              className="absolute -top-40 z-0 min-h-[600px] w-full min-w-[600px] mix-blend-screen brightness-[10%] sm:max-w-5xl"
               src="/home-image.png"
               alt="music producer looking at pc"
             />
@@ -55,7 +59,7 @@ const Hero: React.FC<IHero> = ({ volume, handleVolumeChange }) => {
             </p>
             <button
               className="btn-outline btn z-10 text-white"
-              onClick={() => void router.push("/generate")}
+              onClick={handleSignIn}
             >
               Get Started
             </button>
