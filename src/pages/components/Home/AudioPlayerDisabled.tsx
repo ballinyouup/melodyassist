@@ -6,12 +6,14 @@ interface IAudioPlayer {
   title?: string | undefined;
   desc?: string;
   audioId: string;
+  createdAt: string;
 }
 
 const AudioPlayerDisabled: React.FC<IAudioPlayer> = ({
   title,
   desc,
   audioId,
+  createdAt
 }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -57,8 +59,8 @@ const AudioPlayerDisabled: React.FC<IAudioPlayer> = ({
   return (
     <div className="flex flex-col">
       <div className="flex justify-center">
-        <div className="flex w-screen justify-start sm:w-96">
-          <div className="flex w-full flex-row gap-4 rounded-2xl bg-base-100 p-3 text-base-content sm:w-96">
+        <div className="flex w-screen justify-start sm:w-full">
+          <div className="flex w-full flex-row gap-4 rounded-2xl bg-base-100 p-3 text-base-content">
             <button
               className="btn h-12 w-12 rounded-full p-1"
               onClick={() => handleDelete(audioId)}
@@ -72,13 +74,14 @@ const AudioPlayerDisabled: React.FC<IAudioPlayer> = ({
                     {desc ? desc : "Seed: "}
                     {title}
                   </span>
+                  <span>{createdAt}</span>
                 </div>
               </div>
               <input
                 disabled
                 type="range"
                 min="0"
-                max={audioRef.current ? audioRef.current.duration : "7.5"}
+                max={audioRef.current ? `${audioRef.current.duration}` : "7.5"}
                 value={currentTime}
                 className="range range-xs"
                 onChange={handleTimeChange}

@@ -391,11 +391,11 @@ const Generate = () => {
             </div>
           </div>
           <div className="relative h-[520px] gap-1 overflow-y-auto rounded-xl bg-base-300 p-1">
-            {(userAudios?.posts?.length as number) > 0 &&
+            {(userAudios?.posts?.length as number) > 0 ? (
               userAudios?.posts.map((post) => {
                 return (
                   <div key={post.id}>
-                    {Date.now() - post.createdAt.getMilliseconds() > 3600000 ? (
+                    {Date.now() - post.createdAt.getTime() < 3600000 ? (
                       <AudioPlayer
                         generatePage
                         url={post.content}
@@ -407,12 +407,13 @@ const Generate = () => {
                       <AudioPlayerDisabled
                         title={post.title}
                         audioId={post.id}
+                        createdAt={`Created At: ${post.createdAt.toLocaleDateString()} ${post.createdAt.toLocaleTimeString()}`}
                       />
                     )}
                   </div>
                 );
-              })}
-            {(userAudios?.posts?.length as number) === 0 && (
+              })
+            ) : (
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl text-neutral-content">
                 <i>Empty</i>
               </div>
