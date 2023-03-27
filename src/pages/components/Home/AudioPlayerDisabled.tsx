@@ -69,12 +69,12 @@ const AudioPlayerDisabled: React.FC<IAudioPlayer> = ({
             </button>
             <div className="-mt-2 flex w-full flex-col leading-none">
               <div className="flex flex-row justify-between">
-                <div className="flex flex-col">
-                  <span className="text-xl font-medium line-through">
+                <div className="flex flex-col text-md font-medium">
+                  <span className="line-through">
                     {desc ? desc : "Seed: "}
                     {title}
                   </span>
-                  <span>{createdAt}</span>
+                  <span className="text-sm">{createdAt}</span>
                 </div>
               </div>
               <input
