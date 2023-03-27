@@ -26,6 +26,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
+    "react-uploader": "^3.13.0",
     "superjson": "1.9.1",
     "videojs-wavesurfer": "^3.9.0",
     "wavesurfer.js": "^6.6.0",

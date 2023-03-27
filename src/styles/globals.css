@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.btn--upload{
+    padding: 0px 10px!important;
+    font-family: (--font-poppins);
+    font-weight: 600!important;
+}

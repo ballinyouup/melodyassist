@@ -12,6 +12,9 @@ const Navbar: React.FC = () => {
   const apiClient = api.useContext();
   const userData = api.account.getUserData.useQuery(undefined, {
     retry: false,
+    refetchInterval: 0,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
   const updateTheme = api.account.updateTheme.useMutation({
     onMutate: async () => {

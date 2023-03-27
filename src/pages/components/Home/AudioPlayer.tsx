@@ -4,7 +4,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 interface IAudioPlayer {
   url: string;
   title?: string | undefined;
-  desc?: string;
   volume: number;
   createdAt?: string;
   generatePage?: boolean;
@@ -13,7 +12,6 @@ interface IAudioPlayer {
 const AudioPlayer: React.FC<IAudioPlayer> = ({
   url,
   title,
-  desc,
   volume,
   createdAt,
   generatePage = false,
@@ -102,8 +100,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                       generatePage ? "text-md" : "text-xl"
                     } font-medium`}
                   >
-                    {desc ? desc : "Seed: "}
-                    {title}
+                    {title as string}
                     {generatePage && (
                       <>
                         <br />

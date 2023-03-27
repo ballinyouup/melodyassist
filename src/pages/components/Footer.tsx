@@ -7,6 +7,9 @@ interface IFooter {
 const Footer: React.FC<IFooter> = ({ theme }) => {
   const userData = api.account.getUserData.useQuery(undefined, {
     retry: false,
+    refetchInterval: 0,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 
   return (
