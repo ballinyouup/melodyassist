@@ -32,7 +32,7 @@ const config = {
       'sans': ['ui-sans-serif', 'system-ui'],
       'serif': ['ui-serif', 'Georgia'],
       'mono': ['ui-monospace', 'SFMono-Regular'],
-      'poppins': ['Poppins'],
+      'poppins': ['var(--font-poppins)'],
       'roboto': ['Roboto'],
     },
   },

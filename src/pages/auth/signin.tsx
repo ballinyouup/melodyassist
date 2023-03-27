@@ -12,6 +12,12 @@ import { api } from "~/utils/api";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 
 export default function SignIn({
   providers,
@@ -52,7 +58,7 @@ export default function SignIn({
   ];
 
   return (
-    <div className="hero min-h-screen bg-white">
+    <div className={`hero min-h-screen bg-white ${poppins.className}`}>
       <div className="hero-content w-96 flex-col">
         {alert && (
           <div className={`alert absolute top-10 w-80 bg-rose-900 text-white`}>

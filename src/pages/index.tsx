@@ -8,6 +8,14 @@ import { useEffect, useState } from "react";
 import HomeBefore from "./components/Home/HomeBefore";
 import HomeAfter from "./components/Home/HomeAfter";
 
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
+
+
 const Home: NextPage = () => {
   const [volume, setVolume] = useState<number>(80);
   const [showExtra, setShowExtra] = useState<boolean>(false);
@@ -30,7 +38,7 @@ const Home: NextPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className={poppins.className}>
       <Head>
         <title>Melody Assist</title>
         <meta name="description" content="Level up your Music with AI" />
