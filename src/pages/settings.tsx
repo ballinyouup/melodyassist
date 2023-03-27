@@ -70,8 +70,9 @@ const Settings: React.FC = () => {
                     <span className="text-base">
                       Profile Image:
                       <img
-                        src={userData.data?.image ?? ""}
+                        src={userData.data?.image as string ?? ""}
                         width={160}
+                        height={160}
                         alt="profile image"
                         className="w-40"
                       />

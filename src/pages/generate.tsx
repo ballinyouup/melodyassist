@@ -229,12 +229,12 @@ const Generate = () => {
   return (
     <div className="h-full w-full">
       <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-      <label htmlFor="my-modal-4" className="modal cursor-pointer">
+      <label htmlFor="my-modal-4" className="modal cursor-pointer bg-base-100 bg-opacity-90">
         <label
-          className="modal-box relative flex w-fit flex-col items-center"
+          className="modal-box bg-base-300 relative flex w-fit flex-col items-center" data-theme={userData.data?.theme ?? "winter"}
           htmlFor=""
         >
-          <p className="pt-2">Are you sure you want to delete all audio?</p>
+          <p className="pt-2 font-bold">Are you sure you want to delete all audio?</p>
           <span className="py-2">
             <i>* Warning Audio cannot be recovered *</i>
           </span>
