@@ -36,23 +36,23 @@ export default function SignIn({
   }, [sessionClient]);
 
   const providerImages: JSX.Element[] = [
-    <img
-      key={0}
-      src="/email.png"
-      className="mr-1 ml-1 w-6"
-      alt="Email Sign In"
-    />,
+    <img key={0} src="/google.png" className="h-7 w-8" alt="Google Sign In" />,
     <img
       key={1}
       src="/discordIconWhite.png"
       className="h-6"
       alt="Discord Sign In"
     />,
-    <img key={2} src="/google.png" className="h-7 w-8" alt="Google Sign In" />,
+    <img
+      key={2}
+      src="/email.png"
+      className="mr-1 ml-1 w-6"
+      alt="Email Sign In"
+    />,
   ];
 
   return (
-    <div className="hero min-h-screen bg-base-200 ">
+    <div className="hero min-h-screen bg-white">
       <div className="hero-content w-96 flex-col">
         {alert && (
           <div className={`alert absolute top-10 w-80 bg-rose-900 text-white`}>
@@ -80,44 +80,65 @@ export default function SignIn({
             </div>
           </div>
         )}
-        <div className="text-center lg:text-left">
-          <Link
-            href="/"
-            className="btn-ghost btn h-full w-full p-4 text-3xl font-bold"
-          >
-            Melody Assist
-          </Link>
-        </div>
-        <div className="card w-full max-w-sm flex-shrink-0 bg-base-100 shadow-2xl">
+        <div className="card w-full max-w-sm flex-shrink-0 bg-white shadow-2xl">
           <div className="card-body">
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Email</span>
-              </label>
-              <input
-                type="email"
-                placeholder="email"
-                className="input-bordered input"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+            <div className="text-center lg:text-left">
+              <Link
+                href="/"
+                className="btn-ghost btn h-full w-full p-4 text-3xl font-bold text-black"
+              >
+                Melody Assist
+              </Link>
             </div>
-            <div className="mt-5 flex w-full flex-col justify-start gap-6">
+
+            <div className="mt-5 flex w-full flex-col justify-start gap-4">
               {providers &&
-                Object.values(providers).map((provider, index) => (
-                  <button
-                    key={provider.name}
-                    className="btn flex h-16 w-full flex-row justify-start gap-4 pl-20 font-poppins text-lg font-semibold"
-                    onClick={
-                      index === 0
-                        ? () => void signIn(provider.id, { email: email })
-                        : () => void handleSignIn(provider.id)
-                    }
-                  >
-                    {providerImages[index]}
-                    {provider.id}
-                  </button>
-                ))}
+                Object.values(providers)
+                  .reverse()
+                  .map((provider, index) => (
+                    <>
+                      {index === 2 ? (
+                        <>
+                          <div className="divider text-black before:bg-gray-400 after:bg-gray-400">
+                            OR
+                          </div>
+                          <div className="form-control">
+                            <label className="label">
+                              <span className="label-text text-black">
+                                Email
+                              </span>
+                            </label>
+                            <input
+                              type="email"
+                              placeholder="email"
+                              className="input bg-gray-100 border-black border-opacity-20 placeholder:text-gray-400 text-black"
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <button
+                              key={provider.name}
+                              className="btn-ghost btn mt-5 flex h-16 w-full flex-row justify-start gap-4 bg-black pl-20 text-lg font-semibold text-white hover:bg-black hover:bg-opacity-70"
+                              onClick={() =>
+                                void signIn(provider.id, { email: email })
+                              }
+                            >
+                              {providerImages[index]}
+                              {provider.id}
+                            </button>
+                          </div>
+                        </>
+                      ) : (
+                        <button
+                          key={provider.name}
+                          className="btn-ghost btn flex h-16 w-full flex-row justify-start gap-4 bg-black pl-20 text-lg font-semibold text-white hover:bg-black hover:bg-opacity-70"
+                          onClick={() => void handleSignIn(provider.id)}
+                        >
+                          {providerImages[index]}
+                          {provider.id}
+                        </button>
+                      )}
+                    </>
+                  ))}
             </div>
           </div>
         </div>
