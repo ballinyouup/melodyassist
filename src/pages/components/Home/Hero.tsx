@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import Logo from "../Navbar/Logo";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
-
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 interface IHero {
   volume: number;
   handleVolumeChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -10,9 +10,14 @@ interface IHero {
 
 const Hero: React.FC<IHero> = ({ volume, handleVolumeChange }) => {
   const [openVolume, setOpenVolume] = useState<boolean>(false);
-
-  const handleSignIn = () => {
-    void signIn(undefined, { redirect: true, callbackUrl: "/generate" });
+  const router = useRouter();
+  const { data: session } = useSession();
+  const handleSignIn = async () => {
+    if (session) {
+      await router.push("/generate");
+    } else {
+      void signIn(undefined, { redirect: true, callbackUrl: "/generate" });
+    }
   };
 
   return (
@@ -59,7 +64,7 @@ const Hero: React.FC<IHero> = ({ volume, handleVolumeChange }) => {
             </p>
             <button
               className="btn-outline btn z-10 text-white"
-              onClick={handleSignIn}
+              onClick={() => void handleSignIn()}
             >
               Get Started
             </button>

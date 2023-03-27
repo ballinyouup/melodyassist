@@ -2,27 +2,39 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import Hero from "./components/Home/Hero";
-import { api } from "~/utils/api";
 import AudioPlayer from "./components/Home/AudioPlayer";
 import Footer from "./components/Footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HomeBefore from "./components/Home/HomeBefore";
 import HomeAfter from "./components/Home/HomeAfter";
 
 const Home: NextPage = () => {
   const [volume, setVolume] = useState<number>(80);
   const [showExtra, setShowExtra] = useState<boolean>(false);
-  const userData = api.account.getUserData.useQuery();
+  const [faviconTheme, setFaviconTheme] = useState(false);
   const [active, setActive] = useState<boolean>(false);
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVolume(Number(event.target.value));
   };
+
+
+  useEffect(() => {
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      setFaviconTheme(true);
+    } else {
+      setFaviconTheme(false);
+    }
+  }, []);
+
   return (
     <div>
       <Head>
         <title>Melody Assist</title>
         <meta name="description" content="Level up your Music with AI" />
-        {userData.data?.theme === "winter" ? (
+        {faviconTheme ? (
           <link rel="icon" href="/logo-dark.png" />
         ) : (
           <link rel="icon" href="/logo-light.png" />
@@ -36,7 +48,7 @@ const Home: NextPage = () => {
               <div className="stat-title">Drum Loops Generated</div>
               <div className="stat-value">9,999</div>
             </div>
-            <div className="divider h-4/5 hidden sm:flex" />
+            <div className="divider hidden h-4/5 sm:flex" />
             <div className="stat border-none">
               <div className="stat-title">Total Users</div>
               <div className="stat-value">9,999</div>
