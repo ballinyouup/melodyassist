@@ -7,9 +7,9 @@ interface IHomeAfter {
 const HomeAfter: React.FC<IHomeAfter> = ({ volume }) => {
   return (
     <>
-      <AudioPlayer audioId="33877" url="/seed-33877-output.mp3" title="33877" volume={volume} />
-      <AudioPlayer audioId="61365" url="/Seed-61365-output.mp3" title="61365" volume={volume} />
-      <AudioPlayer audioId="46452" url="/seed-46452-output.mp3" title="46452" volume={volume} />
+      <AudioPlayer audioId="33877" url="/seed-33877-output.mp3" title="Seed: 33877" volume={volume} />
+      <AudioPlayer audioId="61365" url="/Seed-61365-output.mp3" title="Seed: 61365" volume={volume} />
+      <AudioPlayer audioId="46452" url="/seed-46452-output.mp3" title="Seed: 46452" volume={volume} />
     </>
   );
 };

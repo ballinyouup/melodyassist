@@ -10,19 +10,19 @@ const HomeBefore: React.FC<IHomeBefore> = ({ volume }) => {
       <AudioPlayer
         audioId="33878"
         url="/Seed-33877_.mp3"
-        title="33877"
+        title="Seed: 33877"
         volume={volume}
       />
       <AudioPlayer
         audioId="61366"
         url="/Seed-61365_.mp3"
-        title="61365"
+        title="Seed: 61365"
         volume={volume}
       />
       <AudioPlayer
         audioId="46453"
         url="/Seed-46452_.mp3"
-        title="46452"
+        title="Seed: 46452"
         volume={volume}
       />
     </>
