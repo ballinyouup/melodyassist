@@ -139,8 +139,15 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                       alt="download button"
                     />
                   </button>
-                  <button className="btn-xs btn h-8 w-8 p-0"  onClick={() => handleDelete(audioId)}>
-                      <img src="/delete.png" alt="delete" className="w-6 h-6 p-0 invert"/>
+                  <button
+                    className="btn-xs btn h-8 w-8 p-0"
+                    onClick={() => handleDelete(audioId)}
+                  >
+                    <img
+                      src="/delete.png"
+                      alt="delete"
+                      className="h-6 w-6 p-0 invert"
+                    />
                   </button>
                 </div>
               </div>
@@ -156,7 +163,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
               <audio ref={audioRef}>
                 <source src={url} />
               </audio>
-              <div className="flex flex-row justify-between mt-1">
+              <div className="mt-1 flex flex-row justify-between">
                 {audioRef.current &&
                   !Number.isNaN(audioRef.current.duration) && (
                     <>

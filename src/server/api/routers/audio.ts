@@ -135,7 +135,6 @@ export const audioRouter = createTRPCRouter({
           }
 
           const uploadResult = (await response.json()) as UploadResponse;
-          console.log(uploadResult);
           return uploadResult;
           //return response;
         } else {
@@ -190,6 +189,7 @@ export const audioRouter = createTRPCRouter({
               content: true,
               createdAt: true,
               id: true,
+              author: true,
             },
             orderBy: {
               createdAt: "desc",

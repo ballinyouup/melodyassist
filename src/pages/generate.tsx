@@ -65,6 +65,8 @@ const Generate = () => {
     onSuccess: async () => {
       await trpc.audio.getAudio.invalidate();
       toast.success("Successfully Generated Audio");
+      setLoading(false);
+      setAudioLoading(false);
     },
     onSettled: () => {
       setLoading(false);
@@ -104,9 +106,8 @@ const Generate = () => {
         title: uploadData.filePath.split("/")[5] as string,
         content: uploadData.fileUrl,
       });
-      console.log("Create Audio Ran");
     }
-    return setUploadData(undefined), setAudioLoading(false);
+    return setUploadData(undefined);
   }, [createAudio, uploadData]);
 
   useEffect(() => {
@@ -263,7 +264,7 @@ const Generate = () => {
                       <AudioPlayer
                         generatePage
                         url={post.content}
-                        title={post.title}
+                        title={`${post.author.userName}: ${post.title}`}
                         createdAt={`Created At: ${post.createdAt.toLocaleDateString()} ${post.createdAt.toLocaleTimeString()}`}
                         volume={volume}
                         audioId={post.id}
