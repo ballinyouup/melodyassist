@@ -21,6 +21,7 @@ const Generate = () => {
       void signIn(undefined, { redirect: true, callbackUrl: "/generate" });
     },
   });
+  
   const trpc = api.useContext();
   const [volume, setVolume] = useState<number>(80);
   const { data: userAudios } = api.audio.getAudio.useQuery(undefined, {
