@@ -1,8 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { useState } from "react";
 import Logout from "./Logout";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 const Dropdown: React.FC = () => {
   const [dropdown, setDropdown] = useState<boolean>(false);
@@ -12,10 +12,12 @@ const Dropdown: React.FC = () => {
     <div className="dropdown-bottom dropdown-end dropdown">
       <label tabIndex={0} className="swap swap-rotate btn-circle object-cover">
         <input type="checkbox" onChange={() => setDropdown(!dropdown)} />
-        <img
+        <Image
           className="h-10 w-10 rounded-full border border-black hover:brightness-[90%]"
           src={session?.user.image || ""}
           alt="profile image"
+          width={40}
+          height={40}
         />
       </label>
 

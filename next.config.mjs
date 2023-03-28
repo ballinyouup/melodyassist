@@ -24,7 +24,11 @@ const config = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**.discordapp.com/avatars/',
+        hostname: 'cdn.discordapp.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
       },
     ],
   },

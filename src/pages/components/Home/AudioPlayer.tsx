@@ -186,7 +186,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                 className="range range-xs w-[90%]"
                 onChange={handleTimeChange}
               />
-              <audio ref={audioRef}>
+              <audio ref={audioRef} preload="auto">
                 <source src={url} />
               </audio>
               <div className="mt-1 flex flex-row justify-between">
