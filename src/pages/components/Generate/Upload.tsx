@@ -41,8 +41,8 @@ const Upload = () => {
         )
       }
       width={"100%"}
-      height={"400px"}
-      className="uploader bg-base-300"
+      height={"100%"}
+      className="uploader bg-base-300 rounded-lg"
     />
   );
 };

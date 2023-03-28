@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
   };
   if (data === null && status !== "loading") {
     return (
-      <div className="navbar h-20 bg-base-100" data-theme="winter">
+      <div className="navbar h-20 bg-base-100" data-theme={"winter"}>
         <div className="navbar-start">
           <Logo theme="winter" />
         </div>
@@ -54,7 +54,11 @@ const Navbar: React.FC = () => {
   return (
     <div
       className="navbar h-20 bg-base-100"
-      data-theme={status === "loading" ? "winter" : userData.data?.theme}
+      data-theme={
+        status === "loading"
+          ? userData.data?.theme ?? "winter"
+          : userData.data?.theme
+      }
     >
       <div className="navbar-start">
         <Logo theme={userData.data?.theme as string} />
