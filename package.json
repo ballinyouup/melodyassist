@@ -28,6 +28,7 @@
     "react-hot-toast": "^2.4.0",
     "react-uploader": "^3.13.0",
     "superjson": "1.9.1",
+    "upload-js": "^2.11.2",
     "videojs-wavesurfer": "^3.9.0",
     "wavesurfer.js": "^6.6.0",
     "zod": "^3.20.6"

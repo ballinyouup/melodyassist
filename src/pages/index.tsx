@@ -101,28 +101,33 @@ const Home: NextPage = () => {
         {showExtra && (
           <div className="flex w-full flex-row flex-wrap justify-center gap-2">
             <div className="flex w-full flex-col flex-wrap justify-center gap-2 sm:w-4/5 sm:flex-row">
-              <AudioPlayer url="/out.mp3" title="Extras #1" volume={volume} />
+              <AudioPlayer url="/out.mp3" title="Extras #1" volume={volume} audioId={"6"}/>
               <AudioPlayer
+              audioId={"0"}
                 url="/out(1).mp3"
                 title="Extras #2"
                 volume={volume}
               />
               <AudioPlayer
+              audioId={"1"}
                 url="/out(2).mp3"
                 title="Extras #3"
                 volume={volume}
               />
               <AudioPlayer
+              audioId={"2"}
                 url="/out(3).mp3"
                 title="Extras #4"
                 volume={volume}
               />
               <AudioPlayer
+              audioId={"3"}
                 url="/out(4).mp3"
                 title="Extras #5"
                 volume={volume}
               />
               <AudioPlayer
+              audioId={"4"}
                 url="/out(5).mp3"
                 title="Extras #6"
                 volume={volume}
