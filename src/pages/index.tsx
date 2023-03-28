@@ -15,7 +15,6 @@ const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-
 const Home: NextPage = () => {
   const [volume, setVolume] = useState<number>(80);
   const [showExtra, setShowExtra] = useState<boolean>(false);
@@ -24,7 +23,6 @@ const Home: NextPage = () => {
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVolume(Number(event.target.value));
   };
-
 
   useEffect(() => {
     if (
@@ -103,12 +101,32 @@ const Home: NextPage = () => {
         {showExtra && (
           <div className="flex w-full flex-row flex-wrap justify-center gap-2">
             <div className="flex w-full flex-col flex-wrap justify-center gap-2 sm:w-4/5 sm:flex-row">
-              <AudioPlayer url="/out.mp3" desc="Extras #1" volume={volume} />
-              <AudioPlayer url="/out(1).mp3" desc="Extras #2" volume={volume} />
-              <AudioPlayer url="/out(2).mp3" desc="Extras #3" volume={volume} />
-              <AudioPlayer url="/out(3).mp3" desc="Extras #4" volume={volume} />
-              <AudioPlayer url="/out(4).mp3" desc="Extras #5" volume={volume} />
-              <AudioPlayer url="/out(5).mp3" desc="Extras #6" volume={volume} />
+              <AudioPlayer url="/out.mp3" title="Extras #1" volume={volume} />
+              <AudioPlayer
+                url="/out(1).mp3"
+                title="Extras #2"
+                volume={volume}
+              />
+              <AudioPlayer
+                url="/out(2).mp3"
+                title="Extras #3"
+                volume={volume}
+              />
+              <AudioPlayer
+                url="/out(3).mp3"
+                title="Extras #4"
+                volume={volume}
+              />
+              <AudioPlayer
+                url="/out(4).mp3"
+                title="Extras #5"
+                volume={volume}
+              />
+              <AudioPlayer
+                url="/out(5).mp3"
+                title="Extras #6"
+                volume={volume}
+              />
             </div>
           </div>
         )}
