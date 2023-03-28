@@ -31,9 +31,6 @@ const Navbar: React.FC = () => {
       const prevData = apiClient.account.getUserData.getData();
       apiClient.account.getUserData.setData(undefined, () => prevData);
     },
-    onSuccess: () => {
-      toast.success("Saved Theme!");
-    },
   });
 
   const handleTheme = () => {

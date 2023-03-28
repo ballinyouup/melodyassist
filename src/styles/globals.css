@@ -4,9 +4,10 @@
 
 
 .btn--upload{
-    padding: 0px 10px!important;
+    padding: 4px 10px!important;
     font-family: (--font-poppins);
     font-weight: 600!important;
+    height: 60px;
     
 }
 .uploader{
