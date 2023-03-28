@@ -159,7 +159,7 @@ const Generate = () => {
         data-theme={userData.data?.theme}
       >
         <Upload />
-        <div className="flex h-full w-full min-w-[400px] flex-col items-center text-neutral md:max-w-lg">
+        <div className="flex h-full w-full flex-col items-center text-neutral md:max-w-lg">
           <Head>
             <title>Melody Assist</title>
             <meta name="description" content="Level up your Music with AI" />
