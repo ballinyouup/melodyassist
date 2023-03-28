@@ -6,7 +6,7 @@ import { api } from "~/utils/api";
 import toast from "react-hot-toast";
 
 // Initialize once (at the start of your app).
-const uploader = Uploader({ apiKey: "public_W142hjQDqcpCu1uvNU2x5MZsYokh" }); // Your real API key.
+const uploader = Uploader({ apiKey: "public_W142hjQDqcpCu1uvNU2x5MZsYokh" }); 
 
 const Upload = () => {
   const trpc = api.useContext();
@@ -40,9 +40,9 @@ const Upload = () => {
           })
         )
       }
-      width="400px"
-      height="250px"
-      className="h-fit"
+      width={"100%"}
+      height={"400px"}
+      className="uploader bg-base-300"
     />
   );
 };

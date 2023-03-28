@@ -285,10 +285,10 @@ const Generate = () => {
           </button>
         </label>
       </label>
-      <div className="flex flex-row items-start justify-center gap-2" data-theme={userData.data?.theme}>
+      <div className="flex flex-col md:flex-row md:flex-wrap items-center md:items-start justify-center gap-2" data-theme={userData.data?.theme}>
         <Upload />
         <div
-          className="flex h-full w-fit flex-col items-center text-neutral"
+          className="flex h-full w-full flex-col items-center text-neutral md:max-w-lg min-w-[400px]"
         >
           <Head>
             <title>Melody Assist</title>
@@ -299,7 +299,7 @@ const Generate = () => {
               <link rel="icon" href="/logo-light.png" />
             )}
           </Head>
-          <div className="flex w-full max-w-md flex-col items-start gap-5 rounded-lg bg-base-300 p-4 text-base-content sm:p-12">
+          <div className="flex w-full flex-col items-start gap-5 rounded-lg bg-base-300 p-4 text-base-content sm:p-12">
             {timer > 5 && (
               <div className="alert w-fit shadow-lg">
                 <div>
@@ -353,7 +353,7 @@ const Generate = () => {
               )}
             </button>
           </div>
-          <div className="mt-2 mb-5 flex w-full max-w-md flex-col gap-2">
+          <div className="mt-2 mb-5 flex w-full flex-col gap-2">
             <div className="alert flex w-full flex-row flex-wrap items-center justify-center shadow-lg sm:w-full">
               <div>
                 <svg
@@ -382,7 +382,7 @@ const Generate = () => {
                 </label>
               </div>
             </div>
-            <div className="flex w-full flex-row items-center gap-4 rounded-xl p-3">
+            <div className="flex w-full flex-row items-center gap-4 rounded-xl p-3 bg-base-300">
               <button
                 className={userData.data?.theme === "night" ? "" : "invert"}
                 onClick={() => setVolume(volume === 0 ? 70 : 0)}

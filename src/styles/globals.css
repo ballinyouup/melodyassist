@@ -7,4 +7,25 @@
     padding: 0px 10px!important;
     font-family: (--font-poppins);
     font-weight: 600!important;
+    
 }
+.uploader{
+    width: 33%!important;
+    max-width: 600px!important;
+    min-width: 400px!important;
+}
+
+@media (max-width: 1024px){
+    .uploader{
+        width: 100%!important;
+        max-width: 512px!important;
+    }
+}
+
+@media (max-width: 768px){
+    .uploader{
+        width: 100%!important;
+        max-width: none!important;
+    }
+}
+
