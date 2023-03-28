@@ -35,7 +35,23 @@ const PredictionCompleted = z.object({
   status: z.string(),
 });
 
-type PredictionCompleted = z.infer<typeof PredictionCompleted>;
+interface UploadResponse {
+  accountId: string;
+  filePath: string;
+  fileUrl: string;
+}
+
+type PredictionCompleted = z.infer<typeof PredictionCompletedWithPrediction>;
+
+const PredictionCompletedWithPrediction = PredictionCompleted.extend({
+  completed_at: z.string().nullable(),
+  created_at: z.string(),
+  error: z.string().nullable(),
+  logs: z.string().nullable(),
+  metrics: z.record(z.string()),
+  started_at: z.string().nullable(),
+  version: z.string(),
+});
 
 export const audioRouter = createTRPCRouter({
   getPrediction: protectedProcedure.query(async ({ ctx }) => {
@@ -91,8 +107,40 @@ export const audioRouter = createTRPCRouter({
           throw new Error(JSON.stringify(error));
         }
 
-        const result = await secondResponse.json();
-        return result as PredictionCompleted;
+        const result = (await secondResponse.json()) as PredictionCompleted;
+
+        if (result.status === "succeeded") {
+          // Fetch the audio data from the URL
+          const audioResponse = await fetch(result.output);
+          const blob = await audioResponse.blob();
+
+          //Upload the file to the specified URL
+          const response = await fetch(
+            `https://api.upload.io/v2/accounts/W142hjQ/uploads/binary?fileName=Seed-${
+              result.logs?.split(" ")[2]?.split("ffmpeg")[0] as string
+            }.mp3`,
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${env.UPLOAD_API_KEY}`,
+                "Content-Type": "audio/mpeg", // Replace with the appropriate MIME type
+              },
+              body: blob,
+            }
+          );
+
+          if (response.status !== 200) {
+            const error = await response.json();
+            throw new Error(JSON.stringify(error));
+          }
+
+          const uploadResult = (await response.json()) as UploadResponse;
+          console.log(uploadResult);
+          return uploadResult;
+          //return response;
+        } else {
+          return result;
+        }
       }
       const error = new Error("Unauthorized");
       throw error;

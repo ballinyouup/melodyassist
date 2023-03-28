@@ -8,18 +8,10 @@ import AudioPlayer from "./components/Home/AudioPlayer";
 import toast from "react-hot-toast";
 import Upload from "./components/Generate/Upload";
 
-interface Prediction {
-  completed_at?: string | null;
-  created_at?: string;
-  error?: string | null;
-  id?: string;
-  input?: { seed: string };
-  logs?: string | null;
-  metrics?: { [key: string]: string };
-  output?: string | null;
-  started_at?: string | null;
-  status?: string;
-  version?: string;
+interface UploadResponse {
+  accountId: string;
+  filePath: string;
+  fileUrl: string;
 }
 
 const Generate = () => {
@@ -38,7 +30,7 @@ const Generate = () => {
     retry: false,
   });
   const [timer, setTimer] = useState<number>(0);
-  const [prediction, setPrediction] = useState<Prediction | undefined>();
+  const [uploadData, setUploadData] = useState<UploadResponse | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
   const userData = api.account.getUserData.useQuery(undefined, {
     refetchInterval: 0,
@@ -84,7 +76,6 @@ const Generate = () => {
     e.preventDefault();
     setTimer(0);
     setLoading(true);
-    setPrediction(firstData);
   };
 
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,21 +87,27 @@ const Generate = () => {
   }, [trpc]);
 
   useEffect(() => {
-    if (audio && (audio.status === "succeeded" || audio.status === "failed")) {
-      setPrediction(audio);
+    if (
+      typeof audio === "object" &&
+      audio !== null &&
+      "accountId" in audio &&
+      "filePath" in audio &&
+      "fileUrl" in audio
+    ) {
+      setUploadData(audio);
     }
-  }, [audio]);
+  }, [audio, uploadData]);
 
   useEffect(() => {
-    const seed = prediction?.logs?.split(" ")[2]?.split("ffmpeg")[0];
-    if (typeof seed === "string" && typeof prediction?.output === "string") {
+    if (uploadData && uploadData.fileUrl && uploadData.fileUrl) {
       createAudio({
-        title: seed,
-        content: prediction?.output,
+        title: uploadData.filePath.split("/")[5] as string,
+        content: uploadData.fileUrl,
       });
+      console.log("Create Audio Ran");
     }
-    return setPrediction(undefined);
-  }, [createAudio, prediction]);
+    return setUploadData(undefined), setAudioLoading(false);
+  }, [createAudio, uploadData]);
 
   useEffect(() => {
     let intervalId: NodeJS.Timer | undefined;
@@ -126,7 +123,10 @@ const Generate = () => {
 
   if (status === "loading") {
     return (
-      <div className="h-screen w-full" data-theme={userData.data?.theme ?? "winter"}>
+      <div
+        className="h-screen w-full"
+        data-theme={userData.data?.theme ?? "winter"}
+      >
         <div
           role="status"
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"

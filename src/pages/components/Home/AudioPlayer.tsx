@@ -79,7 +79,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = `Seed-${typeof title !== "undefined" ? title : ""}.mp3`;
+        link.download = `${title as string}`;
         link.click();
       });
   }
