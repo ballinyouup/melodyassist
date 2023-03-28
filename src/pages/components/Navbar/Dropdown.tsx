@@ -28,7 +28,7 @@ const Dropdown: React.FC = () => {
             <Link href="/">Home</Link>
           </li>
           <li>
-            <Link href="/generate">Profile</Link>
+            <Link href="/generate">Generate</Link>
           </li>
           <li>
             <Link href="/settings">Settings</Link>
