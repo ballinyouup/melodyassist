@@ -101,7 +101,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
               />
             </div>
             <div className="-mt-2 flex w-full flex-col py-2">
-              <div className="flex h-full flex-row justify-between gap-1 sm:gap-2">
+              <div className="flex h-12 flex-row justify-between gap-1 max-[320px]:h-full sm:gap-2">
                 <div className="flex w-full flex-row gap-2 sm:gap-4">
                   <button
                     className="btn h-10 min-h-0 w-10 rounded-full object-cover p-0"
@@ -128,11 +128,11 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                   <div className="flex h-fit w-full flex-col">
                     <span className="flex w-full flex-row justify-between text-xs font-medium leading-none">
                       <span className="h-full">
-                        <span className="break-all text-sm max-[360px]:text-xs">
+                        <span className="break-all text-sm max-[400px]:text-xs">
                           {userData.data?.userName}
                         </span>
                         <br />
-                        <span className="max-[360px]:text-xs font-bold leading-none text-lg">
+                        <span className="text-lg font-bold leading-none max-[400px]:text-xs">
                           {title as string}
                         </span>
                       </span>
@@ -203,7 +203,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                 max={audioRef.current ? `${audioRef.current.duration}` : "7.5"}
                 value={currentTime}
                 step={0.05}
-                className="range range-xs w-4/5 sm:w-[90%]"
+                className="range range-xs w-4/5 sm:range-sm sm:w-[90%]"
                 onChange={handleTimeChange}
               />
               <audio ref={audioRef} preload="auto">
