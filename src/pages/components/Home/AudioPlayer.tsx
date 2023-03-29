@@ -90,7 +90,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
     <div className="flex flex-col">
       <div className="flex justify-center">
         <div className="flex w-screen justify-start sm:w-full">
-          <div className="flex w-full flex-row gap-4 rounded-xl bg-base-300 py-2 px-2 text-base-content">
+          <div className="flex w-full flex-row gap-4 rounded-xl bg-base-300 p-2 text-base-content">
             <div className="flex h-16 flex-row">
               <Image
                 src={userData.data?.image as string}
@@ -99,7 +99,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                 height={10}
               />
             </div>
-            <div className="-mt-2 flex w-full flex-col">
+            <div className="-mt-2 flex w-full flex-col py-2">
               <div className="flex h-12 flex-row justify-between gap-2">
                 <div className="flex w-full flex-row gap-4">
                   <button
@@ -125,7 +125,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                     )}
                   </button>
                   <div className="flex h-fit w-full flex-col">
-                    <span className="flex w-full flex-row justify-between p-0 text-xs font-medium leading-none">
+                    <span className="flex w-full flex-row justify-between text-xs font-medium leading-none">
                       <span>
                         <span className="text-sm">{userData.data?.userName}</span>
                         <br />

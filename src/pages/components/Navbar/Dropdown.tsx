@@ -9,7 +9,7 @@ const Dropdown: React.FC = () => {
   const { data: session } = useSession();
   if (!session) return <></>;
   return (
-    <div className="dropdown-bottom dropdown-end dropdown">
+    <div className="dropdown-bottom dropdown-end dropdown sm:mr-4">
       <label tabIndex={0} className="swap swap-rotate btn-circle object-cover">
         <input type="checkbox" onChange={() => setDropdown(!dropdown)} />
         <Image

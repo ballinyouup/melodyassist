@@ -1,16 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
-import { type NextPage } from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
 import Hero from "./components/Home/Hero";
-//import AudioPlayer from "./components/Home/AudioPlayer";
-import Footer from "./components/Footer";
 import { useEffect, useState } from "react";
-
 import { Poppins } from "next/font/google";
+import Layout from "./Layout";
+import dynamic from "next/dynamic";
 
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
+
+const HomeFeed = dynamic(() => import("./components/Home/HomeFeed"), {
+  ssr: false,
 });
 
 const Home: NextPage = () => {
@@ -43,11 +46,11 @@ const Home: NextPage = () => {
         )}
       </Head>
       <main>
-        <Hero volume={volume} handleVolumeChange={handleVolumeChange} />
+        <Hero />
         <div className="flex w-full flex-col items-center justify-center">
           <div className="stats w-full grid-flow-row justify-center p-5 text-center shadow sm:w-fit sm:grid-flow-col">
             <div className="stat border-none">
-              <div className="stat-title font-bold text-opacity-80 text-black">
+              <div className="stat-title font-bold text-black text-opacity-80">
                 Drum Loops Generated
               </div>
               <div className="stat-value text-black">9,999</div>
@@ -59,14 +62,25 @@ const Home: NextPage = () => {
             </div>
           </div>
         </div>
-      </main>
-      <div className="flex justify-center">
-        <div className="mt-20 flex w-full max-w-7xl flex-col items-start justify-center">
-          <Footer />
+        <div className="flex h-20 w-full flex-row items-center justify-center">
+          <div
+            className="tooltip tooltip-bottom tooltip-primary w-4/5 max-w-md sm:w-full"
+            data-tip={volume}
+          >
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={volume}
+              className="range range-xs w-full"
+              onChange={handleVolumeChange}
+            />
+          </div>
         </div>
-      </div>
+        <HomeFeed volume={volume} />
+      </main>
     </div>
   );
 };
 
-export default Home;
+export default Layout(Home);
