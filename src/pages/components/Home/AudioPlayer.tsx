@@ -98,6 +98,8 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                 width={68}
                 height={10}
                 className="min-w-[68px]"
+                priority
+                placeholder="blur"
               />
             </div>
             <div className="-mt-2 flex w-full flex-col py-2">
