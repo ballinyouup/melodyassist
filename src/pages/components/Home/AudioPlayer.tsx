@@ -90,18 +90,19 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
     <div className="flex flex-col">
       <div className="flex justify-center">
         <div className="flex w-screen justify-start sm:w-full">
-          <div className="flex w-full flex-row gap-4 rounded-xl bg-base-300 p-2 text-base-content">
+          <div className="flex w-full flex-row gap-2 rounded-xl bg-base-300 p-2 text-base-content sm:gap-4">
             <div className="flex h-16 flex-row">
               <Image
                 src={userData.data?.image as string}
                 alt="profile pic"
-                width={72}
+                width={68}
                 height={10}
+                className="min-w-[68px]"
               />
             </div>
             <div className="-mt-2 flex w-full flex-col py-2">
-              <div className="flex h-12 flex-row justify-between gap-2">
-                <div className="flex w-full flex-row gap-4">
+              <div className="flex h-full flex-row justify-between gap-1 sm:gap-2">
+                <div className="flex w-full flex-row gap-2 sm:gap-4">
                   <button
                     className="btn h-10 min-h-0 w-10 rounded-full object-cover p-0"
                     onClick={togglePlay}
@@ -109,7 +110,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                     {isPlaying ? (
                       <Image
                         src="/pause-dark.png"
-                        className="swap-on"
+                        className="swap-on min-w-[24px]"
                         alt="play button"
                         width={24}
                         height={24}
@@ -118,7 +119,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                       <Image
                         src="/play-button-dark.png"
                         alt="play button"
-                        className="min-w-3 swap-off"
+                        className="swap-off min-w-[40px]"
                         width={40}
                         height={40}
                       />
@@ -126,14 +127,16 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                   </button>
                   <div className="flex h-fit w-full flex-col">
                     <span className="flex w-full flex-row justify-between text-xs font-medium leading-none">
-                      <span>
-                        <span className="text-sm">{userData.data?.userName}</span>
+                      <span className="h-full">
+                        <span className="break-all text-sm max-[360px]:text-xs">
+                          {userData.data?.userName}
+                        </span>
                         <br />
-                        <span className="text-lg leading-none">
+                        <span className="max-[360px]:text-xs font-bold leading-none text-lg">
                           {title as string}
                         </span>
                       </span>
-                      <div className="flex flex-col text-end">
+                      <div className="hidden flex-col text-end sm:flex">
                         <span className="text-xs leading-none">
                           {createdAt?.split(" ")[0]}
                         </span>
@@ -155,10 +158,11 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                       alt="download button"
                       width={16}
                       height={16}
+                      className="min-w-[16px]"
                     />
                   </button>
                   <button
-                    className="btn-xs btn bg-black h-fit w-fit rounded-none p-0"
+                    className="btn-xs btn h-fit w-fit rounded-none bg-black p-0"
                     onClick={() => handleDelete(audioId)}
                     disabled={deleteLoading}
                   >
@@ -166,7 +170,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                       <Image
                         src="/delete.png"
                         alt="delete"
-                        className="p-0 invert"
+                        className="min-w-[32px] p-0 invert"
                         width={32}
                         height={32}
                       />
@@ -199,7 +203,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                 max={audioRef.current ? `${audioRef.current.duration}` : "7.5"}
                 value={currentTime}
                 step={0.05}
-                className="range range-xs w-[90%]"
+                className="range range-xs w-4/5 sm:w-[90%]"
                 onChange={handleTimeChange}
               />
               <audio ref={audioRef} preload="auto">
@@ -219,9 +223,6 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
             </div>
           </div>
         </div>
-      </div>
-      <div className="flex justify-center">
-        <div className="flex w-full flex-col justify-start px-6 sm:w-3/5"></div>
       </div>
     </div>
   );
