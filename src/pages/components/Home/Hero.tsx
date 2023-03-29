@@ -25,7 +25,7 @@ const Hero: React.FC<IHero> = ({ volume, handleVolumeChange }) => {
       <div className="hero">
         <div className="hero-content w-full flex-col">
           <div className="flex w-full flex-row items-center justify-between">
-            <Logo theme="night" />
+            <Logo />
             <div className="relative flex flex-row items-center gap-4">
               <button onClick={() => setOpenVolume(!openVolume)}>
                 {volume === 0 ? (

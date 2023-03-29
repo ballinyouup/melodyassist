@@ -21,7 +21,7 @@ const Generate = () => {
       void signIn(undefined, { redirect: true, callbackUrl: "/generate" });
     },
   });
-  
+  const [faviconTheme, setFaviconTheme] = useState(false);
   const trpc = api.useContext();
   const [volume, setVolume] = useState<number>(80);
   const { data: userAudios } = api.audio.getAudio.useQuery(undefined, {
@@ -123,12 +123,20 @@ const Generate = () => {
     };
   }, [audioLoading, loading, timer]);
 
+  useEffect(() => {
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      setFaviconTheme(true);
+    } else {
+      setFaviconTheme(false);
+    }
+  }, []);
+
   if (status === "loading") {
     return (
-      <div
-        className="h-screen w-full"
-        data-theme={userData.data?.theme ?? "winter"}
-      >
+      <div className="h-screen w-full">
         <div
           role="status"
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -156,16 +164,13 @@ const Generate = () => {
 
   return (
     <div className="h-full w-full">
-      <div
-        className="flex flex-col items-center justify-center gap-2 md:flex-row md:flex-wrap md:items-start"
-        data-theme={userData.data?.theme}
-      >
+      <div className="flex flex-col items-center justify-center gap-2 md:flex-row md:flex-wrap md:items-start">
         <Upload />
         <div className="flex h-full w-full flex-col items-center text-neutral md:max-w-lg">
           <Head>
             <title>Melody Assist</title>
             <meta name="description" content="Level up your Music with AI" />
-            {userData.data?.theme === "winter" ? (
+            {faviconTheme ? (
               <link rel="icon" href="/logo-dark.png" />
             ) : (
               <link rel="icon" href="/logo-light.png" />
@@ -263,10 +268,9 @@ const Generate = () => {
                   return (
                     <div key={post.id}>
                       <AudioPlayer
-                        generatePage
                         url={post.content}
-                        title={`${post.author.userName}: ${post.title}`}
-                        createdAt={`Created At: ${post.createdAt.toLocaleDateString()} ${post.createdAt.toLocaleTimeString()}`}
+                        title={post.title}
+                        createdAt={`${post.createdAt.toLocaleDateString()} ${post.createdAt.toLocaleTimeString()}`}
                         volume={volume}
                         audioId={post.id}
                       />

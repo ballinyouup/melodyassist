@@ -1,14 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { api } from "~/utils/api";
-/* eslint-disable @next/next/no-img-element */
-
+import Image from "next/image";
 interface IAudioPlayer {
   url: string;
   title?: string | undefined;
   volume: number;
   createdAt?: string;
-  generatePage?: boolean;
   audioId: string;
 }
 
@@ -17,7 +15,6 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
   title,
   volume,
   createdAt,
-  generatePage = false,
   audioId,
 }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -33,6 +30,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
       setDeleteLoading(false);
     },
   });
+  const userData = api.account.getUserData.useQuery();
   const trpc = api.useContext();
   const togglePlay = () => {
     isPlaying ? void audioRef.current?.pause() : void audioRef.current?.play();
@@ -92,67 +90,85 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
     <div className="flex flex-col">
       <div className="flex justify-center">
         <div className="flex w-screen justify-start sm:w-full">
-          <div
-            className={`flex w-full flex-row gap-4 rounded-xl bg-base-300 py-4 px-2 text-base-content ${
-              generatePage ? "w-full" : "sm:w-96"
-            }`}
-          >
-            <button
-              className="btn h-12 w-12 rounded-full p-1"
-              onClick={togglePlay}
-            >
-              {isPlaying ? (
-                <img
-                  src="/pause-dark.png"
-                  className="swap-on h-6 w-6"
-                  alt="play button"
-                />
-              ) : (
-                <img
-                  src="/play-button-dark.png"
-                  alt="play button"
-                  className="swap-off"
-                />
-              )}
-            </button>
+          <div className="flex w-full flex-row gap-4 rounded-xl bg-base-300 py-2 px-2 text-base-content">
+            <div className="flex h-16 flex-row">
+              <Image
+                src={userData.data?.image as string}
+                alt="profile pic"
+                width={72}
+                height={10}
+              />
+            </div>
             <div className="-mt-2 flex w-full flex-col">
-              <div className="flex flex-row justify-between">
-                <div className="flex flex-col">
-                  <span
-                    className={`${
-                      generatePage ? "text-md" : "text-xl"
-                    } font-medium`}
+              <div className="flex h-12 flex-row justify-between gap-2">
+                <div className="flex w-full flex-row gap-4">
+                  <button
+                    className="btn h-10 min-h-0 w-10 rounded-full object-cover p-0"
+                    onClick={togglePlay}
                   >
-                    {title as string}
-                    {generatePage && (
-                      <>
-                        <br />
-                        <span className="text-sm">{createdAt}</span>
-                      </>
+                    {isPlaying ? (
+                      <Image
+                        src="/pause-dark.png"
+                        className="swap-on"
+                        alt="play button"
+                        width={24}
+                        height={24}
+                      />
+                    ) : (
+                      <Image
+                        src="/play-button-dark.png"
+                        alt="play button"
+                        className="min-w-3 swap-off"
+                        width={40}
+                        height={40}
+                      />
                     )}
-                  </span>
+                  </button>
+                  <div className="flex h-fit w-full flex-col">
+                    <span className="flex w-full flex-row justify-between p-0 text-xs font-medium leading-none">
+                      <span>
+                        <span className="text-sm">{userData.data?.userName}</span>
+                        <br />
+                        <span className="text-lg leading-none">
+                          {title as string}
+                        </span>
+                      </span>
+                      <div className="flex flex-col text-end">
+                        <span className="text-xs leading-none">
+                          {createdAt?.split(" ")[0]}
+                        </span>
+
+                        <span className="text-xs leading-none">
+                          {createdAt?.split(" ")[1]}
+                        </span>
+                      </div>
+                    </span>
+                  </div>
                 </div>
                 <div className="flex h-8 flex-col items-end gap-1">
                   <button
-                    className="btn-xs btn h-8 w-fit"
+                    className="btn-xs btn h-8 w-fit rounded-none bg-black"
                     onClick={() => void handleDownloadClick()}
                   >
-                    <img
-                      className="w-4"
+                    <Image
                       src="/download-dark.png"
                       alt="download button"
+                      width={16}
+                      height={16}
                     />
                   </button>
                   <button
-                    className="btn-xs btn h-8 w-8 p-0"
+                    className="btn-xs btn bg-black h-fit w-fit rounded-none p-0"
                     onClick={() => handleDelete(audioId)}
                     disabled={deleteLoading}
                   >
                     {!deleteLoading ? (
-                      <img
+                      <Image
                         src="/delete.png"
                         alt="delete"
-                        className="h-6 w-6 p-0 invert"
+                        className="p-0 invert"
+                        width={32}
+                        height={32}
                       />
                     ) : (
                       <div role="status">
@@ -194,7 +210,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                   !Number.isNaN(audioRef.current.duration) && (
                     <>
                       <span>{Number(currentTime).toFixed(1)}</span>
-                      <span>
+                      <span className="mr-12">
                         {Number(audioRef.current.duration).toFixed(1)}
                       </span>
                     </>
