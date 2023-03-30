@@ -22,6 +22,7 @@ const HomeFeed: React.FC<IHomeFeed> = ({ volume }) => {
                 audioId={post.id}
                 userName={post.author.userName}
                 userImage={post.author.image as string}
+                feed={true}
               />
             </div>
           );

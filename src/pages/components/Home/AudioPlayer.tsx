@@ -10,6 +10,7 @@ interface IAudioPlayer {
   audioId: string;
   userName: string;
   userImage: string;
+  feed?: boolean;
 }
 
 const AudioPlayer: React.FC<IAudioPlayer> = ({
@@ -20,6 +21,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
   audioId,
   userName,
   userImage,
+  feed = false,
 }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -166,7 +168,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                       className="min-w-[16px]"
                     />
                   </button>
-                  <button
+                  {!feed && <button
                     className="btn-xs btn h-fit w-fit rounded-none bg-black p-0"
                     onClick={() => handleDelete(audioId)}
                     disabled={deleteLoading}
@@ -199,7 +201,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                         </svg>
                       </div>
                     )}
-                  </button>
+                  </button>}
                 </div>
               </div>
               <input
