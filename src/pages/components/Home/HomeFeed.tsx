@@ -1,13 +1,20 @@
-import { api } from "~/utils/api";
+import { type User } from "@prisma/client";
 import AudioPlayer from "./AudioPlayer";
 
 interface IHomeFeed {
   volume: number;
+  userAudios:
+    | {
+        id: string;
+        author: User;
+        title: string;
+        content: string;
+        createdAt: Date;
+      }[]
+    | undefined;
 }
 
-const HomeFeed: React.FC<IHomeFeed> = ({ volume }) => {
-  const { data: userAudios } = api.audio.getFeed.useQuery();
-
+const HomeFeed: React.FC<IHomeFeed> = ({ volume, userAudios }) => {
   return (
     <div className="flex w-full flex-row items-start justify-center">
       <div className="relative h-[520px] w-full max-w-2xl gap-1 overflow-y-auto rounded-xl bg-base-300 p-1">

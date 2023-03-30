@@ -90,7 +90,7 @@ const Home: NextPage = () => {
             />
           </div>
         </div>
-        <HomeFeed volume={volume} />
+        <HomeFeed volume={volume} userAudios={userAudios} />
       </main>
     </div>
   );
