@@ -1,20 +1,17 @@
 import { api } from "~/utils/api";
 import Layout from "./Layout";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 
-const HomeFeed = dynamic(() => import("./components/Home/HomeFeed"), {
+const BrowseFeed = dynamic(() => import("./components/Home/BrowseFeed"), {
   ssr: false,
 });
 
 const Browse: React.FC = () => {
-  const [volume, setVolume] = useState<number>(80);
+
   const [faviconTheme, setFaviconTheme] = useState(false);
-  const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setVolume(Number(event.target.value));
-  };
+  
   const { data: userAudios, isLoading: feedLoading } =
     api.audio.getFeed.useQuery();
   const { data: users, isLoading: userCountLoading } =
@@ -60,42 +57,7 @@ const Browse: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="flex h-20 w-full flex-row items-center justify-center gap-4">
-        <button onClick={() => setVolume(volume === 0 ? 70 : 0)}>
-          {volume === 0 ? (
-            <Image
-              src="/volume-mute.png"
-              alt="volume muted"
-              className="w-7 invert"
-              width={28}
-              height={28}
-            />
-          ) : (
-            <Image
-              src="/audio.png"
-              alt="audio button"
-              className="w-8 invert"
-              width={32}
-              height={32}
-            />
-          )}
-        </button>
-        <div
-          className="tooltip tooltip-bottom tooltip-primary w-4/5 max-w-md sm:w-full"
-          data-tip={volume}
-        >
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={volume}
-            className="range range-xs w-full"
-            onChange={handleVolumeChange}
-          />
-        </div>
-      </div>
-      <HomeFeed
-        volume={volume}
+      <BrowseFeed
         userAudios={userAudios}
         isLoading={feedLoading}
       />
