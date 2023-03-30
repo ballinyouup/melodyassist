@@ -104,7 +104,7 @@ export default function SignIn({
                   .map((provider, index) => (
                     <>
                       {index === 2 ? (
-                        <>
+                        <div key={provider.name}>
                           <div className="divider text-black before:bg-gray-400 after:bg-gray-400">
                             OR
                           </div>
@@ -117,7 +117,7 @@ export default function SignIn({
                             <input
                               type="email"
                               placeholder="Enter email..."
-                              className="input bg-gray-100 border-black border-opacity-20 placeholder:text-gray-400 text-black"
+                              className="input border-black border-opacity-20 bg-gray-100 text-black placeholder:text-gray-400"
                               value={email}
                               onChange={(e) => setEmail(e.target.value)}
                             />
@@ -132,7 +132,7 @@ export default function SignIn({
                               {provider.id}
                             </button>
                           </div>
-                        </>
+                        </div>
                       ) : (
                         <button
                           key={provider.name}

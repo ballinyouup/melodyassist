@@ -37,6 +37,12 @@ const Navbar: React.FC = () => {
           </label>
         ) : (
           <>
+            <Link
+              href={"/browse"}
+              className="link-hover cursor-pointer text-base font-medium sm:text-lg"
+            >
+              Browse
+            </Link>
             <Dropdown />
           </>
         )}

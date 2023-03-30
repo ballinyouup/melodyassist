@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import HomeFeed from "./components/Home/HomeFeed";
 import Image from "next/image";
 import Head from "next/head";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
 
 const Browse: React.FC = () => {
   const [volume, setVolume] = useState<number>(80);
@@ -100,23 +99,6 @@ const Browse: React.FC = () => {
   );
 };
 
-export async function getServerSideProps() {
-  const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: ["getFeed"],
-    queryFn: () => {
-      api.audio.getFeed.useQuery();
-      api.account.getUserCount.useQuery();
-    },
-    staleTime: 5000,
-  });
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
-}
 
 export default Layout(Browse);

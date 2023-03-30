@@ -81,11 +81,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
   }, [volume]);
 
   async function handleDownloadClick() {
-    await fetch(url, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
+    await fetch(url, { mode: "no-cors" })
       .then((response) => response.blob())
       .then((blob) => {
         const url = URL.createObjectURL(blob);
@@ -130,9 +126,9 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                       <Image
                         src="/play-button-dark.png"
                         alt="play button"
-                        className="swap-off min-w-[40px]"
-                        width={40}
-                        height={40}
+                        className="swap-off min-w-[36px]"
+                        width={36}
+                        height={36}
                       />
                     )}
                   </button>
@@ -174,7 +170,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                   </button>
                   {!feed && (
                     <button
-                      className="btn-xs btn h-fit w-fit rounded-none bg-black p-0"
+                      className="btn-xs btn h-8 w-8 rounded-none bg-black p-0"
                       onClick={() => handleDelete(audioId)}
                       disabled={deleteLoading}
                     >
