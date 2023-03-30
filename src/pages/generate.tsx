@@ -273,6 +273,8 @@ const Generate = () => {
                         createdAt={`${post.createdAt.toLocaleDateString()} ${post.createdAt.toLocaleTimeString()}`}
                         volume={volume}
                         audioId={post.id}
+                        userImage={post.author.image as string}
+                        userName={post.author.userName}
                       />
                     </div>
                   );
