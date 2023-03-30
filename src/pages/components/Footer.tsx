@@ -1,22 +1,6 @@
-import { api } from "~/utils/api";
-
-interface IFooter {
-  theme?: string;
-}
-
-const Footer: React.FC<IFooter> = ({ theme }) => {
-  const userData = api.account.getUserData.useQuery(undefined, {
-    retry: false,
-    refetchInterval: 0,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  });
-
+const Footer: React.FC = () => {
   return (
-    <footer
-      className="footer footer-center rounded text-base-content sm:w-full"
-      data-theme={theme ? theme : userData.data?.theme ?? "winter"}
-    >
+    <footer className="footer footer-center rounded text-base-content sm:w-full">
       <div>
         <div className="grid w-full grid-flow-col gap-4">
           <svg

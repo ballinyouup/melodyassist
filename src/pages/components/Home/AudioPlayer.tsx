@@ -8,6 +8,8 @@ interface IAudioPlayer {
   volume: number;
   createdAt?: string;
   audioId: string;
+  userName: string;
+  userImage: string;
 }
 
 const AudioPlayer: React.FC<IAudioPlayer> = ({
@@ -16,6 +18,8 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
   volume,
   createdAt,
   audioId,
+  userName,
+  userImage,
 }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -30,7 +34,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
       setDeleteLoading(false);
     },
   });
-  const userData = api.account.getUserData.useQuery();
+
   const trpc = api.useContext();
   const togglePlay = () => {
     isPlaying ? void audioRef.current?.pause() : void audioRef.current?.play();
@@ -93,7 +97,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
           <div className="flex w-full flex-row gap-2 rounded-xl bg-base-300 p-2 text-base-content sm:gap-4">
             <div className="flex h-16 flex-row">
               <Image
-                src={userData.data?.image as string}
+                src={userImage}
                 alt="profile pic"
                 width={68}
                 height={10}
@@ -130,7 +134,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                     <span className="flex w-full flex-row justify-between text-xs font-medium leading-none">
                       <span className="h-full">
                         <span className="break-all text-sm max-[400px]:text-xs">
-                          {userData.data?.userName}
+                          {userName}
                         </span>
                         <br />
                         <span className="text-lg font-bold leading-none max-[400px]:text-xs">

@@ -1,5 +1,9 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 import { env } from "~/env.mjs";
 import { TRPCError } from "@trpc/server";
 
@@ -236,7 +240,7 @@ export const audioRouter = createTRPCRouter({
       });
       return userAudios;
     }
-    if(!existingUser){
+    if (!existingUser) {
       throw new TRPCError({
         code: "UNAUTHORIZED",
         message: "Not Authorized to perform this action",
@@ -247,7 +251,7 @@ export const audioRouter = createTRPCRouter({
       message: "Error Fetching All User Audio",
     });
   }),
-  getFeed: protectedProcedure.query(async ({ ctx }) => {
+  getFeed: publicProcedure.query(async ({ ctx }) => {
     const feed = await ctx.prisma.post.findMany({
       select: {
         title: true,
@@ -279,8 +283,8 @@ export const audioRouter = createTRPCRouter({
           authorId: existingUser.id,
         },
       });
-    } 
-    if(!existingUser){
+    }
+    if (!existingUser) {
       throw new TRPCError({
         code: "UNAUTHORIZED",
         message: "Not Authorized to perform this action",
@@ -304,7 +308,7 @@ export const audioRouter = createTRPCRouter({
           },
         });
       }
-      if(!existingUser){
+      if (!existingUser) {
         throw new TRPCError({
           code: "UNAUTHORIZED",
           message: "Not Authorized to perform this action",
