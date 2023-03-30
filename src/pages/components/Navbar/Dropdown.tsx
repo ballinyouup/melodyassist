@@ -30,6 +30,9 @@ const Dropdown: React.FC = () => {
             <Link href="/">Home</Link>
           </li>
           <li>
+            <Link href="/browse">Browse</Link>
+          </li>
+          <li>
             <Link href="/profile">Profile</Link>
           </li>
           <li>
