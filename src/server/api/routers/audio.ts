@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { env } from "~/env.mjs";
+import { TRPCError } from "@trpc/server";
 
 const predictionSchema = z.object({
   completed_at: z.string().nullable(),
@@ -75,14 +76,26 @@ export const audioRouter = createTRPCRouter({
 
       if (response.status !== 201) {
         const error = await response.json();
-        throw new Error(JSON.stringify(error));
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `Error Uploading File. ${JSON.stringify(error)}`,
+        });
       }
 
       const prediction = (await response.json()) as Prediction | ErrorResponse;
       return prediction;
     }
-    const error = new Error("Unauthorized");
-    throw error;
+    if (!existingUser) {
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: "Not Authorized to perform this action",
+      });
+    }
+
+    throw new TRPCError({
+      code: "BAD_REQUEST",
+      message: "Error Sending First Prediction",
+    });
   }),
 
   getPredictionData: protectedProcedure
@@ -104,7 +117,10 @@ export const audioRouter = createTRPCRouter({
 
         if (secondResponse.status !== 200) {
           const error = await secondResponse.json();
-          throw new Error(JSON.stringify(error));
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: `Error Fetching AI Audio File. ${JSON.stringify(error)}`,
+          });
         }
 
         const result = (await secondResponse.json()) as PredictionCompleted;
@@ -131,7 +147,10 @@ export const audioRouter = createTRPCRouter({
 
           if (response.status !== 200) {
             const error = await response.json();
-            throw new Error(JSON.stringify(error));
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: `Error Uploading File. ${JSON.stringify(error)}`,
+            });
           }
 
           const uploadResult = (await response.json()) as UploadResponse;
@@ -141,8 +160,17 @@ export const audioRouter = createTRPCRouter({
           return result;
         }
       }
-      const error = new Error("Unauthorized");
-      throw error;
+      if (!existingUser) {
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "Not Authorized to perform this action",
+        });
+      }
+
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "Error Fetching Second Prediction",
+      });
     }),
   createAudio: protectedProcedure
     .input(
@@ -170,7 +198,16 @@ export const audioRouter = createTRPCRouter({
           },
         });
       }
-      throw new Error("Error Creating Audio");
+      if (!existingUser) {
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "Not Authorized to perform this action",
+        });
+      }
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "Error Creating Audio",
+      });
     }),
   getAudio: protectedProcedure.query(async ({ ctx }) => {
     // Check if user exists
@@ -199,7 +236,37 @@ export const audioRouter = createTRPCRouter({
       });
       return userAudios;
     }
-    throw new Error("Error Fetching Audio");
+    if(!existingUser){
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: "Not Authorized to perform this action",
+      });
+    }
+    throw new TRPCError({
+      code: "BAD_REQUEST",
+      message: "Error Fetching All User Audio",
+    });
+  }),
+  getFeed: protectedProcedure.query(async ({ ctx }) => {
+    const feed = await ctx.prisma.post.findMany({
+      select: {
+        title: true,
+        content: true,
+        createdAt: true,
+        id: true,
+        author: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    if (feed) {
+      return feed;
+    }
+    throw new TRPCError({
+      code: "BAD_REQUEST",
+      message: "Error Fetching Feed",
+    });
   }),
 
   deleteAllAudio: protectedProcedure.mutation(async ({ ctx }) => {
@@ -212,8 +279,17 @@ export const audioRouter = createTRPCRouter({
           authorId: existingUser.id,
         },
       });
+    } 
+    if(!existingUser){
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: "Not Authorized to perform this action",
+      });
     }
-    throw new Error("Error Deleting Audio");
+    throw new TRPCError({
+      code: "BAD_REQUEST",
+      message: "Error Deleting All User Audio",
+    });
   }),
   deleteAudio: protectedProcedure
     .input(z.string())
@@ -228,6 +304,15 @@ export const audioRouter = createTRPCRouter({
           },
         });
       }
-      throw new Error("Error Deleting Audio");
+      if(!existingUser){
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "Not Authorized to perform this action",
+        });
+      }
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "Error Deleting Single Audio",
+      });
     }),
 });
