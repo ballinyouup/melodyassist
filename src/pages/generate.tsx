@@ -31,34 +31,22 @@ const Generate = () => {
   const trpc = api.useContext();
   const [volume, setVolume] = useState<number>(80);
   const { data: userAudios } = api.audio.getAudio.useQuery(undefined, {
-    refetchInterval: 0,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    retry: false,
+    queryKey: ["audio.getAudio", undefined],
   });
   const [timer, setTimer] = useState<number>(0);
   const [uploadData, setUploadData] = useState<UploadResponse | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
   const userData = api.account.getUserData.useQuery(undefined, {
-    refetchInterval: 0,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    retry: false,
+    queryKey: ["account.getUserData", undefined],
   });
   const [audioLoading, setAudioLoading] = useState<boolean>(false);
   const { data: firstData } = api.audio.getPrediction.useQuery(undefined, {
-    refetchOnWindowFocus: false,
-    refetchInterval: 0,
-    refetchOnMount: false,
-    enabled: loading,
-    onSuccess: () => {
-      setLoading(false);
-      setAudioLoading(true);
-    },
+    queryKey: ["audio.getPrediction", undefined],
   });
   const { data: audio } = api.audio.getPredictionData.useQuery(
     firstData?.id ?? "",
     {
+      queryKey: ["audio.getPredictionData", firstData?.id ?? ""],
       refetchOnWindowFocus: false,
       refetchInterval: timer < 6 ? 1000 : 2000, // Fetch every 2 seconds
       enabled: audioLoading,
