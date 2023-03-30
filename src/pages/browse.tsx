@@ -6,12 +6,12 @@ import dynamic from "next/dynamic";
 
 const BrowseFeed = dynamic(() => import("./components/Home/BrowseFeed"), {
   ssr: false,
+  loading: () => <>Loading...</>,
 });
 
 const Browse: React.FC = () => {
-
   const [faviconTheme, setFaviconTheme] = useState(false);
-  
+
   const { data: userAudios, isLoading: feedLoading } =
     api.audio.getFeed.useQuery();
   const { data: users, isLoading: userCountLoading } =
@@ -57,10 +57,7 @@ const Browse: React.FC = () => {
           </div>
         </div>
       </div>
-      <BrowseFeed
-        userAudios={userAudios}
-        isLoading={feedLoading}
-      />
+      <BrowseFeed userAudios={userAudios} isLoading={feedLoading} />
     </div>
   );
 };
