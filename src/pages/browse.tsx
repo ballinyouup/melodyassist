@@ -1,9 +1,13 @@
 import { api } from "~/utils/api";
 import Layout from "./Layout";
 import { useEffect, useState } from "react";
-import HomeFeed from "./components/Home/HomeFeed";
 import Image from "next/image";
 import Head from "next/head";
+import dynamic from "next/dynamic";
+
+const HomeFeed = dynamic(() => import("./components/Home/HomeFeed"), {
+  ssr: false,
+});
 
 const Browse: React.FC = () => {
   const [volume, setVolume] = useState<number>(80);
@@ -41,7 +45,7 @@ const Browse: React.FC = () => {
         <div className="stats w-full grid-flow-row justify-center p-5 text-center shadow sm:w-fit sm:grid-flow-col">
           <div className="stat border-none">
             <div className="stat-title font-bold text-black text-opacity-80">
-              Drum Loops Generated
+              Samples Uploaded
             </div>
             <div className="stat-value text-black">
               {!userCountLoading ? userAudios?.length : "0"}
@@ -98,7 +102,5 @@ const Browse: React.FC = () => {
     </div>
   );
 };
-
-
 
 export default Layout(Browse);
