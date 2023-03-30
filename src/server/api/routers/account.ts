@@ -1,6 +1,11 @@
 //import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc";
+import { z } from "zod";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 //publicProcedure
 
 export const accountRouter = createTRPCRouter({
@@ -8,7 +13,6 @@ export const accountRouter = createTRPCRouter({
   // 1. Retrieves the email address associated with the session.
   // 2. Deletes the user account with the retrieved email address using the Prisma delete method.
   deleteAccount: protectedProcedure.mutation(async ({ ctx }) => {
-    // Check if the new username is already taken
     const existingUser = await ctx.prisma.user.findFirst({
       where: { id: ctx.session.user.id },
     });
@@ -21,7 +25,6 @@ export const accountRouter = createTRPCRouter({
   }),
 
   getUserData: protectedProcedure.query(async ({ ctx }) => {
-    // Check if the new username is already taken
     const existingUser = await ctx.prisma.user.findFirst({
       where: { id: ctx.session.user.id },
     });
@@ -60,4 +63,40 @@ export const accountRouter = createTRPCRouter({
       message: "Error Fetching Feed",
     });
   }),
+
+  updateUsername: protectedProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      // Check if the new username is already taken
+      const currentUser = await ctx.prisma.user.findFirst({
+        where: { id: ctx.session.user.id },
+      });
+
+      const existingUsername = await ctx.prisma.user.findFirst({
+        where: { userName: input },
+      });
+
+      if (!currentUser) {
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "Not Authorized to perform this action",
+        });
+      }
+
+      if (existingUsername) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Username already taken",
+        });
+      } else {
+        return await ctx.prisma.user.update({
+          where: {
+            id: currentUser.id,
+          },
+          data: {
+            userName: input,
+          },
+        });
+      }
+    }),
 });

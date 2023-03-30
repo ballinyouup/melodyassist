@@ -1,13 +1,14 @@
-/* eslint-disable @next/next/no-img-element */
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import { api } from "~/utils/api";
 import { toast } from "react-hot-toast";
 import Layout from "./Layout";
 import Head from "next/head";
+import Image from "next/image";
 
 const Settings: React.FC = () => {
-  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [editUsername, setEditUsername] = useState(false);
   const { status } = useSession({
     required: true,
     onUnauthenticated() {
@@ -36,7 +37,7 @@ const Settings: React.FC = () => {
     return <>Loading...</>;
   }
   return (
-    <div data-theme={userData.data?.theme} className="h-[91vh]">
+    <div className="h-[91vh]">
       <Head>
         <title>Melody Assist</title>
         <meta name="description" content="Level up your Music with AI" />
@@ -61,40 +62,73 @@ const Settings: React.FC = () => {
             <a>Notifications</a>
           </li>
         </ul>
-        <div className="flex w-full flex-col rounded-2xl bg-base-300 p-4 sm:w-3/4 sm:max-w-2xl">
+        <div className="flex w-full flex-col rounded-2xl bg-base-300 py-4 sm:w-3/4 sm:max-w-2xl sm:p-4">
           <table className="w-full sm:table-compact sm:table">
             <tbody>
               <tr>
-                <td className="bg-base-300">
+                <td>
                   <div className="px-6">
-                    <span className="text-base">
+                    <div className="w-12 text-base sm:w-40">
                       Profile Image:
-                      <img
-                        src={userData.data?.image as string ?? ""}
+                      <Image
+                        src={userData.data?.image as string}
+                        alt="profile image"
                         width={160}
                         height={160}
-                        alt="profile image"
-                        className="w-40"
                       />
-                    </span>
+                    </div>
                   </div>
                 </td>
               </tr>
-              <tr>
-                <td className="bg-base-300">
+              <tr className="flex flex-col">
+                <td>
                   <div className="px-6">
-                    <span className="text-base">
-                      Email: {userData.data?.email ?? ""}
+                    <div className="flex h-6 flex-wrap sm:flex-nowrap sm:gap-3">
+                      <span className="break-all text-base">
+                        Username:
+                        <span className="ml-2">
+                          {editUsername ? (
+                            <input
+                              type="text"
+                              placeholder="Enter Username"
+                              className=" input-bordered input input-xs w-56"
+                            />
+                          ) : (
+                            userData.data?.userName
+                          )}
+                        </span>
+                      </span>
+                      {editUsername ? (
+                        <button
+                          className="btn-xs btn"
+                          onClick={() => setEditUsername(false)}
+                        >
+                          Submit
+                        </button>
+                      ) : (
+                        <button
+                          className="btn-xs btn"
+                          onClick={() => setEditUsername(true)}
+                        >
+                          Change
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div className="px-6">
+                    <span className="break-all text-base">
+                      Email: {userData.data?.email}
                     </span>
                   </div>
                 </td>
               </tr>
               <tr>
-                <td className="bg-base-300">
+                <td>
                   <div className="flex flex-col gap-4 px-6">
-                    <label>
-                      <i>Warning: Account data cannot be recovered</i>
-                    </label>
                     {!deleteLoading ? (
                       <button
                         className="btn-error btn-sm btn w-fit bg-red-600 text-white hover:bg-red-800"
