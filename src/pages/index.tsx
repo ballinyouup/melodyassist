@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Poppins } from "next/font/google";
 import Layout from "./Layout";
 import dynamic from "next/dynamic";
+import { api } from "~/utils/api";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,7 +23,8 @@ const Home: NextPage = () => {
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVolume(Number(event.target.value));
   };
-
+  const { data: userAudios } = api.audio.getFeed.useQuery();
+  const { data: users } = api.account.getUserCount.useQuery();
   useEffect(() => {
     if (
       window.matchMedia &&
@@ -53,16 +55,27 @@ const Home: NextPage = () => {
               <div className="stat-title font-bold text-black text-opacity-80">
                 Drum Loops Generated
               </div>
-              <div className="stat-value text-black">9,999</div>
+              <div className="stat-value text-black">{userAudios?.length}</div>
             </div>
             <div className="divider hidden h-4/5 sm:flex" />
             <div className="stat border-none">
               <div className="stat-title font-bold text-black">Total Users</div>
-              <div className="stat-value text-black">9,999</div>
+              <div className="stat-value text-black">{users?.length}</div>
             </div>
           </div>
         </div>
-        <div className="flex h-20 w-full flex-row items-center justify-center">
+        <div className="flex h-20 w-full flex-row items-center justify-center gap-4">
+          <button onClick={() => setVolume(volume === 0 ? 70 : 0)}>
+            {volume === 0 ? (
+              <img
+                src="volume-mute.png"
+                alt="volume muted"
+                className="w-7 invert"
+              />
+            ) : (
+              <img src="audio.png" alt="audio button" className="w-8 invert" />
+            )}
+          </button>
           <div
             className="tooltip tooltip-bottom tooltip-primary w-4/5 max-w-md sm:w-full"
             data-tip={volume}

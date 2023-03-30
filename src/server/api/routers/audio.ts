@@ -272,7 +272,6 @@ export const audioRouter = createTRPCRouter({
       message: "Error Fetching Feed",
     });
   }),
-
   deleteAllAudio: protectedProcedure.mutation(async ({ ctx }) => {
     const existingUser = await ctx.prisma.user.findFirst({
       where: { id: ctx.session.user.id },

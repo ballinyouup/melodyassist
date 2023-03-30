@@ -18,7 +18,7 @@ const Hero: React.FC = () => {
         <div className="hero-content w-full flex-col object-cover p-0 sm:-mt-20">
           <div className="relative flex h-fit w-full flex-col items-center justify-center overflow-clip bg-black p-8 text-center text-white sm:mt-20 sm:h-96">
             <Image
-              className="absolute -top-40 z-0 min-h-[600px] w-full min-w-[600px] mix-blend-screen brightness-[10%] sm:max-w-5xl"
+              className="absolute -top-40 z-0 min-h-[600px] w-full min-w-[600px] mix-blend-screen brightness-[30%] sm:max-w-5xl"
               src="/home-image.png"
               alt="music producer looking at pc"
               width={600}

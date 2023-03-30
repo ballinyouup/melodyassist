@@ -1,5 +1,6 @@
 //import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+import { TRPCError } from "@trpc/server";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc";
 //publicProcedure
 
 export const accountRouter = createTRPCRouter({
@@ -48,5 +49,15 @@ export const accountRouter = createTRPCRouter({
     }
 
     throw new Error("Error Changing Theme");
+  }),
+  getUserCount: publicProcedure.query(async ({ ctx }) => {
+    const users = await ctx.prisma.user.findMany();
+    if (users) {
+      return users;
+    }
+    throw new TRPCError({
+      code: "BAD_REQUEST",
+      message: "Error Fetching Feed",
+    });
   }),
 });
