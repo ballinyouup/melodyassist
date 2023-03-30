@@ -7,12 +7,18 @@ import Head from "next/head";
 import AudioPlayer from "./components/Home/AudioPlayer";
 import toast from "react-hot-toast";
 import Upload from "./components/Generate/Upload";
+import { Poppins } from "next/font/google";
 
 interface UploadResponse {
   accountId: string;
   filePath: string;
   fileUrl: string;
 }
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 
 const Generate = () => {
   const { status } = useSession({
@@ -163,7 +169,7 @@ const Generate = () => {
   }
 
   return (
-    <div className="h-full w-full">
+    <div className={`h-full w-full ${poppins.className}`}>
       <div className="flex flex-col items-center justify-center gap-2 md:flex-row md:flex-wrap md:items-start">
         <Upload />
         <div className="flex h-full w-full flex-col items-center text-neutral md:max-w-lg">

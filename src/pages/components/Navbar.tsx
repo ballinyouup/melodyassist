@@ -2,6 +2,7 @@ import Logo from "./Navbar/Logo";
 import Dropdown from "./Navbar/Dropdown";
 import LogIn from "./Navbar/LogIn";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 const Navbar: React.FC = () => {
   const { data, status } = useSession();
@@ -13,6 +14,9 @@ const Navbar: React.FC = () => {
           <Logo />
         </div>
         <div className="navbar-end w-full gap-4">
+          <Link href={"/browse"} className="cursor-pointer">
+            Browse
+          </Link>
           <LogIn />
         </div>
       </div>

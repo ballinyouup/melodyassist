@@ -4,14 +4,18 @@ import { useEffect, useState } from "react";
 import HomeFeed from "./components/Home/HomeFeed";
 import Image from "next/image";
 import Head from "next/head";
-function Browse() {
+import { QueryClient, dehydrate } from "@tanstack/react-query";
+
+const Browse: React.FC = () => {
   const [volume, setVolume] = useState<number>(80);
   const [faviconTheme, setFaviconTheme] = useState(false);
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVolume(Number(event.target.value));
   };
-  const { data: userAudios } = api.audio.getFeed.useQuery();
-  const { data: users } = api.account.getUserCount.useQuery();
+  const { data: userAudios, isLoading: feedLoading } =
+    api.audio.getFeed.useQuery();
+  const { data: users, isLoading: userCountLoading } =
+    api.account.getUserCount.useQuery();
 
   useEffect(() => {
     if (
@@ -40,12 +44,16 @@ function Browse() {
             <div className="stat-title font-bold text-black text-opacity-80">
               Drum Loops Generated
             </div>
-            <div className="stat-value text-black">{userAudios?.length}</div>
+            <div className="stat-value text-black">
+              {!userCountLoading ? userAudios?.length : "0"}
+            </div>
           </div>
           <div className="divider hidden h-4/5 sm:flex" />
           <div className="stat border-none">
             <div className="stat-title font-bold text-black">Total Users</div>
-            <div className="stat-value text-black">{users?.length}</div>
+            <div className="stat-value text-black">
+              {!userCountLoading ? users?.length : "0"}
+            </div>
           </div>
         </div>
       </div>
@@ -53,12 +61,20 @@ function Browse() {
         <button onClick={() => setVolume(volume === 0 ? 70 : 0)}>
           {volume === 0 ? (
             <Image
-              src="volume-mute.png"
+              src="/volume-mute.png"
               alt="volume muted"
               className="w-7 invert"
+              width={28}
+              height={28}
             />
           ) : (
-            <Image src="audio.png" alt="audio button" className="w-8 invert" />
+            <Image
+              src="/audio.png"
+              alt="audio button"
+              className="w-8 invert"
+              width={32}
+              height={32}
+            />
           )}
         </button>
         <div
@@ -75,9 +91,32 @@ function Browse() {
           />
         </div>
       </div>
-      <HomeFeed volume={volume} userAudios={userAudios} />
+      <HomeFeed
+        volume={volume}
+        userAudios={userAudios}
+        isLoading={feedLoading}
+      />
     </div>
   );
+};
+
+export async function getServerSideProps() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["getFeed"],
+    queryFn: () => {
+      api.audio.getFeed.useQuery();
+      api.account.getUserCount.useQuery();
+    },
+    staleTime: 5000,
+  });
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 }
 
 export default Layout(Browse);
