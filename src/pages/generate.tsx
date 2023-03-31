@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
 import Layout from "./Layout";
 import { signIn, useSession } from "next-auth/react";
@@ -7,8 +6,8 @@ import Head from "next/head";
 import AudioPlayer from "./components/Home/AudioPlayer";
 import toast from "react-hot-toast";
 import Upload from "./components/Generate/Upload";
+import Image from "next/image";
 import { Poppins } from "next/font/google";
-
 interface UploadResponse {
   accountId: string;
   filePath: string;
@@ -32,23 +31,39 @@ const Generate = () => {
   const [volume, setVolume] = useState<number>(80);
   const { data: userAudios } = api.audio.getAudio.useQuery(undefined, {
     queryKey: ["audio.getAudio", undefined],
+    refetchInterval: 0,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    retry: false,
   });
   const [timer, setTimer] = useState<number>(0);
   const [uploadData, setUploadData] = useState<UploadResponse | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
   const userData = api.account.getUserData.useQuery(undefined, {
     queryKey: ["account.getUserData", undefined],
+    refetchInterval: 0,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    retry: false,
   });
   const [audioLoading, setAudioLoading] = useState<boolean>(false);
   const { data: firstData } = api.audio.getPrediction.useQuery(undefined, {
     queryKey: ["audio.getPrediction", undefined],
+    refetchOnWindowFocus: false,
+    refetchInterval: 0,
+    refetchOnMount: false,
+    enabled: loading,
+    onSuccess: () => {
+      setLoading(false);
+      setAudioLoading(true);
+    },
   });
   const { data: audio } = api.audio.getPredictionData.useQuery(
     firstData?.id ?? "",
     {
       queryKey: ["audio.getPredictionData", firstData?.id ?? ""],
       refetchOnWindowFocus: false,
-      refetchInterval: timer < 6 ? 1000 : 2000, // Fetch every 2 seconds
+      refetchInterval: timer < 8 ? 1000 : 2000, // Fetch every 2 seconds
       enabled: audioLoading,
     }
   );
@@ -171,7 +186,7 @@ const Generate = () => {
             )}
           </Head>
           <div className="flex w-full flex-col items-start gap-5 rounded-lg bg-base-300 p-4 text-base-content sm:p-12">
-            {timer > 5 && (
+            {timer > 8 && (
               <div className="alert w-fit shadow-lg">
                 <div>
                   <svg
@@ -231,13 +246,21 @@ const Generate = () => {
                 onClick={() => setVolume(volume === 0 ? 70 : 0)}
               >
                 {volume === 0 ? (
-                  <img
-                    src="volume-mute.png"
+                  <Image
+                    src="/volume-mute.png"
                     alt="volume muted"
                     className="w-7"
+                    width={28}
+                    height={28}
                   />
                 ) : (
-                  <img src="audio.png" alt="audio button" className="w-8" />
+                  <Image
+                    src="/audio.png"
+                    alt="audio button"
+                    className="w-8"
+                    width={32}
+                    height={32}
+                  />
                 )}
               </button>
               <div className="w-full max-w-md">
