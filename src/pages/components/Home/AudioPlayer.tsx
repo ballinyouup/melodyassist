@@ -39,8 +39,10 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
 
   const trpc = api.useContext();
   const togglePlay = () => {
-    isPlaying ? void audioRef.current?.pause() : void audioRef.current?.play();
-    setIsPlaying(!isPlaying);
+    if (audioRef.current) {
+      isPlaying ? void audioRef.current.pause() : void audioRef.current.play();
+      setIsPlaying(!isPlaying);
+    }
   };
 
   const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,9 +71,10 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
       requestAnimationFrame(updateCurrentTime);
     };
     const handlePause = () => setIsPlaying(false);
-
-    audioRef.current?.addEventListener("play", handlePlay);
-    audioRef.current?.addEventListener("pause", handlePause);
+    if (audioRef.current) {
+      audioRef.current.addEventListener("play", handlePlay);
+      audioRef.current.addEventListener("pause", handlePause);
+    }
   }, [updateCurrentTime]);
 
   useEffect(() => {
@@ -145,11 +148,11 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                       </span>
                       <div className="hidden flex-col text-end sm:flex">
                         <span className="text-xs leading-none">
-                          {createdAt?.split(" ")[0]}
+                          {createdAt && createdAt.split(" ")[0]}
                         </span>
 
                         <span className="text-xs leading-none">
-                          {createdAt?.split(" ")[1]}
+                          {createdAt && createdAt.split(" ")[1]}
                         </span>
                       </div>
                     </span>
@@ -215,7 +218,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                 className="range range-xs w-4/5 sm:range-sm sm:w-[90%]"
                 onChange={handleTimeChange}
               />
-              <audio ref={audioRef} preload="auto">
+              <audio ref={audioRef}>
                 <source src={url} />
               </audio>
               <div className="mt-1 flex flex-row justify-between">
