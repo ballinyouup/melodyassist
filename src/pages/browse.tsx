@@ -1,8 +1,11 @@
 import Layout from "./Layout";
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import BrowseFeed from "./components/Home/BrowseFeed";
+import dynamic from "next/dynamic";
 
+const BrowseFeed = dynamic(() => import("./components/Home/BrowseFeed"), {
+  ssr: false,
+});
 const Browse: React.FC = () => {
   const [faviconTheme, setFaviconTheme] = useState(false);
 
