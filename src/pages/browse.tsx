@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 
-const BrowseFeed = dynamic(() => import("./components/Home/BrowseFeed"), {
+const BrowseFeed = dynamic(() => import("./components/Browse/BrowseFeed"), {
   ssr: false,
 });
 const Browse: React.FC = () => {

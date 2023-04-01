@@ -3,11 +3,12 @@ import Layout from "./Layout";
 import { signIn, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 import Head from "next/head";
-import AudioPlayer from "./components/Home/AudioPlayer";
+import AudioPlayer from "./components/AudioPlayer";
 import toast from "react-hot-toast";
 import Upload from "./components/Generate/Upload";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
+
 interface UploadResponse {
   accountId: string;
   filePath: string;
