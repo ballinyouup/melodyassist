@@ -75,11 +75,11 @@ const BrowseFeed: React.FC = () => {
       <div className="flex w-full flex-row items-start justify-center">
         <div
           id="browsefeed"
-          className="relative h-[520px] w-full max-w-2xl gap-2 overflow-y-scroll border border-gray-500 bg-base-300"
+          className="relative h-[640px] w-full max-w-2xl gap-2 overflow-y-scroll border border-gray-500 bg-base-300"
         >
           {!feedLoading ? (
             userAudios &&
-            userAudios?.map((post) => {
+            userAudios?.map((post, index) => {
               return (
                 <div key={post.id}>
                   <AudioPlayer
@@ -92,7 +92,9 @@ const BrowseFeed: React.FC = () => {
                     userImage={post.author.image as string}
                     feed={true}
                   />
-                  <div className="mb-1.5 w-full border-b border-gray-500" />
+                  {index !== userAudios.length - 1 && (
+                    <div className="mb-1.5 w-full border-b border-gray-500" />
+                  )}
                 </div>
               );
             })
