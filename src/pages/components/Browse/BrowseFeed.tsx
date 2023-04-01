@@ -3,9 +3,6 @@ import { useState } from "react";
 import Image from "next/image";
 import { api } from "~/utils/api";
 import LoadingSpinner from "../LoadingSpinner";
-import { UAParser } from "ua-parser-js";
-const ua = UAParser();
-const device = ua.device;
 
 const BrowseFeed: React.FC = () => {
   const { data: userAudios, isLoading: feedLoading } =
@@ -41,7 +38,6 @@ const BrowseFeed: React.FC = () => {
           </div>
         </div>
       </div>
-      {device.type !== "mobile" && (
         <div className="flex h-20 w-full flex-row items-center justify-center gap-4">
           <button onClick={() => setVolume(volume === 0 ? 70 : 0)}>
             {volume === 0 ? (
@@ -76,7 +72,6 @@ const BrowseFeed: React.FC = () => {
             />
           </div>
         </div>
-      )}
       <div className="flex w-full flex-row items-start justify-center">
         <div className="relative h-[520px] w-full max-w-2xl gap-1 overflow-y-auto rounded-xl bg-base-300 p-1">
           {!feedLoading ? (

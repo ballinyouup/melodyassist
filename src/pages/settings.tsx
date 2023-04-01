@@ -17,7 +17,7 @@ const Settings: React.FC = () => {
       toast.error("Please sign in");
     },
   });
-  const sessionClient = api.useContext();
+  const trpc = api.useContext();
   const userData = api.account.getUserData.useQuery();
   const userNameSchema = z.string().min(4).max(24);
   const [newUsername, setNewUsername] = useState<string>("");
@@ -29,7 +29,7 @@ const Settings: React.FC = () => {
       toast.error(`Error updating username. ${err.message}`);
     },
     onSuccess: async () => {
-      await sessionClient.account.getUserData.invalidate();
+      await trpc.account.getUserData.invalidate();
       toast.success("Successfully changed username");
     },
     onSettled: () => setEditUsernameLoading(false),
@@ -38,7 +38,7 @@ const Settings: React.FC = () => {
     onMutate: async () => {
       setDeleteLoading(true);
       //Cancel fetching data if account is deleted.
-      await sessionClient.account.getUserData.cancel();
+      await trpc.account.getUserData.cancel();
     },
     onError: (err) => {
       toast.error(`An error occured deleting account. ${err.message}`);
