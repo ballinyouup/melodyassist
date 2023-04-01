@@ -8,6 +8,10 @@ import toast from "react-hot-toast";
 import Upload from "./components/Generate/Upload";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
+import { UAParser } from "ua-parser-js";
+
+const ua = UAParser();
+const device = ua.device;
 
 interface UploadResponse {
   accountId: string;
@@ -40,16 +44,8 @@ const Generate = () => {
   const [timer, setTimer] = useState<number>(0);
   const [uploadData, setUploadData] = useState<UploadResponse | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
-  const userData = api.account.getUserData.useQuery(undefined, {
-    queryKey: ["account.getUserData", undefined],
-    refetchInterval: 0,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    retry: false,
-  });
   const [audioLoading, setAudioLoading] = useState<boolean>(false);
   const { data: firstData } = api.audio.getPrediction.useQuery(undefined, {
-    queryKey: ["audio.getPrediction", undefined],
     refetchOnWindowFocus: false,
     refetchInterval: 0,
     refetchOnMount: false,
@@ -62,7 +58,6 @@ const Generate = () => {
   const { data: audio } = api.audio.getPredictionData.useQuery(
     firstData?.id ?? "",
     {
-      queryKey: ["audio.getPredictionData", firstData?.id ?? ""],
       refetchOnWindowFocus: false,
       refetchInterval: timer < 8 ? 1000 : 2000, // Fetch every 2 seconds
       enabled: audioLoading,
@@ -241,45 +236,47 @@ const Generate = () => {
             </button>
           </div>
           <div className="mt-2 mb-5 flex w-full flex-col gap-2">
-            <div className="flex w-full flex-row items-center gap-4 rounded-xl bg-base-300 p-3">
-              <button
-                className={userData.data?.theme === "night" ? "" : "invert"}
-                onClick={() => setVolume(volume === 0 ? 70 : 0)}
-              >
-                {volume === 0 ? (
-                  <Image
-                    src="/volume-mute.png"
-                    alt="volume muted"
-                    className="w-7"
-                    width={28}
-                    height={28}
-                  />
-                ) : (
-                  <Image
-                    src="/audio.png"
-                    alt="audio button"
-                    className="w-8"
-                    width={32}
-                    height={32}
-                  />
-                )}
-              </button>
-              <div className="w-full max-w-md">
-                <div
-                  className="tooltip tooltip-bottom tooltip-primary w-full"
-                  data-tip={volume}
+            {device.type !== "mobile" && (
+              <div className="flex w-full flex-row items-center gap-4 rounded-xl bg-base-300 p-3">
+                <button
+                  className="invert"
+                  onClick={() => setVolume(volume === 0 ? 70 : 0)}
                 >
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value={volume}
-                    className="range range-xs w-full"
-                    onChange={handleVolumeChange}
-                  />
+                  {volume === 0 ? (
+                    <Image
+                      src="/volume-mute.png"
+                      alt="volume muted"
+                      className="w-7"
+                      width={28}
+                      height={28}
+                    />
+                  ) : (
+                    <Image
+                      src="/audio.png"
+                      alt="audio button"
+                      className="w-8"
+                      width={32}
+                      height={32}
+                    />
+                  )}
+                </button>
+                <div className="w-full max-w-md">
+                  <div
+                    className="tooltip tooltip-bottom tooltip-primary w-full"
+                    data-tip={volume}
+                  >
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={volume}
+                      className="range range-xs w-full"
+                      onChange={handleVolumeChange}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
             <div className="relative h-[520px] gap-1 overflow-y-auto rounded-xl bg-base-300 p-1">
               {(userAudios?.posts?.length as number) > 0 ? (
                 userAudios?.posts.map((post) => {
