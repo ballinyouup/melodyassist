@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { z } from "zod";
+
 import { api } from "~/utils/api";
 
 const userData = api.account.getUserData.useQuery();
@@ -19,7 +18,7 @@ const initialState = {
   editUsernameLoading: false,
   newUsername: "",
 };
-const userNameSchema = z.string().min(4).max(24);
+
 export const settingsSlice = createSlice({
   name: "settings",
   initialState,
