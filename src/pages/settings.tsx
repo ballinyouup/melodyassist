@@ -1,10 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import { api } from "~/utils/api";
 import { toast } from "react-hot-toast";
 import Layout from "./Layout";
 import Head from "next/head";
-import Image from "next/image";
 import { z } from "zod";
 const Settings: React.FC = () => {
   const [deleteLoading, setDeleteLoading] = useState(false);
@@ -86,7 +86,7 @@ const Settings: React.FC = () => {
                   <div className="px-3 sm:px-6">
                     <div className="w-20 text-base sm:w-40">
                       Profile Image:
-                      <Image
+                      <img
                         src={userData.data?.image as string}
                         alt="profile image"
                         width={160}

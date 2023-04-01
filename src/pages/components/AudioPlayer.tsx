@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useCallback, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { api } from "~/utils/api";
@@ -101,13 +102,12 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
         <div className="flex w-screen justify-start sm:w-full">
           <div className="flex w-full flex-row gap-2 rounded-xl bg-base-300 p-2 text-base-content sm:gap-4">
             <div className="flex h-16 flex-row">
-              <Image
+              <img
                 src={userImage}
                 alt="profile pic"
                 width={68}
                 height={10}
                 className="min-w-[68px]"
-                priority
               />
             </div>
             <div className="-mt-2 flex w-full flex-col py-2">

@@ -73,7 +73,7 @@ const BrowseFeed: React.FC = () => {
         </div>
       </div>
       <div className="flex w-full flex-row items-start justify-center">
-        <div className="relative h-[520px] w-full max-w-2xl gap-1 overflow-y-auto rounded-xl bg-base-300 p-1">
+        <div className="relative h-[520px] w-full max-w-2xl gap-1 overflow-y-auto bg-base-300 p-1">
           {!feedLoading ? (
             userAudios &&
             userAudios?.map((post) => {

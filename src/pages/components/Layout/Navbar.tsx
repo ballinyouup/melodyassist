@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
     );
   }
   return (
-    <div className="navbar h-20 bg-base-100">
+    <div className="navbar h-20 bg-base-100 shadow-lg mb-2">
       <div className="navbar-start">
         <Logo />
       </div>
