@@ -97,10 +97,10 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col p-1.5">
       <div className="flex justify-center">
         <div className="flex w-screen justify-start sm:w-full">
-          <div className="flex w-full flex-row gap-2 rounded-xl bg-base-300 p-2 text-base-content sm:gap-4">
+          <div className="flex w-full flex-row gap-2 bg-base-300 text-base-content">
             <div className="flex h-16 flex-row">
               <img
                 src={userImage}

@@ -20,7 +20,7 @@ const BrowseFeed: React.FC = () => {
   return (
     <>
       <div className="flex w-full flex-col items-center justify-center">
-        <div className="stats w-full grid-flow-row justify-center p-5 text-center shadow sm:w-fit sm:grid-flow-col">
+        <div className="stats w-full grid-flow-row justify-center border border-gray-500 border-opacity-20 p-5 text-center sm:w-fit sm:grid-flow-col">
           <div className="stat border-none">
             <div className="stat-title font-bold text-black text-opacity-80">
               Samples Uploaded
@@ -73,7 +73,10 @@ const BrowseFeed: React.FC = () => {
         </div>
       </div>
       <div className="flex w-full flex-row items-start justify-center">
-        <div className="relative h-[520px] w-full max-w-2xl gap-1 overflow-y-auto bg-base-300 p-1">
+        <div
+          id="browsefeed"
+          className="relative h-[520px] w-full max-w-2xl gap-2 overflow-y-scroll border border-gray-500 bg-base-300"
+        >
           {!feedLoading ? (
             userAudios &&
             userAudios?.map((post) => {
@@ -89,6 +92,7 @@ const BrowseFeed: React.FC = () => {
                     userImage={post.author.image as string}
                     feed={true}
                   />
+                  <div className="mb-1.5 w-full border-b border-gray-500" />
                 </div>
               );
             })

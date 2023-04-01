@@ -167,7 +167,7 @@ const Generate = () => {
     <div className={`h-full w-full ${poppins.className}`}>
       <div className="flex flex-col items-center justify-center gap-2 md:flex-row md:flex-wrap md:items-start">
         <Upload />
-        <div className="flex h-full w-full flex-col items-center text-neutral md:max-w-lg">
+        <div className="flex h-full w-full flex-col items-center text-neutral md:max-w-lg ">
           <Head>
             <title>Melody Assist</title>
             <meta name="description" content="Level up your Music with AI" />
@@ -177,7 +177,7 @@ const Generate = () => {
               <link rel="icon" href="/logo-light.png" />
             )}
           </Head>
-          <div className="flex w-full flex-col items-start gap-5 rounded-lg bg-base-300 p-4 text-base-content sm:p-12">
+          <div className="flex w-full flex-col items-start gap-5 bg-base-300 p-4 text-base-content sm:p-12 border-gray-500 border">
             {timer > 8 && (
               <div className="alert w-fit shadow-lg">
                 <div>
@@ -232,7 +232,7 @@ const Generate = () => {
             </button>
           </div>
           <div className="mt-2 mb-5 flex w-full flex-col gap-2">
-            <div className="hidden w-full flex-row items-center gap-4 rounded-xl bg-base-300 p-3 sm:flex">
+            <div className="hidden w-full flex-row items-center gap-4 bg-base-300 p-3 sm:flex border-gray-500 border">
               <button
                 className="invert"
                 onClick={() => setVolume(volume === 0 ? 70 : 0)}
@@ -271,7 +271,7 @@ const Generate = () => {
                 </div>
               </div>
             </div>
-            <div className="relative h-[520px] gap-1 overflow-y-auto rounded-xl bg-base-300 p-1">
+            <div className="relative h-[520px] gap-1 overflow-y-auto bg-base-300 border-gray-500 border">
               {(userAudios?.posts?.length as number) > 0 ? (
                 userAudios?.posts.map((post) => {
                   return (
@@ -285,6 +285,7 @@ const Generate = () => {
                         userImage={post.author.image as string}
                         userName={post.author.userName}
                       />
+                      <div className="w-full border-b mb-1.5 border-gray-500"/>
                     </div>
                   );
                 })

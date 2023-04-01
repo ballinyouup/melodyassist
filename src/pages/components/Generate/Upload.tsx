@@ -49,7 +49,7 @@ const Upload: React.FC = () => {
           }}
           width={"100%"}
           height={"100%"}
-          className="uploader rounded-lg bg-base-300"
+          className="uploader bg-base-300 border-gray-500 border"
         />
       )}
       {uploadComplete && <Upload />}
