@@ -31,8 +31,8 @@ const Settings: React.FC = () => {
     onSuccess: async () => {
       await sessionClient.account.getUserData.invalidate();
       toast.success("Successfully changed username");
-      setEditUsernameLoading(false);
     },
+    onSettled: () => setEditUsernameLoading(false),
   });
   const deleteUser = api.account.deleteAccount.useMutation({
     onMutate: async () => {
@@ -99,7 +99,7 @@ const Settings: React.FC = () => {
               <tr className="flex flex-col">
                 <td>
                   <div className="px-3 sm:px-6">
-                    <div className="flex h-full flex-col text-base sm:flex-row sm:flex-nowrap sm:gap-2 whitespace-normal">
+                    <div className="flex h-full flex-col whitespace-normal text-base sm:flex-row sm:flex-nowrap sm:gap-2">
                       <span>Username: </span>
 
                       {editUsernameLoading ? (
@@ -134,7 +134,9 @@ const Settings: React.FC = () => {
                               onChange={(e) => setNewUsername(e.target.value)}
                             />
                           ) : (
-                            <span className="break-all">{userData.data?.userName}</span>
+                            <span className="break-all">
+                              {userData.data?.userName}
+                            </span>
                           )}
                           {editUsername ? (
                             <button
@@ -183,7 +185,7 @@ const Settings: React.FC = () => {
               </tr>
               <tr>
                 <td>
-                  <div className="flex flex-col px-3 text-base sm:flex-row sm:px-6 whitespace-normal">
+                  <div className="flex flex-col whitespace-normal px-3 text-base sm:flex-row sm:px-6">
                     <span>Email: </span>
                     <div className="break-all">{userData.data?.email}</div>
                   </div>
@@ -194,7 +196,7 @@ const Settings: React.FC = () => {
                   <div className="flex flex-col gap-4 px-3 sm:px-6">
                     {!deleteLoading ? (
                       <button
-                        className="btn-error btn-sm btn w-full sm:w-fit max-w-[240px] bg-red-600 text-white hover:bg-red-800"
+                        className="btn-error btn-sm btn w-full max-w-[240px] bg-red-600 text-white hover:bg-red-800 sm:w-fit"
                         onClick={() => deleteUser.mutate()}
                       >
                         Delete Account
