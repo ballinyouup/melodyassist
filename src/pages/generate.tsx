@@ -8,10 +8,6 @@ import toast from "react-hot-toast";
 import Upload from "./components/Generate/Upload";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
-import { UAParser } from "ua-parser-js";
-
-const ua = UAParser();
-const device = ua.device;
 
 interface UploadResponse {
   accountId: string;
@@ -236,7 +232,6 @@ const Generate = () => {
             </button>
           </div>
           <div className="mt-2 mb-5 flex w-full flex-col gap-2">
-            {device.type !== "mobile" && (
               <div className="flex w-full flex-row items-center gap-4 rounded-xl bg-base-300 p-3">
                 <button
                   className="invert"
@@ -276,7 +271,6 @@ const Generate = () => {
                   </div>
                 </div>
               </div>
-            )}
             <div className="relative h-[520px] gap-1 overflow-y-auto rounded-xl bg-base-300 p-1">
               {(userAudios?.posts?.length as number) > 0 ? (
                 userAudios?.posts.map((post) => {
