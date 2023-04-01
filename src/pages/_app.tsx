@@ -2,8 +2,6 @@ import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { api } from "~/utils/api";
-import { store } from "~/store";
-import { Provider } from "react-redux";
 import { Analytics } from "@vercel/analytics/react";
 //import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "~/styles/globals.css";
@@ -22,10 +20,8 @@ const MyApp: AppType<SessionType> = ({
       refetchInterval={0}
       refetchWhenOffline={false}
     >
-      <Provider store={store}>
-        <Component {...pageProps} />
-        <Analytics />
-      </Provider>
+      <Component {...pageProps} />
+      <Analytics />
     </SessionProvider>
   );
 };
