@@ -1,18 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { api } from "~/utils/api";
-
-const userData = api.account.getUserData.useQuery();
-
 const initialState = {
-  email: userData.data?.email,
-  emailVerified: userData.data?.emailVerified,
-  id: userData.data?.id,
-  image: userData.data?.image,
-  name: userData.data?.name,
-  role: userData.data?.role,
-  theme: userData.data?.theme,
-  userName: userData.data?.userName,
   deleteLoading: false,
   editUsername: false,
   editUsernameLoading: false,
