@@ -1,6 +1,6 @@
-import Logo from "./Navbar/Logo";
-import Dropdown from "./Navbar/Dropdown";
-import LogIn from "./Navbar/LogIn";
+import Logo from "../Navbar/Logo";
+import Dropdown from "../Navbar/Dropdown";
+import LogIn from "../Navbar/LogIn";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 

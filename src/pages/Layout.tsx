@@ -1,5 +1,5 @@
 import { Toaster } from "react-hot-toast";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Layout/Navbar";
 import Footer from "./components/Layout/Footer";
 import { Poppins } from "next/font/google";
 
