@@ -2,7 +2,6 @@ import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { api } from "~/utils/api";
-import { Analytics } from "@vercel/analytics/react";
 //import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "~/styles/globals.css";
 export interface SessionType {
@@ -21,7 +20,6 @@ const MyApp: AppType<SessionType> = ({
       refetchWhenOffline={false}
     >
       <Component {...pageProps} />
-      <Analytics />
     </SessionProvider>
   );
 };
