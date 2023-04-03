@@ -5,6 +5,7 @@ import Hero from "./components/Home/Hero";
 import { useEffect, useState } from "react";
 import { Poppins } from "next/font/google";
 import Layout from "./Layout";
+import Question from "./components/Home/Question";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -13,6 +14,25 @@ const poppins = Poppins({
 
 const Home: NextPage = () => {
   const [faviconTheme, setFaviconTheme] = useState(false);
+  const questionsAndAnswers = [
+    {
+      question: "Are the samples royalty free?",
+      answer: "Yes. You never have to worry about using them in your project.",
+    },
+    {
+      question: "Are the samples royalty free?",
+      answer: "Yes. You never have to worry about using them in your project.",
+    },
+    {
+      question: "Are the samples royalty free?",
+      answer: "Yes. You never have to worry about using them in your project.",
+    },
+    {
+      question: "Are the samples royalty free?",
+      answer: "Yes. You never have to worry about using them in your project.",
+    },
+  ];
+
   useEffect(() => {
     if (
       window.matchMedia &&
@@ -37,6 +57,13 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <Hero />
+        <div className="flex flex-col lg:flex-row">
+          {questionsAndAnswers.map((item, index) => (
+            <div key={index}>
+              <Question question={item.question} answer={item.answer} />
+            </div>
+          ))}
+        </div>
       </main>
     </div>
   );
