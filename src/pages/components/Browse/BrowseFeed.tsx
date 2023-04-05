@@ -6,13 +6,9 @@ import LoadingSpinner from "../LoadingSpinner";
 
 const BrowseFeed: React.FC = () => {
   const { data: userAudios, isLoading: feedLoading } =
-    api.audio.getFeed.useQuery(undefined, {
-      queryKey: ["audio.getFeed", undefined],
-    });
+    api.audio.getFeed.useQuery();
   const { data: users, isLoading: userCountLoading } =
-    api.account.getUserCount.useQuery(undefined, {
-      queryKey: ["account.getUserCount", undefined],
-    });
+    api.account.getUserCount.useQuery();
   const [volume, setVolume] = useState<number>(80);
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVolume(Number(event.target.value));
