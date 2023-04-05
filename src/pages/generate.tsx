@@ -155,8 +155,8 @@ const Generate = () => {
     <div className={`h-full w-full ${poppins.className}`}>
       <div className="flex flex-col items-center justify-center md:flex-row md:flex-wrap md:items-start">
         <Upload />
-        <div className="flex h-full w-full flex-col items-center text-neutral md:max-w-lg ">
-          <div className="flex w-full flex-col items-start gap-5 border border-gray-500 bg-base-300 p-4 text-base-content sm:p-12">
+        <div className="flex h-full w-full flex-col items-center text-neutral md:max-w-lg">
+          <div className="flex w-full flex-col items-start gap-5 border border-y-0 border-gray-500 bg-base-300 p-4 text-base-content sm:p-12 lg:border-l-0 lg:border-t">
             {timer > 8 && (
               <div className="alert w-fit shadow-lg">
                 <div>
@@ -211,7 +211,7 @@ const Generate = () => {
             </button>
           </div>
           <div className="mb-5 flex w-full flex-col">
-            <div className="hidden w-full flex-row items-center gap-4 border border-gray-500 bg-base-300 p-3 sm:flex">
+            <div className="hidden w-full flex-row items-center gap-4 border border-gray-500 bg-base-300 p-3 sm:flex lg:border-l-0">
               <button
                 className="invert"
                 onClick={() => setVolume(volume === 0 ? 70 : 0)}
@@ -250,7 +250,7 @@ const Generate = () => {
                 </div>
               </div>
             </div>
-            <div className="relative h-[540px] overflow-y-auto border border-gray-500 bg-base-300">
+            <div className="relative h-[541px] overflow-y-auto border border-gray-500 bg-base-300 lg:border-l-0">
               {(userAudios?.posts?.length as number) > 0 ? (
                 userAudios?.posts.map((post, index) => {
                   return (
