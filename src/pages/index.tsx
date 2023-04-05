@@ -6,6 +6,7 @@ import Hero from "./components/Home/Hero";
 import { Poppins } from "next/font/google";
 import Layout from "./Layout";
 import FAQ from "./components/Home/FAQ";
+import Card from "./components/Home/Card";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -17,6 +18,9 @@ const Home: NextPage = () => {
     <div className={poppins.className}>
       <main>
         <Hero />
+        <Card />
+        <Card />
+        <Card />
         <FAQ />
       </main>
     </div>

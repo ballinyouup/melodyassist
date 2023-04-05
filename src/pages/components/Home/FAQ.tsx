@@ -22,13 +22,13 @@ const FAQ = () => {
     },
     {
       question: "How much does it cost per drum loop generation?",
-      answer: "It costs about $0.01 per drum loop generation.",
+      answer: "It costs about $0.02 per drum loop generation.",
     },
   ];
   return (
     <div className="flex flex-col items-center justify-center">
       {questionsAndAnswers.map((item, index) => (
-        <div key={index} className="w-full sm:max-w-2xl">
+        <div key={index} className="w-full sm:max-w-5xl">
           <Question question={item.question} answer={item.answer} />
         </div>
       ))}

@@ -1,6 +1,6 @@
 const Footer: React.FC = () => {
   return (
-    <footer className="footer footer-center rounded text-base-content sm:w-full">
+    <footer className="footer footer-center rounded text-base-content sm:w-full py-20">
       <div>
         <div className="grid w-full grid-flow-col gap-4">
           <svg
