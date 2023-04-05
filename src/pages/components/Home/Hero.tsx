@@ -15,8 +15,8 @@ const Hero: React.FC = () => {
   return (
     <>
       <div className="hero">
-        <div className="hero-content w-full flex-col object-cover p-0 sm:-mt-20">
-          <div className="relative flex h-fit w-full flex-col items-center justify-center overflow-clip p-8 text-center text-black sm:mt-20 sm:h-96">
+        <div className="hero-content w-full flex-col p-0">
+          <div className="flex h-96 w-full flex-col items-center justify-center text-center text-black">
             <h1 className="z-10 max-w-2xl text-3xl font-bold sm:text-6xl">
               Elevate Your Creative Workflow with AI
             </h1>

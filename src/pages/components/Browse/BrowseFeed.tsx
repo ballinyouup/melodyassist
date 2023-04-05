@@ -20,7 +20,7 @@ const BrowseFeed: React.FC = () => {
   return (
     <>
       <div className="flex w-full flex-col items-center justify-center">
-        <div className="stats w-full grid-flow-row justify-center border border-gray-500 border-opacity-20 p-5 text-center sm:w-fit sm:grid-flow-col">
+        <div className="stats w-full grid-flow-row justify-center border border-gray-500 border-opacity-20 p-5 text-center sm:w-fit sm:grid-flow-col md:mt-2">
           <div className="stat border-none">
             <div className="stat-title font-bold text-black text-opacity-80">
               Samples Uploaded
