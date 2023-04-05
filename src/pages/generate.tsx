@@ -153,7 +153,7 @@ const Generate = () => {
 
   return (
     <div className={`h-full w-full ${poppins.className}`}>
-      <div className="flex flex-col items-center justify-center gap-2 md:flex-row md:flex-wrap md:items-start">
+      <div className="flex flex-col items-center justify-center md:flex-row md:flex-wrap md:items-start">
         <Upload />
         <div className="flex h-full w-full flex-col items-center text-neutral md:max-w-lg ">
           <div className="flex w-full flex-col items-start gap-5 border border-gray-500 bg-base-300 p-4 text-base-content sm:p-12">
@@ -210,7 +210,7 @@ const Generate = () => {
               )}
             </button>
           </div>
-          <div className="mt-2 mb-5 flex w-full flex-col gap-2">
+          <div className="mb-5 flex w-full flex-col">
             <div className="hidden w-full flex-row items-center gap-4 border border-gray-500 bg-base-300 p-3 sm:flex">
               <button
                 className="invert"
@@ -250,9 +250,9 @@ const Generate = () => {
                 </div>
               </div>
             </div>
-            <div className="relative h-[520px] gap-1 overflow-y-auto border border-gray-500 bg-base-300">
+            <div className="relative h-[540px] overflow-y-auto border border-gray-500 bg-base-300">
               {(userAudios?.posts?.length as number) > 0 ? (
-                userAudios?.posts.map((post) => {
+                userAudios?.posts.map((post, index) => {
                   return (
                     <div key={post.id}>
                       <AudioPlayer
@@ -264,7 +264,11 @@ const Generate = () => {
                         userImage={post.author.image as string}
                         userName={post.author.userName}
                       />
-                      <div className="mb-1.5 w-full border-b border-gray-500" />
+                      {index === userAudios.posts.length ? (
+                        <div className="mb-1.5 w-full border-b border-gray-500" />
+                      ) : (
+                        ""
+                      )}
                     </div>
                   );
                 })
