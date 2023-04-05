@@ -108,6 +108,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
                 width={68}
                 height={10}
                 className="min-w-[68px]"
+                referrerPolicy="no-referrer"
               />
             </div>
             <div className="-mt-2 flex w-full flex-col py-2">

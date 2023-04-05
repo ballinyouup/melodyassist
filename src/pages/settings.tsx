@@ -81,6 +81,7 @@ const Settings: React.FC = () => {
                         alt="profile image"
                         width={160}
                         height={160}
+                        referrerPolicy="no-referrer"
                       />
                     </div>
                   </div>
