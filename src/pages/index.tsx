@@ -7,6 +7,7 @@ import { Poppins } from "next/font/google";
 import Layout from "./Layout";
 import FAQ from "./components/Home/FAQ";
 import Card from "./components/Home/Card";
+import Divider from "./components/Home/Divider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -18,9 +19,25 @@ const Home: NextPage = () => {
     <div className={poppins.className}>
       <main>
         <Hero />
-        <Card />
-        <Card />
-        <Card />
+        <Card
+          title={"Generate AI generated Audio"}
+          image={"/home-image.png"}
+          text={"Trained on hundreds of royalty free loops"}
+        />
+        <Divider />
+        <Card
+          title={"Generate AI generated Audio"}
+          image={"/home-image.png"}
+          reverse
+          text={"Trained on hundreds of royalty free loops"}
+        />
+        <Divider />
+        <Card
+          title={"Generate AI generated Audio"}
+          image={"/home-image.png"}
+          text={"Trained on hundreds of royalty free loops"}
+        />
+        <Divider />
         <FAQ />
       </main>
     </div>

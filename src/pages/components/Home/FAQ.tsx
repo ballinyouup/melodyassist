@@ -24,6 +24,11 @@ const FAQ = () => {
       question: "How much does it cost per drum loop generation?",
       answer: "It costs about $0.02 per drum loop generation.",
     },
+    {
+      question: "What is a cold start and how long does it last?",
+      answer:
+        "To make good use of resources, we only run the model at request time. When a model hasn't been used for around 10 minutes, it gets shut off. Machine learning models are often very large and resource intensive, and we have to fetch and load several gigabytes of code. In some cases this process can take several minutes to start. As we grow in demand, cold boots are likely to become less frequent.",
+    },
   ];
   return (
     <div className="flex flex-col items-center justify-center">
