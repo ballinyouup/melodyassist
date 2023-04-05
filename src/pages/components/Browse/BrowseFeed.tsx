@@ -3,37 +3,18 @@ import { useState } from "react";
 import Image from "next/image";
 import { api } from "~/utils/api";
 import LoadingSpinner from "../LoadingSpinner";
+import Stats from "../Home/Stats";
 
 const BrowseFeed: React.FC = () => {
   const { data: userAudios, isLoading: feedLoading } =
     api.audio.getFeed.useQuery();
-  const { data: users, isLoading: userCountLoading } =
-    api.account.getUserCount.useQuery();
   const [volume, setVolume] = useState<number>(80);
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVolume(Number(event.target.value));
   };
   return (
     <>
-      <div className="flex w-full flex-col items-center justify-center">
-        <div className="stats w-full grid-flow-row justify-center border border-gray-500 border-opacity-20 p-5 text-center sm:w-fit sm:grid-flow-col md:mt-2">
-          <div className="stat border-none">
-            <div className="stat-title font-bold text-black text-opacity-80">
-              Samples Uploaded
-            </div>
-            <div className="stat-value text-black">
-              {!userCountLoading ? userAudios?.length : "0"}
-            </div>
-          </div>
-          <div className="divider hidden h-4/5 sm:flex" />
-          <div className="stat border-none">
-            <div className="stat-title font-bold text-black">Total Users</div>
-            <div className="stat-value text-black">
-              {!userCountLoading ? users?.length : "0"}
-            </div>
-          </div>
-        </div>
-      </div>
+      <Stats />
       <div className="hidden h-20 w-full flex-row items-center justify-center gap-4 sm:flex">
         <button onClick={() => setVolume(volume === 0 ? 70 : 0)}>
           {volume === 0 ? (
