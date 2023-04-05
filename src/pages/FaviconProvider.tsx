@@ -6,16 +6,16 @@ interface Favicon {
 }
 
 const FaviconProvider: React.FC<Favicon> = ({ children }) => {
-  const [faviconTheme, setFaviconTheme] = useState(false);
+  const [dark, setDark] = useState(false);
 
   useEffect(() => {
     if (
       window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: dark)").matches
     ) {
-      setFaviconTheme(true);
+      setDark(true);
     } else {
-      setFaviconTheme(false);
+      setDark(false);
     }
   }, []);
   return (
@@ -23,7 +23,7 @@ const FaviconProvider: React.FC<Favicon> = ({ children }) => {
       <Head>
         <title>Melody Assist</title>
         <meta name="description" content="Level up your Music with AI" />
-        {faviconTheme ? (
+        {dark ? (
           <link rel="icon" href="/logo-dark.png" />
         ) : (
           <link rel="icon" href="/logo-light.png" />
