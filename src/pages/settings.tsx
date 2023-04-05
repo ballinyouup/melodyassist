@@ -4,7 +4,6 @@ import { useState } from "react";
 import { api } from "~/utils/api";
 import { toast } from "react-hot-toast";
 import Layout from "./Layout";
-import Head from "next/head";
 import { z } from "zod";
 const Settings: React.FC = () => {
   const [deleteLoading, setDeleteLoading] = useState(false);
@@ -54,15 +53,6 @@ const Settings: React.FC = () => {
   }
   return (
     <div className="h-[91vh]">
-      <Head>
-        <title>Melody Assist</title>
-        <meta name="description" content="Level up your Music with AI" />
-        {userData.data?.theme === "winter" ? (
-          <link rel="icon" href="/logo-dark.png" />
-        ) : (
-          <link rel="icon" href="/logo-light.png" />
-        )}
-      </Head>
       <div className="flex flex-col justify-center gap-4 p-4 sm:flex-row">
         <ul className="menu rounded-box menu-normal w-full bg-base-300 p-2 sm:w-52 sm:max-w-sm">
           <li className="menu-title">

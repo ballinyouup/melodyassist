@@ -4,6 +4,8 @@ import { SessionProvider } from "next-auth/react";
 import { api } from "~/utils/api";
 //import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "~/styles/globals.css";
+import FaviconProvider from "./FaviconProvider";
+
 export interface SessionType {
   session: Session | null;
 }
@@ -19,7 +21,9 @@ const MyApp: AppType<SessionType> = ({
       refetchInterval={0}
       refetchWhenOffline={false}
     >
-      <Component {...pageProps} />
+      <FaviconProvider>
+        <Component {...pageProps} />
+      </FaviconProvider>
     </SessionProvider>
   );
 };

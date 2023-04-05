@@ -14,7 +14,7 @@ const Layout = (WrappedComponent: React.FC): React.FC => {
       <div className={poppins.className}>
         <Navbar />
         <Toaster />
-        <WrappedComponent {...props} />
+          <WrappedComponent {...props} />
         <Footer />
       </div>
     );

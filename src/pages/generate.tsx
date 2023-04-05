@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Layout from "./Layout";
 import { signIn, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
-import Head from "next/head";
 import AudioPlayer from "./components/AudioPlayer";
 import toast from "react-hot-toast";
 import Upload from "./components/Generate/Upload";
@@ -27,7 +26,7 @@ const Generate = () => {
       void signIn(undefined, { redirect: true, callbackUrl: "/generate" });
     },
   });
-  const [faviconTheme, setFaviconTheme] = useState(false);
+
   const trpc = api.useContext();
   const [volume, setVolume] = useState<number>(80);
   const { data: userAudios } = api.audio.getAudio.useQuery(undefined, {
@@ -124,17 +123,6 @@ const Generate = () => {
     };
   }, [audioLoading, loading, timer]);
 
-  useEffect(() => {
-    if (
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
-      setFaviconTheme(true);
-    } else {
-      setFaviconTheme(false);
-    }
-  }, []);
-
   if (status === "loading") {
     return (
       <div className="h-screen w-full">
@@ -168,16 +156,7 @@ const Generate = () => {
       <div className="flex flex-col items-center justify-center gap-2 md:flex-row md:flex-wrap md:items-start">
         <Upload />
         <div className="flex h-full w-full flex-col items-center text-neutral md:max-w-lg ">
-          <Head>
-            <title>Melody Assist</title>
-            <meta name="description" content="Level up your Music with AI" />
-            {faviconTheme ? (
-              <link rel="icon" href="/logo-dark.png" />
-            ) : (
-              <link rel="icon" href="/logo-light.png" />
-            )}
-          </Head>
-          <div className="flex w-full flex-col items-start gap-5 bg-base-300 p-4 text-base-content sm:p-12 border-gray-500 border">
+          <div className="flex w-full flex-col items-start gap-5 border border-gray-500 bg-base-300 p-4 text-base-content sm:p-12">
             {timer > 8 && (
               <div className="alert w-fit shadow-lg">
                 <div>
@@ -232,7 +211,7 @@ const Generate = () => {
             </button>
           </div>
           <div className="mt-2 mb-5 flex w-full flex-col gap-2">
-            <div className="hidden w-full flex-row items-center gap-4 bg-base-300 p-3 sm:flex border-gray-500 border">
+            <div className="hidden w-full flex-row items-center gap-4 border border-gray-500 bg-base-300 p-3 sm:flex">
               <button
                 className="invert"
                 onClick={() => setVolume(volume === 0 ? 70 : 0)}
@@ -271,7 +250,7 @@ const Generate = () => {
                 </div>
               </div>
             </div>
-            <div className="relative h-[520px] gap-1 overflow-y-auto bg-base-300 border-gray-500 border">
+            <div className="relative h-[520px] gap-1 overflow-y-auto border border-gray-500 bg-base-300">
               {(userAudios?.posts?.length as number) > 0 ? (
                 userAudios?.posts.map((post) => {
                   return (
@@ -285,7 +264,7 @@ const Generate = () => {
                         userImage={post.author.image as string}
                         userName={post.author.userName}
                       />
-                      <div className="w-full border-b mb-1.5 border-gray-500"/>
+                      <div className="mb-1.5 w-full border-b border-gray-500" />
                     </div>
                   );
                 })
