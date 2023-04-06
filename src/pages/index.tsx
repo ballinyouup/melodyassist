@@ -24,24 +24,22 @@ const Home: NextPage = () => {
         <Hero />
         <Stats />
         <Card
-          title={"Generate AI generated Audio"}
+          title={"Upload Audio Files"}
           image={"/home-image.png"}
-          text={"Trained on hundreds of royalty free loops"}
+          text={
+            "With the audio file upload feature, you have the ability to express your creativity and share your unique sounds with the community. By sharing your samples, you can receive valuable feedback from other members of the community and build relationships with other music creators."
+          }
         />
         <Divider />
         <Card
-          title={"Generate AI generated Audio"}
-          image={"/home-image.png"}
+          title={"AI Drum Loop Generator"}
+          image={"/home-image2.jfif"}
           reverse
-          text={"Trained on hundreds of royalty free loops"}
+          text={
+            "The AI drum loop generation feature not only provides pre-generated drum loops, but also serves as a source of creative inspiration. You can use the pre-generated drum loops as a starting point for your own unique drum tracks and productions."
+          }
         />
-        <Divider />
-        <Card
-          title={"Generate AI generated Audio"}
-          image={"/home-image.png"}
-          text={"Trained on hundreds of royalty free loops"}
-        />
-        <Divider />
+        <Divider mobileHide />
         <FAQ />
       </main>
     </div>
