@@ -13,7 +13,7 @@ const FAQ = () => {
     {
       question: "Can I choose my seed?",
       answer:
-        "yes. Seed selection will be coming soon. You will be able to generate a random seed from 1 to 2.7 billion",
+        "Seed selection will be coming soon. You will be able to generate a random seed from 1 to 2.7 billion",
     },
     {
       question: "What is the current pricing?",

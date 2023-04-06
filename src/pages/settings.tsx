@@ -53,8 +53,8 @@ const Settings: React.FC = () => {
   }
   return (
     <div className="h-[91vh]">
-      <div className="flex flex-col justify-center gap-4 p-4 sm:flex-row">
-        <ul className="menu rounded-box menu-normal w-full bg-base-300 p-2 sm:w-52 sm:max-w-sm">
+      <div className="flex flex-col justify-center p-4 sm:flex-row">
+        <ul className="menu menu-normal w-full border border-gray-500 bg-base-300 p-2 sm:w-52 sm:max-w-sm">
           <li className="menu-title">
             <span>Settings</span>
           </li>
@@ -68,11 +68,11 @@ const Settings: React.FC = () => {
             <a>Notifications</a>
           </li>
         </ul>
-        <div className="flex w-full flex-col rounded-2xl bg-base-300 p-2 sm:w-3/4 sm:max-w-2xl sm:p-4">
+        <div className="flex w-full flex-col border border-t-0 border-gray-500 bg-base-300 p-2 sm:w-3/4 sm:max-w-2xl sm:border-l-0 sm:border-t sm:p-4">
           <table className="table w-full sm:table-compact">
             <tbody>
               <tr>
-                <td>
+                <td className="rounded-none">
                   <div className="px-3 sm:px-6">
                     <div className="w-20 text-base sm:w-40">
                       Profile Image:
@@ -88,7 +88,7 @@ const Settings: React.FC = () => {
                 </td>
               </tr>
               <tr className="flex flex-col">
-                <td>
+                <td className="rounded-none">
                   <div className="px-3 sm:px-6">
                     <div className="flex h-full flex-col whitespace-normal text-base sm:flex-row sm:flex-nowrap sm:gap-2">
                       <span>Username: </span>
@@ -175,7 +175,7 @@ const Settings: React.FC = () => {
                 </td>
               </tr>
               <tr>
-                <td>
+                <td className="rounded-none">
                   <div className="flex flex-col whitespace-normal px-3 text-base sm:flex-row sm:px-6">
                     <span>Email: </span>
                     <div className="break-all">{userData.data?.email}</div>
@@ -183,7 +183,7 @@ const Settings: React.FC = () => {
                 </td>
               </tr>
               <tr>
-                <td>
+                <td className="rounded-none">
                   <div className="flex flex-col gap-4 px-3 sm:px-6">
                     {!deleteLoading ? (
                       <button

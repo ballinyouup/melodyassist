@@ -24,7 +24,7 @@ const Dropdown: React.FC = () => {
       {dropdown && (
         <ul
           tabIndex={0}
-          className={`dropdown-content menu rounded-box menu-normal w-screen translate-x-1 bg-base-300 p-2 sm:w-52`}
+          className={`dropdown-content menu menu-normal w-screen translate-x-2 border border-gray-500 bg-base-300 p-2 sm:w-52 sm:translate-x-6`}
         >
           <li>
             <Link href="/">Home</Link>
