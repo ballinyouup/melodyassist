@@ -22,6 +22,11 @@ export const accountRouter = createTRPCRouter({
         return await ctx.prisma.user.delete({
           where: { id: existingUser.id },
         });
+      } else {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `User does not exist`,
+        });
       }
     } catch (error) {
       if (error instanceof TRPCError) {
@@ -32,7 +37,7 @@ export const accountRouter = createTRPCRouter({
       } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: `Error from database while deleting account. Error: ${error.message}`,
+          message: `Error from database while deleting account. ${error.message}`,
         });
       } else {
         throw new TRPCError({
@@ -52,6 +57,11 @@ export const accountRouter = createTRPCRouter({
       if (existingUser) {
         return ctx.prisma.user.findUnique({
           where: { id: existingUser.id },
+        });
+      } else {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `User does not exist`,
         });
       }
     } catch (error) {
@@ -86,6 +96,11 @@ export const accountRouter = createTRPCRouter({
           where: { id: existingUser.id },
           data: { theme: existingUser.theme === "winter" ? "night" : "winter" },
         });
+      } else {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `User does not exist`,
+        });
       }
     } catch (error) {
       if (error instanceof TRPCError) {
@@ -111,11 +126,12 @@ export const accountRouter = createTRPCRouter({
       const users = await ctx.prisma.user.findMany();
       if (users) {
         return users;
+      } else {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Users not found",
+        });
       }
-      throw new TRPCError({
-        code: "BAD_REQUEST",
-        message: "Error Fetching Feed",
-      });
     } catch (error) {
       if (error instanceof TRPCError) {
         throw new TRPCError({
@@ -152,7 +168,7 @@ export const accountRouter = createTRPCRouter({
         if (!currentUser) {
           throw new TRPCError({
             code: "UNAUTHORIZED",
-            message: "Not Authorized to perform this action",
+            message: "User not logged in.",
           });
         }
 

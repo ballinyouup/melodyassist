@@ -87,7 +87,7 @@ export const audioRouter = createTRPCRouter({
           const error = await response.json();
           throw new TRPCError({
             code: "BAD_REQUEST",
-            message: `Error Uploading File. ${JSON.stringify(error)}`,
+            message: `Uploading Failed ${JSON.stringify(error)}`,
           });
         }
 
@@ -99,7 +99,7 @@ export const audioRouter = createTRPCRouter({
       if (!existingUser) {
         throw new TRPCError({
           code: "UNAUTHORIZED",
-          message: "Not Authorized to perform this action",
+          message: "User not logged in.",
         });
       }
     } catch (error) {
@@ -144,7 +144,7 @@ export const audioRouter = createTRPCRouter({
             const error = await secondResponse.json();
             throw new TRPCError({
               code: "BAD_REQUEST",
-              message: `Error Fetching AI Audio File. ${JSON.stringify(error)}`,
+              message: `Fetching AI Audio File Failed. ${JSON.stringify(error)}`,
             });
           }
 
@@ -174,7 +174,7 @@ export const audioRouter = createTRPCRouter({
               const error = await response.json();
               throw new TRPCError({
                 code: "BAD_REQUEST",
-                message: `Error Uploading File. ${JSON.stringify(error)}`,
+                message: `Uploading Failed ${JSON.stringify(error)}`,
               });
             }
 
@@ -188,7 +188,7 @@ export const audioRouter = createTRPCRouter({
         if (!existingUser) {
           throw new TRPCError({
             code: "UNAUTHORIZED",
-            message: "Not Authorized to perform this action",
+            message: "User not signed in",
           });
         }
       } catch (error) {
@@ -240,7 +240,7 @@ export const audioRouter = createTRPCRouter({
         if (!existingUser) {
           throw new TRPCError({
             code: "UNAUTHORIZED",
-            message: "Not Authorized to perform this action",
+            message: "User not logged in",
           });
         }
       } catch (error) {
@@ -293,7 +293,7 @@ export const audioRouter = createTRPCRouter({
       if (!existingUser) {
         throw new TRPCError({
           code: "UNAUTHORIZED",
-          message: "Not Authorized to perform this action",
+          message: "User not logged in.",
         });
       }
     } catch (error) {
@@ -331,6 +331,11 @@ export const audioRouter = createTRPCRouter({
       });
       if (feed) {
         return feed;
+      } else {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Could not find posts."
+        })
       }
     } catch (error) {
       if (error instanceof TRPCError) {
@@ -366,7 +371,7 @@ export const audioRouter = createTRPCRouter({
       if (!existingUser) {
         throw new TRPCError({
           code: "UNAUTHORIZED",
-          message: "Not Authorized to perform this action",
+          message: "User not logged in.",
         });
       }
     } catch (error) {
@@ -405,7 +410,7 @@ export const audioRouter = createTRPCRouter({
         if (!existingUser) {
           throw new TRPCError({
             code: "UNAUTHORIZED",
-            message: "Not Authorized to perform this action",
+            message: "User not logged in.",
           });
         }
       } catch (error) {
