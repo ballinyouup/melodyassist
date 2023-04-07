@@ -106,12 +106,12 @@ export const audioRouter = createTRPCRouter({
       if (error instanceof TRPCError) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: `Error Creating Prediction. Error: ${error.message}`,
+          message: `Error Creating Prediction. ${error.message}`,
         });
       } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: `Error from database while creating prediction. Error: ${error.message}`,
+          message: `Error from database while creating prediction. ${error.message}`,
         });
       } else {
         throw new TRPCError({
@@ -195,12 +195,12 @@ export const audioRouter = createTRPCRouter({
         if (error instanceof TRPCError) {
           throw new TRPCError({
             code: "BAD_REQUEST",
-            message: `Error Getting Second Prediction. Error: ${error.message}`,
+            message: `Error Getting Second Prediction. ${error.message}`,
           });
         } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
           throw new TRPCError({
             code: "BAD_REQUEST",
-            message: `Error from database while getting second prediction. Error: ${error.message}`,
+            message: `Error from database while getting second prediction. ${error.message}`,
           });
         } else {
           throw new TRPCError({
@@ -247,12 +247,12 @@ export const audioRouter = createTRPCRouter({
         if (error instanceof TRPCError) {
           throw new TRPCError({
             code: "BAD_REQUEST",
-            message: `Error Creating Audio. Error: ${error.message}`,
+            message: `Error Creating Audio. ${error.message}`,
           });
         } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
           throw new TRPCError({
             code: "BAD_REQUEST",
-            message: `Error from database while creating audio. Error: ${error.message}`,
+            message: `Error from database while creating audio. ${error.message}`,
           });
         } else {
           throw new TRPCError({
@@ -300,12 +300,12 @@ export const audioRouter = createTRPCRouter({
       if (error instanceof TRPCError) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: `Error Fetching User Audio. Error: ${error.message}`,
+          message: `Error Fetching User Audio. ${error.message}`,
         });
       } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: `Error from database while getting user audio. Error: ${error.message}`,
+          message: `Error from database while getting user audio. ${error.message}`,
         });
       } else {
         throw new TRPCError({
@@ -341,12 +341,12 @@ export const audioRouter = createTRPCRouter({
       if (error instanceof TRPCError) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: `Error Getting Feed. Error: ${error.message}`,
+          message: `Error Getting Feed. ${error.message}`,
         });
       } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: `Error from database while getting feed. Error: ${error.message}`,
+          message: `Error from database while getting feed. ${error.message}`,
         });
       } else {
         throw new TRPCError({
@@ -378,12 +378,12 @@ export const audioRouter = createTRPCRouter({
       if (error instanceof TRPCError) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: `Error Deleting Audio. Error: ${error.message}`,
+          message: `Error Deleting Audio. ${error.message}`,
         });
       } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: `Error from database while deleting audio. Error: ${error.message}`,
+          message: `Error from database while deleting audio. ${error.message}`,
         });
       } else {
         throw new TRPCError({
@@ -417,12 +417,12 @@ export const audioRouter = createTRPCRouter({
         if (error instanceof TRPCError) {
           throw new TRPCError({
             code: "BAD_REQUEST",
-            message: `Error Deleting Audio. Error: ${error.message}`,
+            message: `Error Deleting Audio. ${error.message}`,
           });
         } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
           throw new TRPCError({
             code: "BAD_REQUEST",
-            message: `Error from database while deleting audio. Error: ${error.message}`,
+            message: `Error from database while deleting audio. ${error.message}`,
           });
         } else {
           throw new TRPCError({

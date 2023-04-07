@@ -32,7 +32,7 @@ export const accountRouter = createTRPCRouter({
       if (error instanceof TRPCError) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: `Error Deleting Account. Error: ${error.message}`,
+          message: `Error Deleting Account. ${error.message}`,
         });
       } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new TRPCError({
@@ -68,12 +68,12 @@ export const accountRouter = createTRPCRouter({
       if (error instanceof TRPCError) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: `Error Getting User Data. Error: ${error.message}`,
+          message: `Error Getting User Data. ${error.message}`,
         });
       } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: `Error from database while getting user data. Error: ${error.message}`,
+          message: `Error from database while getting user data. ${error.message}`,
         });
       } else {
         throw new TRPCError({
@@ -106,12 +106,12 @@ export const accountRouter = createTRPCRouter({
       if (error instanceof TRPCError) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: `Error Updating Theme. Error: ${error.message}`,
+          message: `Error Updating Theme. ${error.message}`,
         });
       } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: `Error from database while updating theme. Error: ${error.message}`,
+          message: `Error from database while updating theme. ${error.message}`,
         });
       } else {
         throw new TRPCError({
@@ -136,12 +136,12 @@ export const accountRouter = createTRPCRouter({
       if (error instanceof TRPCError) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: `Error Getting User count. Error: ${error.message}`,
+          message: `Error Getting User count. ${error.message}`,
         });
       } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: `Error from database while getting user count. Error: ${error.message}`,
+          message: `Error from database while getting user count. ${error.message}`,
         });
       } else {
         throw new TRPCError({
@@ -191,12 +191,12 @@ export const accountRouter = createTRPCRouter({
         if (error instanceof TRPCError) {
           throw new TRPCError({
             code: "BAD_REQUEST",
-            message: `Error Updating Username. Error: ${error.message}`,
+            message: `Error Updating Username. ${error.message}`,
           });
         } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
           throw new TRPCError({
             code: "BAD_REQUEST",
-            message: `Error from database while updating username. Error: ${error.message}`,
+            message: `Error from database while updating username. ${error.message}`,
           });
         } else {
           throw new TRPCError({

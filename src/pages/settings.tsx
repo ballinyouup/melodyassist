@@ -25,7 +25,7 @@ const Settings: React.FC = () => {
       setEditUsernameLoading(true);
     },
     onError: (err) => {
-      toast.error(`Error updating username. ${err.message}`);
+      toast.error(err.message);
     },
     onSuccess: async () => {
       await trpc.account.getUserData.invalidate();
@@ -40,7 +40,7 @@ const Settings: React.FC = () => {
       await trpc.account.getUserData.cancel();
     },
     onError: (err) => {
-      toast.error(`An error occured deleting account. ${err.message}`);
+      toast.error(err.message);
     },
     onSuccess: async () => {
       setDeleteLoading(false);
