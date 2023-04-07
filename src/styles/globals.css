@@ -31,12 +31,3 @@
         max-width: none!important;
     }
 }
-
-#browsefeed::-webkit-scrollbar{
-    display: none;
-}
-
-#browsefeed {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}

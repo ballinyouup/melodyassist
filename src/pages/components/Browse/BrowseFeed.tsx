@@ -13,7 +13,7 @@ const BrowseFeed: React.FC = () => {
     setVolume(Number(event.target.value));
   };
   return (
-    <>
+    <div className="h-full">
       <Stats />
       <div className="hidden h-20 w-full flex-row items-center justify-center gap-4 sm:flex">
         <button onClick={() => setVolume(volume === 0 ? 70 : 0)}>
@@ -52,7 +52,7 @@ const BrowseFeed: React.FC = () => {
       <div className="flex w-full flex-row items-start justify-center">
         <div
           id="browsefeed"
-          className="relative h-[640px] w-full max-w-2xl gap-2 overflow-y-scroll border border-gray-500 bg-base-300"
+          className="h-full w-full max-w-2xl gap-2 border border-gray-500 bg-base-300"
         >
           {!feedLoading ? (
             userAudios &&
@@ -80,7 +80,7 @@ const BrowseFeed: React.FC = () => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

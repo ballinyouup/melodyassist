@@ -6,7 +6,7 @@ const BrowseFeed = dynamic(() => import("./components/Browse/BrowseFeed"), {
 });
 const Browse: React.FC = () => {
   return (
-    <div className="h-screen">
+    <div className="h-full">
       <main>
         <BrowseFeed />
       </main>
