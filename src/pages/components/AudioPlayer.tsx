@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { api } from "~/utils/api";
 import Image from "next/image";
@@ -24,7 +24,7 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
   userImage,
   feed = false,
 }) => {
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const [audio] = useState(new Audio(url));
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [deleteLoading, setDeleteLoading] = useState(false);
@@ -40,8 +40,8 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
 
   const trpc = api.useContext();
   const togglePlay = () => {
-    if (audioRef.current) {
-      isPlaying ? void audioRef.current.pause() : void audioRef.current.play();
+    if (audio) {
+      isPlaying ? void audio.pause() : void audio.play();
       setIsPlaying(!isPlaying);
     }
   };
@@ -49,8 +49,8 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
   const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newTime = parseFloat(event.target.value);
     setCurrentTime(newTime);
-    if (audioRef.current) {
-      audioRef.current.currentTime = newTime;
+    if (audio) {
+      audio.currentTime = newTime;
     }
   };
 
@@ -60,11 +60,11 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
   };
 
   const updateCurrentTime = useCallback(() => {
-    setCurrentTime(audioRef.current?.currentTime as number);
+    setCurrentTime(audio.currentTime);
     if (isPlaying) {
       requestAnimationFrame(updateCurrentTime);
     }
-  }, [isPlaying]);
+  }, [audio, isPlaying]);
 
   useEffect(() => {
     const handlePlay = () => {
@@ -72,17 +72,17 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
       requestAnimationFrame(updateCurrentTime);
     };
     const handlePause = () => setIsPlaying(false);
-    if (audioRef.current) {
-      audioRef.current.addEventListener("play", handlePlay);
-      audioRef.current.addEventListener("pause", handlePause);
+    if (audio) {
+      audio.addEventListener("play", handlePlay);
+      audio.addEventListener("pause", handlePause);
     }
-  }, [updateCurrentTime]);
+  }, [audio, updateCurrentTime]);
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = volume / 100;
+    if (audio) {
+      audio.volume = volume / 100;
     }
-  }, [volume]);
+  }, [audio, volume]);
 
   async function handleDownloadClick() {
     await fetch(url, { mode: "no-cors" })
@@ -213,25 +213,21 @@ const AudioPlayer: React.FC<IAudioPlayer> = ({
               <input
                 type="range"
                 min="0"
-                max={audioRef.current ? `${audioRef.current.duration}` : "7.5"}
+                max={audio ? `${audio.duration}` : "7.5"}
                 value={currentTime}
                 step={0.05}
                 className="range range-xs w-4/5 sm:range-sm sm:w-[90%]"
                 onChange={handleTimeChange}
               />
-              <audio ref={audioRef}>
-                <source src={url} />
-              </audio>
               <div className="mt-1 flex flex-row justify-between">
-                {audioRef.current &&
-                  !Number.isNaN(audioRef.current.duration) && (
-                    <>
-                      <span>{Number(currentTime).toFixed(1)}</span>
-                      <span className="mr-12">
-                        {Number(audioRef.current.duration).toFixed(1)}
-                      </span>
-                    </>
-                  )}
+                {audio && !Number.isNaN(audio.duration) && (
+                  <>
+                    <span>{Number(currentTime).toFixed(1)}</span>
+                    <span className="mr-12">
+                      {Number(audio.duration).toFixed(1)}
+                    </span>
+                  </>
+                )}
               </div>
             </div>
           </div>
