@@ -20,7 +20,7 @@ Melody Assist is a web application that allows users to generate audio drum loop
 ### Authentication
 
 **Login Page Melody Assist
-![Melody Assist Login Page]([https://example.com/images/sunset.jpg](https://www.bryanhuici.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fem0qyevz%2Fproduction%2F2af9c7e984b96d38eb1da0d784d10b4386375a07-1878x928.png%3Frect%3D11%2C0%2C1856%2C928%26w%3D1024%26h%3D512%26min-h%3D512%26min-w%3D1024%26fit%3Dmin%26auto%3Dformat&w=1080&q=75))
+![Melody Assist Login Page](https://www.bryanhuici.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fem0qyevz%2Fproduction%2F2af9c7e984b96d38eb1da0d784d10b4386375a07-1878x928.png%3Frect%3D11%2C0%2C1856%2C928%26w%3D1024%26h%3D512%26min-h%3D512%26min-w%3D1024%26fit%3Dmin%26auto%3Dformat&w=1080&q=75)
 - NextAuth is used for authentication.
 - Users can sign in using a magic link sent via email (SMTP).
 - OAuth authentication is supported for Discord and Google.
